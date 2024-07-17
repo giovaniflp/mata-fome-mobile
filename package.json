@@ -56,5 +56,6 @@
     "posthtml-beautify": "^0.7.0",
     "posthtml-expressions": "^1.11.0"
   },
-  "private": true
+  "private": true,
+  "packageManager": "npm@7.0.0"
 }
