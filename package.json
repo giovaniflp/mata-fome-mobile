@@ -56,6 +56,5 @@
     "posthtml-beautify": "^0.7.0",
     "posthtml-expressions": "^1.11.0"
   },
-  "private": true,
-  "packageManager": "yarn@4.0.2"
+  "private": true
 }
