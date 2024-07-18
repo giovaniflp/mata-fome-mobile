@@ -1,6 +1,7 @@
 import { View, H4, H6, Button } from 'tamagui'
 import { ToastControl } from './CurrentToast'
 import { Image } from 'react-native'
+import { router } from 'expo-router'
 
 export default function Index() {
 
@@ -12,10 +13,14 @@ export default function Index() {
       <H4 className='text-center text-black mt-8'>Mate sua fome com um clique.</H4>
         <H6 className='text-center text-black text-xs p-4 mt-8'>Nos dias agitados e corridos, encontre uma solução rápida e conveniente!</H6>
       <View className='flex justify-center items-center mt-8'>
-        <Button className='w-60 bg-orange-500 rounded-3xl'>Entrar</Button>
+        <Button onPress={()=>{
+          router.push('/Login')
+        }} className='w-60 bg-orange-500 rounded-3xl'>Entrar</Button>
       </View>
       <View className='flex justify-center items-center mt-8'>
-        <Button className='w-60 bg-orange-500 rounded-3xl'>Registrar</Button>
+        <Button onPress={()=>{
+          router.push('/Register')
+        }} className='w-60 bg-orange-500 rounded-3xl'>Registrar</Button>
       </View>
     </View>
   )

@@ -53,6 +53,20 @@ function RootLayoutNav() {
                 headerShown: false,
               }}
             />
+          <Stack.Screen
+              name="Login"
+              options={{
+                headerShown: false,
+                animation: 'slide_from_right',
+              }}
+          />
+          <Stack.Screen
+              name="Register"
+              options={{
+                headerShown: false,
+                animation: 'slide_from_left',
+              }}
+          />
         </Stack>
       </ThemeProvider>
     </Provider>
