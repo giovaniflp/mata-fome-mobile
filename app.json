@@ -4,13 +4,13 @@
     "slug": "mata-fome-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./app/public/icons/tomato/TomatoAssassin.png",
+    "scheme": "mata-fome-mobile",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./app/public/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ff7f00"
     },
     "assetBundlePatterns": [
       "**/*"
