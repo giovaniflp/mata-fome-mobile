@@ -42,7 +42,7 @@ export function ToastControl() {
             })
           }}
         >
-          Olá
+          Abrir notificação
         </Button>
         <Button onPress={()=>{toast.hide()}}>
           Fechar Notificação
