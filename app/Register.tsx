@@ -1,5 +1,6 @@
 import { View, H2, H6, Input, Button } from "tamagui"
 import { Image } from "react-native"
+import { router } from "expo-router"
 
 export default function Register(){
     return(
@@ -29,7 +30,9 @@ export default function Register(){
                     <H6 className="text-black">Telefone</H6>
                     <Input className="w-80 bg-white text-black" placeholder="Digite seu número"></Input>
                 </View>
-                <Button className='w-60 bg-orange-500 rounded-3xl mt-8'>Enviar</Button>
+                <Button onPress={()=>{
+                    router.push('/ConfirmEmailCode')
+                }} className='w-60 bg-orange-500 rounded-3xl mt-8'>Enviar</Button>
             </View>
         </View>
     )

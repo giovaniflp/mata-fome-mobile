@@ -57,14 +57,49 @@ function RootLayoutNav() {
               name="Login"
               options={{
                 headerShown: false,
-                animation: 'slide_from_right',
+                animation: 'slide_from_bottom',
               }}
           />
           <Stack.Screen
               name="Register"
               options={{
                 headerShown: false,
+                animation: 'slide_from_bottom',
+              }}
+          />
+          <Stack.Screen
+              name="LostPassword"
+              options={{
+                headerShown: false,
+                animation: 'slide_from_bottom',
+              }}
+          />
+          <Stack.Screen
+              name="ConfirmEmailCode"
+              options={{
+                headerShown: false,
+                animation: 'slide_from_bottom',
+              }}
+          />
+          <Stack.Screen
+              name="EmailConfirmed"
+              options={{
+                headerShown: false,
                 animation: 'slide_from_left',
+              }}
+          />
+          <Stack.Screen
+              name="RedefinePassword"
+              options={{
+                headerShown: false,
+                animation: 'slide_from_bottom',
+              }}
+          />
+          <Stack.Screen
+              name="AccountRecovered"
+              options={{
+                headerShown: false,
+                animation: 'slide_from_right',
               }}
           />
         </Stack>
