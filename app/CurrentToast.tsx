@@ -1,5 +1,6 @@
 import { Toast, useToastController, useToastState } from '@tamagui/toast'
-import { Button, H4, XStack, YStack, isWeb } from 'tamagui'
+import { Button, H4, XStack, YStack, isWeb, Text } from 'tamagui'
+import { TouchableOpacity } from 'react-native'
 
 export function CurrentToast() {
   const currentToast = useToastState()
@@ -14,9 +15,9 @@ export function CurrentToast() {
       enterStyle={{ opacity: 0, scale: 0.5, y: -25 }}
       exitStyle={{ opacity: 0, scale: 1, y: -20 }}
       y={isWeb ? '$12' : 0}
-      theme="purple"
+      theme="orange"
       br="$6"
-      animation="quick"
+      animation="bouncy"
     >
       <YStack ai="center" p="$2" gap="$2">
         <Toast.Title fow="bold">{currentToast.title}</Toast.Title>
@@ -33,20 +34,16 @@ export function ToastControl() {
 
   return (
     <YStack gap="$2" ai="center">
-      <H4>Seja bem-vindo</H4>
       <XStack gap="$2" jc="center">
-        <Button
+        <TouchableOpacity
           onPress={() => {
-            toast.show('Olá amigo!', {
-              message: "Isso daqui foi um Toast configurado no arquivo 'CurrentToast.tsx'.",
+            toast.show('Código enviado!', {
+              message: "Cheque seu e-mail, outro código foi enviado para lá.",
             })
           }}
         >
-          Abrir notificação
-        </Button>
-        <Button onPress={()=>{toast.hide()}}>
-          Fechar Notificação
-        </Button>
+          <Text className='text-blue-400'>Enviar código novamente</Text>
+        </TouchableOpacity>
       </XStack>
     </YStack>
   )
