@@ -32,7 +32,7 @@ export default function Register(){
                 </View>
                 <Button onPress={()=>{
                     router.push('/ConfirmEmailCode')
-                }} className='w-60 bg-orange-500 rounded-3xl mt-8'>Enviar</Button>
+                }} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Enviar</Button>
             </View>
         </View>
     )

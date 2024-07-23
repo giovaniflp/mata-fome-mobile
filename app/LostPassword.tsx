@@ -22,7 +22,7 @@ export default function LostPassword(){
                 <View className="flex items-center mt-60">
                     <Button onPress={()=>{
                         router.push('/RedefinePassword')
-                    }} className='w-60 bg-orange-500 rounded-3xl'>Recuperar</Button>
+                    }} className='w-60 bg-orange-500 rounded-3xl text-white'>Recuperar</Button>
                 </View>
             </View>
         </ScrollView>

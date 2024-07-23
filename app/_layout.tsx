@@ -47,6 +47,12 @@ function RootLayoutNav() {
     <Provider>
       <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
         <Stack>
+        <Stack.Screen
+                name="(logged)"
+                options={{
+                    headerShown: false,
+                }}
+                />
           <Stack.Screen
               name="index"
               options={{
