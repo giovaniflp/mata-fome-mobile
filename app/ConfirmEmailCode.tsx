@@ -1,4 +1,4 @@
-import { View, H6, H2, Input, Button, ScrollView } from "tamagui";
+import { View, H2, Input, Button, ScrollView } from "tamagui";
 import { Image } from "react-native";
 import { router } from "expo-router";
 import { ToastControl } from "./CurrentToast";
@@ -24,7 +24,7 @@ export default function ConfirmEmailCode(){
                 <View className="flex items-center mt-56">
                     <Button onPress={()=>{
                         router.push('/EmailConfirmed')
-                    }} className='w-60 bg-orange-500 rounded-3xl'>Enviar código</Button>
+                    }} className='w-60 bg-orange-500 rounded-3xl text-white'>Enviar código</Button>
                 </View>
             </View>
         </ScrollView>

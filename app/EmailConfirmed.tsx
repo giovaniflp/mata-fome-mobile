@@ -7,7 +7,7 @@ export default function EmailConfirmed(){
 
     useEffect(()=>{
         setTimeout(()=>{
-            router.push('/Login')
+            router.push('/')
         }, 3000)
     }, [])
 

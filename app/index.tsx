@@ -15,12 +15,12 @@ export default function Index() {
       <View className='flex justify-center items-center mt-8'>
         <Button onPress={()=>{
           router.push('/Login')
-        }} className='w-60 bg-orange-500 rounded-3xl'>Entrar</Button>
+        }} className='w-60 bg-orange-500 rounded-3xl text-white'>Entrar</Button>
       </View>
       <View className='flex justify-center items-center mt-8'>
         <Button onPress={()=>{
           router.push('/Register')
-        }} className='w-60 bg-orange-500 rounded-3xl'>Registrar</Button>
+        }} className='w-60 bg-orange-500 rounded-3xl text-white'>Registrar</Button>
       </View>
     </View>
   )
