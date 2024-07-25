@@ -82,6 +82,20 @@ function RootLayoutNav() {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="RegisteredAddressScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="PaymentScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>
