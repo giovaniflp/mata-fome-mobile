@@ -116,7 +116,9 @@ export default function HomeScreen(){
                     }}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                        router.push('CartScreen')
+                    }}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/shoppingCart.png")}></Image>
                     </TouchableOpacity>
                     <TouchableOpacity>
