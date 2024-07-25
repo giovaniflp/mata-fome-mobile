@@ -51,6 +51,7 @@ function RootLayoutNav() {
                 name="(logged)"
                 options={{
                     headerShown: false,
+                    animation: 'slide_from_right',
                 }}
                 />
           <Stack.Screen
