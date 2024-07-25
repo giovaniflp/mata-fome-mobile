@@ -50,10 +50,31 @@ function RootLayoutNav() {
             <Stack.Screen
                 name="HomeScreen"
                 options={{
-                    animation:'slide_from_left',
+                    animation:'slide_from_right',
                     headerShown: false,
                 }}
-                />
+            />
+            <Stack.Screen
+                name="SearchScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="RestaurantScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="ProductDescription"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>
