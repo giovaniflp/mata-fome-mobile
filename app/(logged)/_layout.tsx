@@ -96,6 +96,20 @@ function RootLayoutNav() {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="OrderConfirmationScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="OrderConfirmedScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>
