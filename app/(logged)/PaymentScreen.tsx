@@ -20,26 +20,37 @@ export default function PaymentScreen(){
                             </View>
                             <View className="w-40 mt-3">
                                 <Button className="bg-green-500">
-                                    <Text>Adicionar saldo</Text>
+                                    <Text className="text-white">Adicionar saldo</Text>
                                 </Button>
                             </View>
                         </View>
                         <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex">
                             <H4 className="text-black">Formas de pagamento</H4>
                             <Button className=" bg-green-500 mt-5">
-                                <Text>Usar dinheiro da carteira</Text>
+                                <Text className="text-white">Usar dinheiro da carteira</Text>
                             </Button>
-                            <Button className="mt-5">
-                                <Text>Cartão de crédito</Text>
+                            <Button className="mt-5 bg-orange-500">
+                                <Text className="text-white">PIX</Text>
                             </Button>
-                            <Button className="mt-5">
-                                <Text>Cartão de débito</Text>
+                            <Button className="mt-5 bg-black">
+                                <Text className="text-white">Cartão de crédito</Text>
                             </Button>
-                            <Button className="mt-5">
-                                <Text>Vale alimentação</Text>
+                            <Button className="mt-5 bg-white">
+                                <Text className="text-black">Cartão de débito</Text>
                             </Button>
-                            <Button className="mt-5">
-                                <Text>Vale refeição</Text>
+                            <H4 className="mt-5 text-black">Vales</H4>
+                            <Button className="bg-black mt-5">
+                                <Text className="text-white">Vale alimentação</Text>
+                            </Button>
+                            <Button className="mt-5 bg-white">
+                                <Text className="text-black">Vale refeição</Text>
+                            </Button>
+                        </View>
+                        <View className="my-5 flex items-center">
+                            <Button onPress={()=>{
+                                router.push('OrderConfirmationScreen')
+                            }} className="bg-orange-500 w-40">
+                                <Text className="text-white">Continuar</Text>
                             </Button>
                         </View>
                     </ScrollView>

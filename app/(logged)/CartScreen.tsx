@@ -72,7 +72,7 @@ export default function CartScreen(){
                     </View>
                     <View className="mt-5">
                         <H5 className="text-black">Subtotal</H5>
-                        <H6 className="text-orange-500">3 x R$ 15,00</H6>
+                        <H6 className="text-orange-500 text-xs"><H6 className="text-black">3 x Hambúrguer de frango -</H6> R$ 15,00 (Unid.)</H6>
                     </View>
                     <View className="flex flex-row items-end justify-between">
                         <View>
