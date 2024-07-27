@@ -110,6 +110,34 @@ function RootLayoutNav() {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="ProfileScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="CategoryScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="CategoryFilteredScreen"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="OrderHistory"
+                options={{
+                    animation:'slide_from_right',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>

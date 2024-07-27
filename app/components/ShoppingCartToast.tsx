@@ -39,7 +39,7 @@ export function ShoppingCartToast() {
               message: "Seu item foi adicionado ao carrinho!",
             })
           }} icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")}></Image>} className="bg-orange-500 w-48">
-                            <Text className="text-xs">Adicionar ao carrinho</Text>
+                            <Text className="text-xs text-white">Adicionar ao carrinho</Text>
                         </Button>
     </View>
   )
