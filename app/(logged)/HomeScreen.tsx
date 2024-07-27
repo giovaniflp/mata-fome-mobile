@@ -21,7 +21,7 @@ export default function HomeScreen(){
 
     return (
         <View className="flex-1">
-            <ScrollView>
+            <ScrollView className="bg-white">
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-center items-center">
                     <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
@@ -31,13 +31,10 @@ export default function HomeScreen(){
                     </View>
                 </View>
                 <View className="flex items-center my-5">
-                    <Input className="bg-white text-black w-11/12" placeholder="Buscar"></Input>
-                </View>
-                <View className="flex items-center">
                     <Carousel
                         className="rounded-3xl"
                         loop
-                        width={320}
+                        width={384}
                         height={200}
                         autoPlay={true}
                         data={imagesList}
@@ -49,12 +46,12 @@ export default function HomeScreen(){
                                     justifyContent: 'center',
                                 }}
                             >
-                                <Image className="w-80 h-52" source={item.image}></Image>
+                                <Image className="w-96 h-52" source={item.image}></Image>
                             </View>
                         )}
                     />
                 </View>
-                <View className="mt-5">
+                <View>
                     <H4 className="text-black ml-4">Tipos de comidas</H4>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         <View className="flex flex-row ml-1">
@@ -117,11 +114,13 @@ export default function HomeScreen(){
                         <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
-                        router.push('CartScreen')
+                        router.push('CategoryScreen')
                     }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/shoppingCart.png")}></Image>
+                        <Image className="w-10 h-10" source={require("../public/icons/ui/list.png")}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                        router.push('ProfileScreen')
+                    }}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/person.png")}></Image>
                     </TouchableOpacity>
                 </View>

@@ -2,6 +2,7 @@ import { router } from "expo-router";
 import { TouchableOpacity, Image } from "react-native";
 import { H4, ScrollView, View, Text, H6, H5, Button } from "tamagui";
 import { ShoppingCartToast } from "app/components/ShoppingCartToast";
+import { StarRatingDisplay } from 'react-native-star-rating-widget';
 
 export default function ProductDescription(){
     return(
@@ -16,6 +17,12 @@ export default function ProductDescription(){
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="flex items-center">
                                 <Image className="w-80 h-60 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
+                        </View>
+                        <View className="flex items-center my-5">
+                            <StarRatingDisplay
+                                rating={4.5}
+                            />
+                            <H6>Baseado em 4000 opiniões</H6>
                         </View>
                         <View>
                             <H4 className="text-black">Nome do produto</H4>
