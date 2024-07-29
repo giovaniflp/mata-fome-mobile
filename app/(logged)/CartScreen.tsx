@@ -10,7 +10,7 @@ export default function CartScreen(){
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                     <H4 className="text-black">Carrinho de compras</H4>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoShopping.png")}></Image>
                 </View>
             </View>
             <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
@@ -33,7 +33,7 @@ export default function CartScreen(){
                     </View>
                     <View>
                         <H5 className="my-2 text-orange-500">Descrição</H5>
-                        <H6>Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
+                        <H6 className="text-black">Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
                     </View>
                 </View>
                 <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-col mt-5">
@@ -55,7 +55,7 @@ export default function CartScreen(){
                     </View>
                     <View>
                         <H5 className="my-2 text-orange-500">Descrição</H5>
-                        <H6>Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
+                        <H6 className="text-black">Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
                     </View>
                 </View>
                 <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-col mt-5">
@@ -77,7 +77,7 @@ export default function CartScreen(){
                     </View>
                     <View>
                         <H5 className="my-2 text-orange-500">Descrição</H5>
-                        <H6>Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
+                        <H6 className="text-black">Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
                     </View>
                 </View>
                 <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5 mb-5">
@@ -90,7 +90,7 @@ export default function CartScreen(){
                     </View>
                     <View className="mt-5">
                         <H5 className="text-black text-xs">Deixe uma observação caso necessário</H5>
-                        <TextArea className="" verticalAlign="top"></TextArea>
+                        <TextArea className="bg-white" verticalAlign="top"></TextArea>
                     </View>
                     <View className="mt-5">
                         <H5 className="text-black">Subtotal</H5>
@@ -99,8 +99,8 @@ export default function CartScreen(){
                     <View className="flex flex-row items-end justify-between">
                         <View>
                             <H4 className="text-black">Total</H4>
-                            <View className="border-2 w-32 rounded-3xl flex">
-                                <H6 className="text-orange-500 text-center">R$ 45,00</H6>
+                            <View className="w-32 rounded-3xl flex">
+                                <H6 className="text-orange-500">R$ 45,00</H6>
                             </View>
                         </View>
                         <View>

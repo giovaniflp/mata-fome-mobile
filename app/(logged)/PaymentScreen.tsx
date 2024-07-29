@@ -9,7 +9,7 @@ export default function PaymentScreen(){
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Formas de pagamento</H4>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoMoney.png")}></Image>
                 </View>
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>

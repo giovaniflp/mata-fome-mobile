@@ -10,7 +10,7 @@ export default function Login(){
         <ScrollView className="bg-white">
             <View className='bg-white mt-20'>
             <View className='flex justify-center items-center'>
-                <Image source={require("./public/images/BrandIcon.png")} className="w-40 h-40"></Image>
+                <Image source={require("./public/icons/tomato/TomatoNotebook.png")} className="w-40 h-40"></Image>
             </View>
             <H2 className="text-center text-orange-500">Entrar</H2>
             <View className="flex items-center mt-8">

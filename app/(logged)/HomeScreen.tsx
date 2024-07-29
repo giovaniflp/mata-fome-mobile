@@ -23,12 +23,12 @@ export default function HomeScreen(){
         <View className="flex-1">
             <ScrollView className="bg-white">
             <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-center items-center">
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
-                    <View className="ml-5">
+                <View className="mt-10 flex flex-row justify-around items-center">
+                    <View>
                         <H4 className="text-black">Olá, usuário</H4>
                         <H6 className="text-black">Bem - Vindo(a)!</H6>
                     </View>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoAssassin.png")}></Image>
                 </View>
                 <View className="flex items-center my-5">
                     <Carousel

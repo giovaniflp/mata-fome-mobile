@@ -38,7 +38,7 @@ export function AvaliationToast() {
             toast.show('Avaliação enviada', {
               message: "A avaliação do produto foi enviada com sucesso!",
             })
-          }} className="bg-orange-500 mt-5">
+          }} className="bg-orange-500">
                             <Text className="text-xs text-white">Enviar avaliação</Text>
                         </Button>
     </View>

@@ -9,7 +9,7 @@ export default function OrderConfirmationScreen(){
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                     <H4 className="text-black">Confirmação de pedido</H4>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoDelivery.png")}></Image>
                 </View>
             </View>
             <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>

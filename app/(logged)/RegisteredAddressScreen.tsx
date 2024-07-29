@@ -10,7 +10,7 @@ export default function RegisteredAddressScreen(){
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Endereços cadastrados</H4>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")}></Image>
                 </View>
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -86,7 +86,7 @@ export default function RegisteredAddressScreen(){
                         </View>
                         <View className="p-4 mx-2 mt-5 flex items-center">
                             <TouchableOpacity className="flex items-center">
-                                <H4>Adicionar novo endereço</H4>
+                                <H4 className="text-black">Adicionar novo endereço</H4>
                                 <Image className="w-20 h-20" source={require("../public/icons/ui/plus.png")}></Image>
                             </TouchableOpacity>
                         </View>

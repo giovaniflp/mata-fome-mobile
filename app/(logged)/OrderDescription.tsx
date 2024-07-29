@@ -17,7 +17,7 @@ export default function OrderDescription(){
                         <H4 className="text-black">Pedido - 27/07/2024 às 02:42</H4>
                         <H6>Status do Pedido: <Text className="text-green-500">Finalizado</Text></H6>
                     </View>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoLike_Money.png")}></Image>
                 </View>
             </View>
             <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
@@ -35,14 +35,20 @@ export default function OrderDescription(){
                 </View>
                 <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
                     <View>
-                                <H5 className="text-orange-500 text-center">Por favor, avalie o pedido e deixe seu comentário!</H5>
+                        <View className="flex flex-row justify-center items-center">
+                            <H5 className="text-orange-500 text-center text-xs w-64">Por favor, avalie o pedido e deixe seu comentário!</H5>
+                            <Image className="w-12 h-12" source={require("../public/icons/tomato/TomatoStars.png")}></Image>
+                        </View>
+                                
                                 <View className="flex items-center">
-                                    <TextArea className="w-80 my-2" verticalAlign="top"></TextArea>
-                                    <StarRating
-                                    rating={rating}
-                                    onChange={setRating}
-                                    />
-                                    <AvaliationToast></AvaliationToast>
+                                    <TextArea className="w-80 my-2 bg-white text-black" verticalAlign="top"></TextArea>
+                                    <View className="flex flex-row items-center">
+                                        <StarRating
+                                        rating={rating}
+                                        onChange={setRating}
+                                        />
+                                        <AvaliationToast></AvaliationToast>
+                                    </View>
                                 </View>
                     </View>
                 </View>
@@ -54,7 +60,7 @@ export default function OrderDescription(){
                 </View>
                 <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
                     <View className="w-80">
-                                <H5 className="text-black">Endereço 01 - (Padrão)</H5>
+                                <H5 className="text-orange-500">Endereço 01 - (Padrão)</H5>
                                 <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
                     </View>
                 </View>

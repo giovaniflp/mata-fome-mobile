@@ -9,7 +9,7 @@ export default function SearchScreen(){
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Pesquisa</H4>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoShopping.png")}></Image>
                 </View>
                 <View className="flex items-center my-3 p-3">
                     <Input className="bg-white text-black w-11/12" placeholder="Busque por pratos, restaurantes e categorias"></Input>
