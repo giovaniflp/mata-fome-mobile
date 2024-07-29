@@ -25,7 +25,7 @@ export default function Login(){
                 <Button onPress={()=>{
                     router.push('/HomeScreen')
                 }} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Entrar</Button>
-                <H6 className="text-black my-8">Ou</H6>
+                <H6 className="text-black text-center my-8 w-20">Ou</H6>
                 <Button icon={<Image source={GoogleIcon} className="w-7 h-7"></Image>} className="bg-orange-500 text-white">Logar com o Google</Button>
                 <TouchableOpacity onPress={()=>{
                     router.push('/LostPassword')

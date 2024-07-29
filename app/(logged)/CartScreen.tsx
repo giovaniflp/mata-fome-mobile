@@ -1,7 +1,7 @@
 import { ShoppingCartToast } from "app/components/ShoppingCartToast"
 import { router } from "expo-router"
 import { TouchableOpacity, Image } from "react-native"
-import { Button, H4, H5, H6, ScrollView, View, Text, Input } from "tamagui"
+import { Button, H4, H5, H6, ScrollView, View, Text, Input, TextArea } from "tamagui"
 import { DiscountTicketToast } from "app/components/DiscountTicketToast"
 
 export default function CartScreen(){
@@ -14,52 +14,70 @@ export default function CartScreen(){
                 </View>
             </View>
             <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
-                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-row mt-5">
-                    <View><Image className="w-32 h-32 rounded-3xl" source={require("../public/images/slide01.jpg")}></Image></View>
-                    <View className="w-56 flex justify-center ml-2">
-                        <H5 className="text-black">Hambúrguer de frango</H5>
-                        <H6 className="text-black">R$ 15,00</H6>
-                        <View className="flex flex-row items-center">
-                            <TouchableOpacity>
-                                <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
-                            </TouchableOpacity>
-                            <H4 className="text-black">1</H4>
-                            <TouchableOpacity>
-                                <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
-                            </TouchableOpacity>
+            <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-col mt-5">
+                    <View className="flex flex-row">
+                        <View><Image className="w-32 h-32 rounded-3xl" source={require("../public/images/slide01.jpg")}></Image></View>
+                        <View className="w-56 flex justify-center ml-2">
+                            <H5 className="text-black">Hambúrguer de frango</H5>
+                            <H6 className="text-black">R$ 15,00</H6>
+                            <View className="flex flex-row items-center">
+                                <TouchableOpacity>
+                                    <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
+                                </TouchableOpacity>
+                                <H4 className="text-black">1</H4>
+                                <TouchableOpacity>
+                                    <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-row mt-5">
-                    <View><Image className="w-32 h-32 rounded-3xl" source={require("../public/images/slide01.jpg")}></Image></View>
-                    <View className="w-56 flex justify-center ml-2">
-                        <H5 className="text-black">Hambúrguer de frango</H5>
-                        <H6 className="text-black">R$ 15,00</H6>
-                        <View className="flex flex-row items-center">
-                            <TouchableOpacity>
-                                <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
-                            </TouchableOpacity>
-                            <H4 className="text-black">1</H4>
-                            <TouchableOpacity>
-                                <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
-                            </TouchableOpacity>
-                        </View>
+                    <View>
+                        <H5 className="my-2 text-orange-500">Descrição</H5>
+                        <H6>Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
                     </View>
                 </View>
-                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-row mt-5">
-                    <View><Image className="w-32 h-32 rounded-3xl" source={require("../public/images/slide01.jpg")}></Image></View>
-                    <View className="w-56 flex justify-center ml-2">
-                        <H5 className="text-black">Hambúrguer de frango</H5>
-                        <H6 className="text-black">R$ 15,00</H6>
-                        <View className="flex flex-row items-center">
-                            <TouchableOpacity>
-                                <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
-                            </TouchableOpacity>
-                            <H4 className="text-black">1</H4>
-                            <TouchableOpacity>
-                                <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
-                            </TouchableOpacity>
+                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-col mt-5">
+                    <View className="flex flex-row">
+                        <View><Image className="w-32 h-32 rounded-3xl" source={require("../public/images/slide01.jpg")}></Image></View>
+                        <View className="w-56 flex justify-center ml-2">
+                            <H5 className="text-black">Hambúrguer de frango</H5>
+                            <H6 className="text-black">R$ 15,00</H6>
+                            <View className="flex flex-row items-center">
+                                <TouchableOpacity>
+                                    <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
+                                </TouchableOpacity>
+                                <H4 className="text-black">1</H4>
+                                <TouchableOpacity>
+                                    <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
+                                </TouchableOpacity>
+                            </View>
                         </View>
+                    </View>
+                    <View>
+                        <H5 className="my-2 text-orange-500">Descrição</H5>
+                        <H6>Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
+                    </View>
+                </View>
+                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-col mt-5">
+                    <View className="flex flex-row">
+                        <View><Image className="w-32 h-32 rounded-3xl" source={require("../public/images/slide01.jpg")}></Image></View>
+                        <View className="w-56 flex justify-center ml-2">
+                            <H5 className="text-black">Hambúrguer de frango</H5>
+                            <H6 className="text-black">R$ 15,00</H6>
+                            <View className="flex flex-row items-center">
+                                <TouchableOpacity>
+                                    <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
+                                </TouchableOpacity>
+                                <H4 className="text-black">1</H4>
+                                <TouchableOpacity>
+                                    <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    <View>
+                        <H5 className="my-2 text-orange-500">Descrição</H5>
+                        <H6>Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
                     </View>
                 </View>
                 <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5 mb-5">
@@ -69,6 +87,10 @@ export default function CartScreen(){
                             <Input className="bg-white w-60 text-black"></Input>
                             <DiscountTicketToast></DiscountTicketToast>
                         </View>
+                    </View>
+                    <View className="mt-5">
+                        <H5 className="text-black text-xs">Deixe uma observação caso necessário</H5>
+                        <TextArea className="" verticalAlign="top"></TextArea>
                     </View>
                     <View className="mt-5">
                         <H5 className="text-black">Subtotal</H5>
