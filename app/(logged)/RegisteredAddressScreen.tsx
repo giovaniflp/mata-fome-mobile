@@ -84,14 +84,20 @@ export default function RegisteredAddressScreen(){
                                 </TouchableOpacity>
                             </View>
                         </View>
+                        <View className="p-4 mx-2 mt-5 flex items-center">
+                            <TouchableOpacity className="flex items-center">
+                                <H4>Adicionar novo endereço</H4>
+                                <Image className="w-20 h-20" source={require("../public/icons/ui/plus.png")}></Image>
+                            </TouchableOpacity>
+                        </View>
                         <View className="flex flex-row justify-around items-center my-5">
                             <Button className="bg-green-500 w-40">
-                                <Text className="text-xs">Adicionar endereço</Text>
+                                <Text className="text-xs text-white">Vou retirar no local</Text>
                             </Button>
                             <Button onPress={()=>{
                                 router.push("PaymentScreen")
                             }} className="bg-orange-500 w-40">
-                                <Text>Continuar</Text>
+                                <Text className="text-white">Continuar</Text>
                             </Button>
                         </View>
                     </ScrollView>

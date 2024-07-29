@@ -15,10 +15,12 @@ export default function OrderHistory(){
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row items-center">
-                            <View className="w-80">
+                            <TouchableOpacity onPress={()=>{
+                                router.push('OrderDescription')
+                            }} className="w-80">
                                 <H5 className="text-black">Pedido - 27/07 às 02:42</H5>
-                                <H6 className="text-black">Total - R$ 50,00</H6>
-                            </View>
+                                <H6 className="text-black">Total - R$ 55,00</H6>
+                            </TouchableOpacity>
                             <View>
                                 <TouchableOpacity>
                                     <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>

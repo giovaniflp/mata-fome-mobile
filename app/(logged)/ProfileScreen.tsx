@@ -1,4 +1,4 @@
-import { View, Avatar, ScrollView, H3, H4, H5, H6, Button } from "tamagui";
+import { View, Avatar, ScrollView, H3, H4, H5, H6, Button, Text } from "tamagui";
 import { Image, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 
@@ -19,6 +19,7 @@ export default function ProfileScreen(){
                     <Button onPress={()=>{
                         router.push('CartScreen')
                     }} className="bg-black text-white" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")}></Image>}>Meu carrinho</Button>
+                    <Text className="text-blue-400 underline">Preciso de Suporte</Text>
                 </View>
             </ScrollView>
             <View className="w-full h-16 bg-orange-500 flex justify-center">
