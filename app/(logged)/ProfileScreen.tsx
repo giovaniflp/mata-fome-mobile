@@ -5,7 +5,7 @@ import { router } from "expo-router";
 export default function ProfileScreen(){
     return(
         <View className="flex-1">
-            <ScrollView>
+            <ScrollView className="bg-white">
                 <View className="flex items-center">
                     <Image source={require("../public/images/slide01.jpg")} className="w-40 h-40 rounded-full"></Image>
                 </View>

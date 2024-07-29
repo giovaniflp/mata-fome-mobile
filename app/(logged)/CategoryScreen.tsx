@@ -9,7 +9,7 @@ export default function CategoryScreen(){
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Categorias</H4>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoChef.png")}></Image>
                 </View>
                 <View>
                     <ScrollView className="mt-5" showsVerticalScrollIndicator={false}>

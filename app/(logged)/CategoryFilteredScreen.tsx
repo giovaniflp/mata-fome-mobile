@@ -12,7 +12,7 @@ export default function CategoryFilteredScreen(){
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Comida Japonesa</H4>
-                    <Image className="w-20 h-20" source={require("../public/images/BrandIcon.png")}></Image>
+                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoChicken.png")}></Image>
                 </View>
                 <View className="flex items-center my-3 p-3">
                     <Input className="bg-white text-black w-11/12" placeholder="Busque por pratos e restaurantes japoneses"></Input>
@@ -23,7 +23,7 @@ export default function CategoryFilteredScreen(){
                                     <Check />
                                 </Checkbox.Indicator>
                             </Checkbox>
-                            <H6 className="ml-2">Sushi</H6>
+                            <H6 className="ml-2 text-black">Sushi</H6>
                         </View>
                         <View className="flex flex-row w-3/6 mt-2">
                             <Checkbox className="w-6 h-6">
@@ -31,7 +31,7 @@ export default function CategoryFilteredScreen(){
                                     <Check />
                                 </Checkbox.Indicator>
                             </Checkbox>
-                            <H6 className="ml-2">Onigiri</H6>
+                            <H6 className="ml-2 text-black">Onigiri</H6>
                         </View>
                         <View className="flex flex-row w-3/6 mt-2">
                             <Checkbox className="w-6 h-6">
@@ -39,7 +39,7 @@ export default function CategoryFilteredScreen(){
                                     <Check />
                                 </Checkbox.Indicator>
                             </Checkbox>
-                            <H6 className="ml-2">Tonkatsu</H6>
+                            <H6 className="ml-2 text-black">Tonkatsu</H6>
                         </View>
                     </View>
                 </View>
