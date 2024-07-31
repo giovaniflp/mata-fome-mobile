@@ -5,6 +5,7 @@ import { useState } from "react";
 import { AvaliationToast } from "app/components/AvaliationToast";
 import { useRoute } from "@react-navigation/native";
 import BottomBar from "app/components/BottomBar";
+import {showLocation} from 'react-native-map-link';
 
 export default function OrderDescription(){
     const { params } = useRoute()
@@ -36,6 +37,19 @@ export default function OrderDescription(){
                                 <H4 className="text-black">3 Unidades</H4>
                             </View>
                         </View>
+                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
+                    <View className="w-80">
+                                <H5 className="text-orange-500">Rastreamento de pedido</H5>
+                                <Button onPress={()=>{
+                                    showLocation({
+                                        address: 'Estr. de Bulhões - Bulhões, Jaboatão dos Guararapes - PE, 54080-000',
+                                        title: 'Estr. de Bulhões - Bulhões, Jaboatão dos Guararapes - PE, 54080-000',
+                                        appsWhiteList: ['google-maps', 'apple-maps'],
+                                        directionsMode: 'car',
+                                      });
+                                }}>Mostrar localização atual</Button>
+                    </View>
+                </View>
                         <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
                     <View className="w-80">
                                 <H5 className="text-orange-500">Observação*</H5>

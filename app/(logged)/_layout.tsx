@@ -145,6 +145,20 @@ function RootLayoutNav() {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="SupportScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="NotificationScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>
