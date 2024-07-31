@@ -2,6 +2,7 @@ import { ShoppingCartToast } from "app/components/ShoppingCartToast";
 import { router } from "expo-router";
 import { TouchableOpacity, Image } from "react-native";
 import { Button, H4, H5, H6, ScrollView, View, Text } from "tamagui";
+import BottomBar from "app/components/BottomBar";
 
 export default function OrderHistory(){
     return(
@@ -16,7 +17,12 @@ export default function OrderHistory(){
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row items-center">
                             <TouchableOpacity onPress={()=>{
-                                router.push('OrderDescription')
+                                router.push({
+                                    pathname: 'OrderDescription',
+                                    params:{
+                                        progress: 'Finalizado'
+                                    }
+                                })
                             }} className="w-80">
                                 <H5 className="text-black">Pedido - 27/07 às 02:42</H5>
                                 <H6 className="text-black">Total - R$ 55,00</H6>
@@ -28,10 +34,17 @@ export default function OrderHistory(){
                             </View>
                         </View>
                         <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row items-center">
-                            <View className="w-80">
+                            <TouchableOpacity onPress={()=>{
+                                router.push({
+                                    pathname: 'OrderDescription',
+                                    params:{
+                                        progress: 'Em progresso'
+                                    }
+                                })
+                            }} className="w-80">
                                 <H5 className="text-black">Pedido - 27/07 às 02:40</H5>
-                                <H6 className="text-black">Total - R$ 50,00</H6>
-                            </View>
+                                <H6 className="text-black">Total - R$ 55,00</H6>
+                            </TouchableOpacity>
                             <View>
                                 <TouchableOpacity>
                                     <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>
@@ -97,26 +110,7 @@ export default function OrderHistory(){
                     </View>
                 </View>
             </ScrollView>
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
-                <View className="flex flex-row items-center justify-center gap-16">
-                    <TouchableOpacity onPress={()=>{
-                        router.push('HomeScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        router.push('SearchScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/shoppingCart.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/person.png")}></Image>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <BottomBar screen="OrderHistory"></BottomBar>
         </View>
     )
 }

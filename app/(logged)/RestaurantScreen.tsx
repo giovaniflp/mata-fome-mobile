@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { TouchableOpacity, Image } from "react-native";
 import { H4, ScrollView, View, Text } from "tamagui";
+import BottomBar from "app/components/BottomBar";
 
 export default function RestaurantScreen(){
     return(
@@ -61,26 +62,7 @@ export default function RestaurantScreen(){
                     </View>
                 </View>
             </ScrollView>
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
-                <View className="flex flex-row items-center justify-center gap-16">
-                    <TouchableOpacity onPress={()=>{
-                        router.push('HomeScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        router.push('SearchScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/shoppingCart.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/person.png")}></Image>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <BottomBar screen="RestaurantScreen"></BottomBar>
         </View>
     )
 }

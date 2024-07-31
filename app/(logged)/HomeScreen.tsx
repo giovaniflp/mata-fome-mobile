@@ -1,9 +1,7 @@
 import { ScrollView, View, Text, Input, H4, H6 } from "tamagui";
 import { Image, TouchableOpacity } from "react-native";
 import Carousel from 'react-native-reanimated-carousel';
-import Search from '@tamagui/lucide-icons';
-import { Home } from '@tamagui/lucide-icons'
-import { router } from "expo-router";
+import BottomBar from "app/components/BottomBar";
 
 export default function HomeScreen(){
 
@@ -34,6 +32,7 @@ export default function HomeScreen(){
                     <Carousel
                         className="rounded-3xl"
                         loop
+                        mode="parallax"
                         width={384}
                         height={200}
                         autoPlay={true}
@@ -101,30 +100,7 @@ export default function HomeScreen(){
                     </View>
                 </View>
             </ScrollView>
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
-                <View className="flex flex-row items-center justify-center gap-16">
-                    <TouchableOpacity onPress={()=>{
-                        router.push('HomeScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        router.push('SearchScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        router.push('CategoryScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/list.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        router.push('ProfileScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/person.png")}></Image>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <BottomBar screen="HomeScreen"></BottomBar>
         </View>
     )
 }
