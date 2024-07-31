@@ -1,6 +1,7 @@
 import { View, Avatar, ScrollView, H3, H4, H5, H6, Button, Text } from "tamagui";
 import { Image, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
+import BottomBar from "app/components/BottomBar";
 
 export default function ProfileScreen(){
     return(
@@ -22,26 +23,7 @@ export default function ProfileScreen(){
                     <Text className="text-blue-400 underline">Preciso de Suporte</Text>
                 </View>
             </ScrollView>
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
-                <View className="flex flex-row items-center justify-center gap-16">
-                    <TouchableOpacity onPress={()=>{
-                        router.push('HomeScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{
-                        router.push('SearchScreen')
-                    }}>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/shoppingCart.png")}></Image>
-                    </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Image className="w-10 h-10" source={require("../public/icons/ui/person.png")}></Image>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <BottomBar screen="ProfileScreen"></BottomBar>
         </View>
     )
 }
