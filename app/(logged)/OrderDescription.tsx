@@ -8,7 +8,7 @@ import BottomBar from "app/components/BottomBar";
 import {showLocation} from 'react-native-map-link';
 
 export default function OrderDescription(){
-    const { params } = useRoute()
+    const { params } = useRoute<any>()
     
     const [rating, setRating] = useState(0);
 
@@ -84,7 +84,7 @@ export default function OrderDescription(){
                 </View>
                     
                     </ScrollView>
-                    <BottomBar></BottomBar>
+                    <BottomBar screen="OrderDescription"></BottomBar>
                 </View>
             }
             {
@@ -162,7 +162,7 @@ export default function OrderDescription(){
                     </View>
                 </View>
                     </ScrollView>
-                    <BottomBar></BottomBar>
+                    <BottomBar screen="OrderDescription"></BottomBar>
                 </View>
             }
         </View>
