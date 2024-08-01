@@ -23,7 +23,7 @@ export default function ProductDescription(){
                             <StarRatingDisplay
                                 rating={4.5}
                             />
-                            <H6>Baseado em 4000 opiniões</H6>
+                            <H6 className="text-black">Baseado em <Text className="text-orange-500">4523</Text> opiniões</H6>
                         </View>
                         <View>
                             <H4 className="text-black">Nome do produto</H4>

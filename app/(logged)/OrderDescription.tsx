@@ -6,6 +6,7 @@ import { AvaliationToast } from "app/components/AvaliationToast";
 import { useRoute } from "@react-navigation/native";
 import BottomBar from "app/components/BottomBar";
 import {showLocation} from 'react-native-map-link';
+import { router } from "expo-router";
 
 export default function OrderDescription(){
     const { params } = useRoute<any>()
@@ -46,8 +47,9 @@ export default function OrderDescription(){
                                         title: 'Estr. de Bulhões - Bulhões, Jaboatão dos Guararapes - PE, 54080-000',
                                         appsWhiteList: ['google-maps', 'apple-maps'],
                                         directionsMode: 'car',
-                                      });
+                                    });
                                 }}>Mostrar localização atual</Button>
+                                <H6 className="text-black">Tempo estimado - <Text className="text-red-500">32 minutos</Text></H6>
                     </View>
                 </View>
                         <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
@@ -82,10 +84,22 @@ export default function OrderDescription(){
                         <H5 className="text-orange-500">R$ 55,00</H5>
                     </View>
                 </View>
-                    
-                    </ScrollView>
-                    <BottomBar screen="OrderDescription"></BottomBar>
+                <View className="flex items-center">
+                        <View>
+                            <Button className="w-80 text-white" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/chat.png")}></Image>}>Contatar o restaurante</Button>
+                        </View>
+                        <View>
+                            <Button className="my-2 w-80 bg-orange-500 text-white" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/support.png")}></Image>} onPress={()=>{
+                                router.push('SupportScreen')
+                            }}>Falar com o suporte</Button>
+                        </View>
+                        <View>
+                            <Button className="mb-5 w-80 bg-red-500 text-white" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/cancel.png")}></Image>}>Cancelar pedido</Button>
+                        </View>
                 </View>
+                    </ScrollView>
+                <BottomBar screen="OrderDescription"></BottomBar>
+            </View>
             }
             {
                 params.progress === 'Finalizado' &&

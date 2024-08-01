@@ -25,6 +25,7 @@ export default function OrderHistory(){
                                 })
                             }} className="w-80">
                                 <H5 className="text-black">Pedido - 27/07 às 02:42</H5>
+                                <H4 className="text-black">Status - <Text className="text-green-500">Finalizado</Text></H4>
                                 <H6 className="text-black">Total - R$ 55,00</H6>
                             </TouchableOpacity>
                             <View>
@@ -43,6 +44,7 @@ export default function OrderHistory(){
                                 })
                             }} className="w-80">
                                 <H5 className="text-black">Pedido - 27/07 às 02:40</H5>
+                                <H4 className="text-black">Status - <Text className="text-orange-500">Em progresso</Text></H4>
                                 <H6 className="text-black">Total - R$ 55,00</H6>
                             </TouchableOpacity>
                             <View>

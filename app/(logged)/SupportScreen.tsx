@@ -26,7 +26,7 @@ export default function SupportScreen(){
                     <Button onPress={()=>{
                         Linking.openURL("https://www.instagram.com/matafomedeli/")
                     }}>Instagram</Button>
-                    <Button>Chatbot</Button>
+                    <Button>Chat</Button>
                 </View>
             </ScrollView>
             <BottomBar screen="SupportScreen"></BottomBar>

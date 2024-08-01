@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@babel/generator": "^7.25.0",
+    "@react-native-picker/picker": "^2.7.7",
     "@react-navigation/native": "^6.1.17",
     "@tamagui/config": "^1.101.7",
     "@tamagui/lucide-icons": "^1.101.7",
