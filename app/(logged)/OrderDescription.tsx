@@ -1,5 +1,5 @@
-import { View, H4, H5, H6, ScrollView, Text, Button, TextArea } from "tamagui";
-import { Image, TouchableOpacity } from "react-native";
+import { H4, H5, H6, Text, Button, TextArea } from "tamagui";
+import { Image, TouchableOpacity, ScrollView,View } from "react-native";
 import StarRating from 'react-native-star-rating-widget';
 import { useState } from "react";
 import { AvaliationToast } from "app/components/AvaliationToast";

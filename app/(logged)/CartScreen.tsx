@@ -1,7 +1,7 @@
 import { ShoppingCartToast } from "app/components/ShoppingCartToast"
 import { router } from "expo-router"
-import { TouchableOpacity, Image } from "react-native"
-import { Button, H4, H5, H6, ScrollView, View, Text, Input, TextArea } from "tamagui"
+import { TouchableOpacity, Image, ScrollView, View } from "react-native"
+import { Button, H4, H5, H6, Text, Input, TextArea } from "tamagui"
 import { DiscountTicketToast } from "app/components/DiscountTicketToast"
 import BottomBar from "app/components/BottomBar"
 

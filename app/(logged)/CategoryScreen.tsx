@@ -1,6 +1,6 @@
 import { router } from "expo-router";
-import { TouchableOpacity, Image } from "react-native";
-import { ScrollView, View, Text, H4, Input } from "tamagui";
+import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { Text, H4, Input } from "tamagui";
 import BottomBar from "app/components/BottomBar";
 
 export default function CategoryScreen(){

@@ -1,6 +1,6 @@
 import BottomBar from "app/components/BottomBar";
-import { Linking, Image } from "react-native";
-import { Button, H3, H4, H5, H6, ScrollView, View, Switch, Separator } from "tamagui";
+import { Linking, Image, View, ScrollView } from "react-native";
+import { Button, H3, H4, H5, H6, Switch, Separator } from "tamagui";
 
 export default function NotificationScreen(){
     return(

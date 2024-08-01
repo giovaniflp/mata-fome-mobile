@@ -1,6 +1,6 @@
 import { router } from "expo-router"
-import { Button, H2, H6, Input, ScrollView, View } from "tamagui"
-import { Image } from "react-native"
+import { Button, H2, H6, Input } from "tamagui"
+import { Image, ScrollView, View } from "react-native"
 
 export default function RedefinePassword(){
     return(
