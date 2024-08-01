@@ -4,11 +4,18 @@ import { H4, H6, Input, ScrollView, View, Text } from "tamagui";
 import { Check } from '@tamagui/lucide-icons'
 import { Checkbox } from 'tamagui'
 import BottomBar from "app/components/BottomBar";
+import { useState, useEffect } from "react";
 
 export default function CategoryFilteredScreen(){
+
+    const[sushiCheck, setSushiCheck] = useState(false)
+    const[onigiriCheck, setOnigiriCheck] = useState(false)
+    const[tonkatsuCheck, setTonkatsuCheck] = useState(false)
+    const [open, setOpen] = useState(false)
+
     return(
         <View className="flex-1">
-            <ScrollView>
+            <ScrollView showsVerticalScrollIndicator={false}>
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Comida Japonesa</H4>
@@ -18,7 +25,9 @@ export default function CategoryFilteredScreen(){
                     <Input className="bg-white text-black w-11/12" placeholder="Busque por pratos e restaurantes japoneses"></Input>
                     <View className="flex w-11/12 mt-5">
                         <View className="flex flex-row w-3/6">
-                            <Checkbox className="w-6 h-6">
+                            <Checkbox className="w-6 h-6" onCheckedChange={()=>{
+                                setSushiCheck(!sushiCheck)
+                            }}>
                                 <Checkbox.Indicator>
                                     <Check />
                                 </Checkbox.Indicator>
@@ -26,7 +35,9 @@ export default function CategoryFilteredScreen(){
                             <H6 className="ml-2 text-black">Sushi</H6>
                         </View>
                         <View className="flex flex-row w-3/6 mt-2">
-                            <Checkbox className="w-6 h-6">
+                            <Checkbox className="w-6 h-6" onCheckedChange={()=>{
+                                setOnigiriCheck(!onigiriCheck)
+                            }}>
                                 <Checkbox.Indicator>
                                     <Check />
                                 </Checkbox.Indicator>
@@ -34,8 +45,10 @@ export default function CategoryFilteredScreen(){
                             <H6 className="ml-2 text-black">Onigiri</H6>
                         </View>
                         <View className="flex flex-row w-3/6 mt-2">
-                            <Checkbox className="w-6 h-6">
-                                <Checkbox.Indicator>
+                            <Checkbox className="w-6 h-6" onCheckedChange={()=>{
+                                setTonkatsuCheck(!tonkatsuCheck)
+                            }}>
+                                <Checkbox.Indicator >
                                     <Check />
                                 </Checkbox.Indicator>
                             </Checkbox>

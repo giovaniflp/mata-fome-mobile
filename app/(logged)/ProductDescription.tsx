@@ -19,11 +19,16 @@ export default function ProductDescription(){
                         <View className="flex items-center">
                                 <Image className="w-80 h-60 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                         </View>
-                        <View className="flex items-center my-5">
-                            <StarRatingDisplay
-                                rating={4.5}
-                            />
-                            <H6 className="text-black">Baseado em <Text className="text-orange-500">4523</Text> opiniões</H6>
+                        <View className="flex flex-row justify-evenly items-center my-5">
+                            <View className="flex items-center">
+                                <StarRatingDisplay
+                                    rating={4.5}
+                                />
+                                <H6 className="text-black">Baseado em <Text className="text-orange-500">4523</Text> opiniões</H6>
+                            </View>
+                            <View>
+                                <Image className="w-10 h-10 rounded-full" source={require("../public/images/slide03.jpg")}></Image>
+                            </View>
                         </View>
                         <View>
                             <H4 className="text-black">Nome do produto</H4>
@@ -35,21 +40,24 @@ export default function ProductDescription(){
                         </View>
                         <View>
                             <H4 className="text-black">Preço</H4>
-                            <H6 className="text-black">R$ 15,00</H6>
+                            <H6 className="text-black">R$ 15,00 (Unid.)</H6>
                         </View>
                         <View>
                             <H4 className="text-black">Quantidade</H4>
-                            <View className="flex flex-row items-center">
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
-                                </TouchableOpacity>
-                                <H4 className="text-black">1</H4>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
-                                </TouchableOpacity>
+                            <View className="flex flex-row items-center justify-around">
+                                <View className="flex flex-row items-center">
+                                    <TouchableOpacity>
+                                        <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
+                                    </TouchableOpacity>
+                                    <H4 className="text-black">1</H4>
+                                    <TouchableOpacity>
+                                        <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
+                                    </TouchableOpacity>
+                                </View>
+                                <ShoppingCartToast></ShoppingCartToast>
                             </View>
                         </View>
-                        <ShoppingCartToast></ShoppingCartToast>
+                        
                     </ScrollView>
                     </View>
                 </View>

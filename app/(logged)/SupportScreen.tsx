@@ -20,13 +20,15 @@ export default function SupportScreen(){
                 </View>
                 <View>
                     <H4 className="text-orange-500">Canais de comunicação e suporte</H4>
-                    <Button onPress={()=>{
-                        Linking.openURL("mailto:matafomedeliveryIF@gmail.com?subject=Suporte")
-                    }}>E-mail</Button>
-                    <Button onPress={()=>{
-                        Linking.openURL("https://www.instagram.com/matafomedeli/")
-                    }}>Instagram</Button>
-                    <Button>Chat</Button>
+                    <View className="flex justify-center items-center">
+                        <Button className="w-60 mt-5" onPress={()=>{
+                            Linking.openURL("mailto:matafomedeliveryIF@gmail.com?subject=Suporte")
+                        }}>E-mail</Button>
+                        <Button className="w-60 my-2" onPress={()=>{
+                            Linking.openURL("https://www.instagram.com/matafomedeli/")
+                        }}>Instagram</Button>
+                        <Button className="w-60">Chat</Button>
+                    </View>
                 </View>
             </ScrollView>
             <BottomBar screen="SupportScreen"></BottomBar>
