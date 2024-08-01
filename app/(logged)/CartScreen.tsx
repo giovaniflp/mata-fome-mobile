@@ -91,7 +91,7 @@ export default function CartScreen(){
                     </View>
                     <View className="mt-5">
                         <H5 className="text-black text-xs">Deixe uma observação caso necessário</H5>
-                        <TextArea className="bg-white" verticalAlign="top"></TextArea>
+                        <TextArea className="bg-white text-black" verticalAlign="top"></TextArea>
                     </View>
                     <View className="mt-5">
                         <H5 className="text-black">Subtotal</H5>
