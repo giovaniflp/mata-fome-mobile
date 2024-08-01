@@ -1,5 +1,5 @@
-import { Button, H3, H4, H5, H6, ScrollView, View } from "tamagui";
-import { Image, Linking } from "react-native";
+import { Button, H3, H4, H5, H6  } from "tamagui";
+import { Image, Linking, View, ScrollView } from "react-native";
 import { router } from "expo-router";
 import BottomBar from "app/components/BottomBar";
 

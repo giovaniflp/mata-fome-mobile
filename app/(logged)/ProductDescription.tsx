@@ -1,6 +1,6 @@
 import { router } from "expo-router";
-import { TouchableOpacity, Image } from "react-native";
-import { H4, ScrollView, View, Text, H6, H5, Button } from "tamagui";
+import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { H4, Text, H6, H5, Button } from "tamagui";
 import { ShoppingCartToast } from "app/components/ShoppingCartToast";
 import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import BottomBar from "app/components/BottomBar";

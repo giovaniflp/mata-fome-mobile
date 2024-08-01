@@ -1,6 +1,6 @@
 import { router } from "expo-router";
-import { TouchableOpacity, Image } from "react-native";
-import { H4, ScrollView, View, Text } from "tamagui";
+import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { H4, Text } from "tamagui";
 import BottomBar from "app/components/BottomBar";
 
 export default function RestaurantScreen(){

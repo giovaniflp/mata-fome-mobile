@@ -1,5 +1,5 @@
-import { View, H2, H6, Input, Button, ScrollView } from "tamagui"
-import { Image, TouchableOpacity } from "react-native"
+import { H2, H6, Input, Button  } from "tamagui"
+import { Image, TouchableOpacity, ScrollView, View } from "react-native"
 import { router } from "expo-router"
 
 export default function Login(){

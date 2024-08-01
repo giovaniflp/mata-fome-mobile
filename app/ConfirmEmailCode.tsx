@@ -1,5 +1,5 @@
-import { View, H2, Input, Button, ScrollView } from "tamagui";
-import { Image } from "react-native";
+import { H2, Input, Button  } from "tamagui";
+import { Image, ScrollView, View } from "react-native";
 import { router } from "expo-router";
 import { ToastControl } from "./CurrentToast";
 
