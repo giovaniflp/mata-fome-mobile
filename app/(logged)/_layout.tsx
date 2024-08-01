@@ -159,6 +159,20 @@ function RootLayoutNav() {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="MyAddress"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="RegisterNewAddressScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>

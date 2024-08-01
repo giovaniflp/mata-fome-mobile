@@ -21,6 +21,9 @@ export default function ProfileScreen(){
                         router.push('CartScreen')
                     }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")}></Image>}>Meu carrinho</Button>
                     <Button onPress={()=>{
+                        router.push('MyAddress')
+                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/pinDrop.png")}></Image>}>Meus endereços</Button>
+                    <Button onPress={()=>{
                         router.push('NotificationScreen')
                     }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/notification.png")}></Image>}>Notificações no App</Button>
                     <Button onPress={()=>{
