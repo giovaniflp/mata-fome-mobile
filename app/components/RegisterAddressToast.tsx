@@ -34,13 +34,13 @@ export function RegisterAddressToast() {
   const toast = useToastController()
 
   return (
-    <View>
+    <View className='flex items-center'>
         <Button onPress={() => {
             router.push("MyAddress")
             toast.show('Endereço registrado!', {
               message: "O endereço foi registrado com sucesso!",
             })
-          }} className="bg-green-500">
+          }} className="bg-green-500 w-40">
                             <Text className="text-white">Registrar</Text>
                         </Button>
     </View>
