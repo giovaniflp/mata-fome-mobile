@@ -8,7 +8,7 @@ import BottomBar from "app/components/BottomBar";
 export default function ProductDescription(){
     return(
         <View className="flex-1">
-            <ScrollView className="bg-white">
+            <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Descrição do produto</H4>
@@ -30,28 +30,29 @@ export default function ProductDescription(){
                                 <Image className="w-10 h-10 rounded-full" source={require("../public/images/slide03.jpg")}></Image>
                             </View>
                         </View>
-                        <View>
-                            <H4 className="text-black">Nome do produto</H4>
-                            <H5 className="text-black">Hambúrguer de frango</H5>
+                        <View className="p-7">
+                            <View>
+                                <H4 className="text-orange-500">Nome do produto</H4>
+                                <H5 className="text-black">Hambúrguer de frango</H5>
+                            </View>
+                            <View className="my-4">
+                                <H4 className="text-orange-500">Ingredientes</H4>
+                                <H6 className="text-black text-xs">Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
+                            </View>
+                            <View className="mb-4">
+                                <H4 className="text-orange-500">Preço</H4>
+                                <H6 className="text-black">R$ 15,00 (Unid.)</H6>
+                            </View>
                         </View>
-                        <View>
-                            <H4 className="text-black">Ingredientes</H4>
-                            <H6 className="text-black text-xs">Pão de hambúrguer premium, molho especial da casa, bisteca de frango, tomate, alface, ketchup e mostarda</H6>
-                        </View>
-                        <View>
-                            <H4 className="text-black">Preço</H4>
-                            <H6 className="text-black">R$ 15,00 (Unid.)</H6>
-                        </View>
-                        <View>
-                            <H4 className="text-black">Quantidade</H4>
+                        <View className="border-t-2 pt-4 mb-4">
                             <View className="flex flex-row items-center justify-around">
-                                <View className="flex flex-row items-center">
+                                <View className="flex flex-row items-center justify-between w-28">
                                     <TouchableOpacity>
-                                        <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
+                                        <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
                                     </TouchableOpacity>
                                     <H4 className="text-black">1</H4>
                                     <TouchableOpacity>
-                                        <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")}></Image>
+                                        <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
                                     </TouchableOpacity>
                                 </View>
                                 <ShoppingCartToast></ShoppingCartToast>

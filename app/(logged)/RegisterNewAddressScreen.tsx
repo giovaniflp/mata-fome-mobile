@@ -18,20 +18,20 @@ export default function RegisterNewAddressScreen(){
                         <H4 className="text-black">Registrar novo endereço</H4>
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")}></Image>
                 </View>
-                <View className="mt-5">
+                <View className="mt-5 p-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">Nome do endereço</H5>
                             <Input className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">CEP</H5>
                             <View className="flex flex-row items-center">
-                                <Input className="bg-white rounded-lg h-14 text-black w-60"></Input>
-                                <Button className="w-14 h-14" icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>}></Button>
+                                <Input className="bg-white rounded-lg h-14 text-black w-72"></Input>
+                                <Button className="w-14 h-14 ml-2" icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>}></Button>
                             </View>
                         </View>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">Estado</H5>
                             <View className="border rounded-lg">
                                 <Picker
@@ -67,23 +67,23 @@ export default function RegisterNewAddressScreen(){
                                 </Picker>
                             </View>
                         </View>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">Cidade</H5>
                             <Input className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">Bairro</H5>
                             <Input className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">Número</H5>
                             <Input className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">Complemento</H5>
                             <Input className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
-                        <View>
+                        <View className="mb-4">
                             <H5 className="text-black">Logradouro</H5>
                             <Input className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
