@@ -1,6 +1,6 @@
 import { router } from "expo-router";
-import { TouchableOpacity, Image } from "react-native";
-import { Button, H4, H5, H6, ScrollView, View, Text, Input } from "tamagui";
+import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { Button, H4, H5, H6, Text, Input } from "tamagui";
 import BottomBar from "app/components/BottomBar";
 import {Picker} from '@react-native-picker/picker';
 import { useState } from "react";

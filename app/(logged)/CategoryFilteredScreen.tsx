@@ -1,6 +1,6 @@
 import { router } from "expo-router";
-import { TouchableOpacity, Image } from "react-native";
-import { H4, H6, Input, ScrollView, View, Text } from "tamagui";
+import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { H4, H6, Input, Text } from "tamagui";
 import { Check } from '@tamagui/lucide-icons'
 import { Checkbox } from 'tamagui'
 import BottomBar from "app/components/BottomBar";

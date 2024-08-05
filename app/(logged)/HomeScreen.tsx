@@ -1,5 +1,5 @@
-import { ScrollView, View, Text, Input, H4, H6 } from "tamagui";
-import { Image, TouchableOpacity } from "react-native";
+import { Text, Input, H4, H6 } from "tamagui";
+import { Image, TouchableOpacity, ScrollView, View } from "react-native";
 import Carousel from 'react-native-reanimated-carousel';
 import BottomBar from "app/components/BottomBar";
 
@@ -30,7 +30,6 @@ export default function HomeScreen(){
                 </View>
                 <View className="flex items-center my-5">
                     <Carousel
-                        className="rounded-3xl"
                         loop
                         mode="parallax"
                         width={384}

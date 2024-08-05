@@ -1,5 +1,5 @@
-import { View, Avatar, ScrollView, H3, H4, H5, H6, Button, Text } from "tamagui";
-import { Image, TouchableOpacity } from "react-native";
+import { Avatar, H3, H4, H5, H6, Button, Text } from "tamagui";
+import { Image, TouchableOpacity, ScrollView, View } from "react-native";
 import { router } from "expo-router";
 import BottomBar from "app/components/BottomBar";
 

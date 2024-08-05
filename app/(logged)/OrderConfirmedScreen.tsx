@@ -1,5 +1,5 @@
-import { H1, H5, H6, View } from "tamagui";
-import { Image } from "react-native";
+import { H1, H5, H6 } from "tamagui";
+import { Image, View } from "react-native";
 import { router } from "expo-router";
 import { useEffect } from "react";
 

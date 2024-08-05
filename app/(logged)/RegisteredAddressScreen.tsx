@@ -1,7 +1,7 @@
 import { ShoppingCartToast } from "app/components/ShoppingCartToast";
 import { router } from "expo-router";
-import { TouchableOpacity, Image } from "react-native";
-import { Button, H4, H5, H6, ScrollView, View, Text } from "tamagui";
+import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { Button, H4, H5, H6, Text } from "tamagui";
 import BottomBar from "app/components/BottomBar";
 
 export default function RegisteredAddressScreen(){
