@@ -50,10 +50,129 @@ function RootLayoutNav() {
             <Stack.Screen
                 name="HomeScreen"
                 options={{
-                    animation:'slide_from_left',
+                    animation:'fade',
                     headerShown: false,
                 }}
-                />
+            />
+            <Stack.Screen
+                name="SearchScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="RestaurantScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="ProductDescription"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="CartScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="RegisteredAddressScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="PaymentScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="OrderConfirmationScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="OrderConfirmedScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="ProfileScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="CategoryScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="CategoryFilteredScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="OrderHistory"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="OrderDescription"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="SupportScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="NotificationScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="MyAddress"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="RegisterNewAddressScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>

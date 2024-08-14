@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { router } from "expo-router";
-import { Button, H2, H6, Input, ScrollView, View } from "tamagui";
-import { Image, Alert } from "react-native";
+import { Button, H2, H6, Input } from "tamagui";
+import { Image, Alert, ScrollView, View } from "react-native";
 
 export default function RedefinePassword() {
   const [newPassword, setNewPassword] = useState("");

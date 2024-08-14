@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, H2, H6, Input, Button } from 'tamagui';
-import { Image } from 'react-native';
+import { H2, H6, Input, Button } from 'tamagui';
+import { Image, View } from 'react-native';
 import { router } from 'expo-router';
 
 export default function Register() {

@@ -51,61 +51,63 @@ function RootLayoutNav() {
                 name="(logged)"
                 options={{
                     headerShown: false,
+                    animation: 'fade',
                 }}
                 />
           <Stack.Screen
               name="index"
               options={{
                 headerShown: false,
+                animation: 'fade',
               }}
             />
           <Stack.Screen
               name="Login"
               options={{
                 headerShown: false,
-                animation: 'slide_from_bottom',
+                animation: 'fade',
               }}
           />
           <Stack.Screen
               name="Register"
               options={{
                 headerShown: false,
-                animation: 'slide_from_bottom',
+                animation: 'fade',
               }}
           />
           <Stack.Screen
               name="LostPassword"
               options={{
                 headerShown: false,
-                animation: 'slide_from_bottom',
+                animation: 'fade',
               }}
           />
           <Stack.Screen
               name="ConfirmEmailCode"
               options={{
                 headerShown: false,
-                animation: 'slide_from_bottom',
+                animation: 'fade',
               }}
           />
           <Stack.Screen
               name="EmailConfirmed"
               options={{
                 headerShown: false,
-                animation: 'slide_from_left',
+                animation: 'fade',
               }}
           />
           <Stack.Screen
               name="RedefinePassword"
               options={{
                 headerShown: false,
-                animation: 'slide_from_bottom',
+                animation: 'fade',
               }}
           />
           <Stack.Screen
               name="AccountRecovered"
               options={{
                 headerShown: false,
-                animation: 'slide_from_right',
+                animation: 'fade',
               }}
           />
         </Stack>

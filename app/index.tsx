@@ -1,6 +1,6 @@
-import { View, H4, H6, Button } from 'tamagui'
+import { H4, H6, Button } from 'tamagui'
 import { ToastControl } from './CurrentToast'
-import { Image } from 'react-native'
+import { Image, View } from 'react-native'
 import { router } from 'expo-router'
 
 export default function Index() {
