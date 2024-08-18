@@ -1,7 +1,9 @@
 import { H2, H6, Input, Button  } from "tamagui"
-import { Image, TouchableOpacity, ScrollView, View } from "react-native"
+import { Image, TouchableOpacity, ScrollView, View, Text } from "react-native"
 import { router } from "expo-router"
 import React, { useState } from 'react'
+import axiosInstance from "./config/axiosUrlConfig"
+import * as SecureStore from 'expo-secure-store';
 
 export default function Login() {
 
@@ -16,7 +18,8 @@ export default function Login() {
     }
 
     const validatePassword = (pwd) => {
-        const regex = /^[a-zA-Z0-9]{6}$/;  // Regex que valida exatamente 6 caracteres alfanuméricos
+        const regex = /^.*(?=.{6,16})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/;
+        console.log(regex.test(pwd))
         return regex.test(pwd);
     }
 
@@ -26,11 +29,30 @@ export default function Login() {
             return;
         }
         if (!validatePassword(password)) {
-            setError('A senha deve ter exatamente 6 caracteres.');
+            setError("Senha inválida! A senha deve conter entre 6 a 16 caracteres, com pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial.");
             return;
         }
         setError('')  // Limpa o erro se o email e a senha forem válidos
         router.push('/HomeScreen')
+    }
+
+    const apiLoginUser = async() => {
+        const loginRequestData = {
+            username: email,
+            password: password
+        }
+        try{
+            await axiosInstance.post('/api/auth', loginRequestData).then(async(response)=>{
+                console.log(response.data)
+                await SecureStore.setItemAsync('token', JSON.stringify(response.data.token))
+                await SecureStore.setItemAsync('username', JSON.stringify(response.data.username))
+                await SecureStore.setItemAsync('idUser', JSON.stringify(response.data.idUser))
+                router.push('/HomeScreen')
+            })
+        }
+        catch(e){
+            alert(e)
+        }
     }
 
     return (
@@ -39,12 +61,7 @@ export default function Login() {
             <View className='flex justify-center items-center'>
                 <Image source={require("./public/icons/tomato/TomatoNotebook.png")} className="w-40 h-40"></Image>
             </View>
-            <H2 className="text-center text-orange-500">Entrar</H2>
             <View className="flex items-center mt-8">
-                <View>
-                    <H6 className="text-black">Email</H6>
-                    <Input className="w-80 bg-white text-black" placeholder="Digite seu e-mail"></Input>
-                </View>
                 <H2 className="text-center text-orange-500">Entrar</H2>
                 <View className="flex items-center mt-8">
                     <View>
@@ -56,8 +73,10 @@ export default function Login() {
                             onChangeText={setEmail}
                         ></Input>
                     </View>
-                    <View className="mt-4">
-                        <H6 className="text-black">Senha</H6>
+                    <View className="mt-4 flex items-center">
+                        <View className="flex w-80">
+                            <H6 className="text-black">Senha</H6>
+                        </View>
                         <Input
                             className="w-80 bg-white text-black"
                             placeholder="Digite sua senha"
@@ -65,9 +84,9 @@ export default function Login() {
                             value={password}
                             onChangeText={setPassword}
                         ></Input>
-                        {error ? <Text className="text-red-500 mt-2">{error}</Text> : null}
+                        {error ? <Text className="text-red-500 mt-4 mx-14 text-xs text-center">{error}</Text> : null}
                     </View>
-                    <Button onPress={handleLogin} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Entrar</Button>
+                    <Button onPress={apiLoginUser} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Entrar</Button>
                     <H6 className="text-black my-8">Ou</H6>
                     <Button icon={<Image source={GoogleIcon} className="w-7 h-7"></Image>} className="bg-orange-500 text-white">Logar com o Google</Button>
                     <TouchableOpacity onPress={() => {
@@ -76,16 +95,6 @@ export default function Login() {
                         <H6 className="text-blue-400 underline mt-8">Esqueceu a senha?</H6>
                     </TouchableOpacity>
                 </View>
-                <Button onPress={()=>{
-                    router.push('/HomeScreen')
-                }} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Entrar</Button>
-                <H6 className="text-black text-center my-8 w-20">Ou</H6>
-                <Button icon={<Image source={GoogleIcon} className="w-7 h-7"></Image>} className="bg-orange-500 text-white">Logar com o Google</Button>
-                <TouchableOpacity onPress={()=>{
-                    router.push('/LostPassword')
-                }}>
-                    <H6 className="text-blue-400 underline mt-8">Esqueceu a senha?</H6>
-                </TouchableOpacity>
             </View>
             </View>
         </ScrollView>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { H2, H6, Input, Button } from 'tamagui';
 import { Image, View } from 'react-native';
 import { router } from 'expo-router';
+import axiosInstance from './config/axiosUrlConfig';
 
 export default function Register() {
     const [name, setName] = useState('');
@@ -9,6 +10,7 @@ export default function Register() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [phone, setPhone] = useState('');
+    const [cpf, setCpf] = useState('')
     const [errorMessage, setErrorMessage] = useState('');
 
     const validateEmail = (email) => {
@@ -64,16 +66,37 @@ export default function Register() {
             console.log('Número de telefone inválido');
             return;
         }
-
         setErrorMessage('');
         console.log('Form is valid, navigating to ConfirmEmailCode');
         router.push('/ConfirmEmailCode');
     };
 
+    const apiRegisterUser = async () => {
+        const registerRequestData = {
+            nome: name,
+            foneCelular: phone,
+            cpf: cpf,
+            email: email,
+            password: password
+        }
+        console.log(registerRequestData)
+        try{
+            await axiosInstance.post("/api/cliente", registerRequestData).then((response)=>{
+                console.log(response)
+                if(response.status == 201){
+                    router.push('/ConfirmEmailCode')
+                }
+            })
+        }
+        catch (e) {
+            alert(e)
+        }
+    }
+
     return (
         <View className='h-full bg-white flex justify-center'>
             <View className='flex justify-center items-center'>
-                <Image source={require('./public/images/BrandIcon.png')} className="w-40 h-40"></Image>
+                <Image source={require('./public/images/BrandIcon.png')} className="w-32 h-32"></Image>
             </View>
             <H2 className="text-center text-orange-500">Registrar</H2>
             <View className="flex items-center mt-4">
@@ -96,6 +119,24 @@ export default function Register() {
                     />
                 </View>
                 <View className="mt-4">
+                    <H6 className="text-black">CPF</H6>
+                    <Input
+                        className="w-80 bg-white text-black"
+                        placeholder="Digite seu número"
+                        value={cpf}
+                        onChangeText={setCpf}
+                    />
+                </View>
+                <View className="mt-4">
+                    <H6 className="text-black">Telefone</H6>
+                    <Input
+                        className="w-80 bg-white text-black"
+                        placeholder="Digite seu número"
+                        value={phone}
+                        onChangeText={setPhone}
+                    />
+                </View>
+                <View className="mt-4">
                     <H6 className="text-black">Senha</H6>
                     <Input
                         className="w-80 bg-white text-black"
@@ -115,22 +156,13 @@ export default function Register() {
                         onChangeText={setConfirmPassword}
                     />
                 </View>
-                <View className="mt-4">
-                    <H6 className="text-black">Telefone</H6>
-                    <Input
-                        className="w-80 bg-white text-black"
-                        placeholder="Digite seu número"
-                        value={phone}
-                        onChangeText={setPhone}
-                    />
-                </View>
                 {errorMessage ? (
                     <View className="mt-4">
                         <H6 className="text-red-500">{errorMessage}</H6>
                     </View>
                 ) : null}
                 <Button
-                    onPress={handleSubmit}
+                    onPress={apiRegisterUser}
                     className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'
                 >
                     Enviar

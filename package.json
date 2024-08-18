@@ -21,6 +21,7 @@
     "@tamagui/config": "^1.101.7",
     "@tamagui/lucide-icons": "^1.101.7",
     "@tamagui/toast": "^1.101.7",
+    "axios": "^1.7.4",
     "babel-preset-expo": "^11.0.6",
     "burnt": "^0.12.2",
     "expo": "~51.0.9",
@@ -45,7 +46,8 @@
     "react-native-star-rating-widget": "^1.8.0",
     "react-native-svg": "15.2.0",
     "react-native-web": "^0.19.12",
-    "tamagui": "^1.101.7"
+    "tamagui": "^1.101.7",
+    "expo-secure-store": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
