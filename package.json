@@ -46,7 +46,8 @@
     "react-native-star-rating-widget": "^1.8.0",
     "react-native-svg": "15.2.0",
     "react-native-web": "^0.19.12",
-    "tamagui": "^1.101.7"
+    "tamagui": "^1.101.7",
+    "expo-secure-store": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",

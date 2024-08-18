@@ -2,6 +2,8 @@ import { H2, H6, Input, Button  } from "tamagui"
 import { Image, TouchableOpacity, ScrollView, View, Text } from "react-native"
 import { router } from "expo-router"
 import React, { useState } from 'react'
+import axiosInstance from "./config/axiosUrlConfig"
+import * as SecureStore from 'expo-secure-store';
 
 export default function Login() {
 
@@ -32,6 +34,25 @@ export default function Login() {
         }
         setError('')  // Limpa o erro se o email e a senha forem válidos
         router.push('/HomeScreen')
+    }
+
+    const apiLoginUser = async() => {
+        const loginRequestData = {
+            username: email,
+            password: password
+        }
+        try{
+            await axiosInstance.post('/api/auth', loginRequestData).then(async(response)=>{
+                console.log(response.data)
+                await SecureStore.setItemAsync('token', JSON.stringify(response.data.token))
+                await SecureStore.setItemAsync('username', JSON.stringify(response.data.username))
+                await SecureStore.setItemAsync('idUser', JSON.stringify(response.data.idUser))
+                router.push('/HomeScreen')
+            })
+        }
+        catch(e){
+            alert(e)
+        }
     }
 
     return (
@@ -65,7 +86,7 @@ export default function Login() {
                         ></Input>
                         {error ? <Text className="text-red-500 mt-4 mx-14 text-xs text-center">{error}</Text> : null}
                     </View>
-                    <Button onPress={handleLogin} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Entrar</Button>
+                    <Button onPress={apiLoginUser} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Entrar</Button>
                     <H6 className="text-black my-8">Ou</H6>
                     <Button icon={<Image source={GoogleIcon} className="w-7 h-7"></Image>} className="bg-orange-500 text-white">Logar com o Google</Button>
                     <TouchableOpacity onPress={() => {

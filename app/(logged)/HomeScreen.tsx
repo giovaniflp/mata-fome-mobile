@@ -2,8 +2,14 @@ import { Text, Input, H4, H6 } from "tamagui";
 import { Image, TouchableOpacity, ScrollView, View } from "react-native";
 import Carousel from 'react-native-reanimated-carousel';
 import BottomBar from "app/components/BottomBar";
+import * as SecureStore from 'expo-secure-store';
+import { useEffect, useState } from "react";
 
 export default function HomeScreen(){
+
+    const[token, setToken] = useState('');
+    const[username, setUsername] = useState('');
+    const[idUser, setIdUser] = useState('');
 
     const imagesList = [
         {
@@ -17,13 +23,31 @@ export default function HomeScreen(){
         }
     ]
 
+    const getSecureStorageData = async () => {
+        const tokenStorage = await SecureStore.getItemAsync('token') || '';
+        const usernameStorage = await SecureStore.getItemAsync('username') || '';
+        const idUserStorage = await SecureStore.getItemAsync('idUser') || '';
+
+        const tokenParse = JSON.parse(tokenStorage);
+        const usernameParse = JSON.parse(usernameStorage);
+        const idUserParse = JSON.parse(idUserStorage);
+
+        setToken(tokenParse);
+        setUsername(usernameParse);
+        setIdUser(idUserParse);
+    }
+
+    useEffect(()=>{
+        getSecureStorageData();
+    },[])
+
     return (
         <View className="flex-1">
             <ScrollView className="bg-white">
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                     <View>
-                        <H4 className="text-black">Olá, usuário</H4>
+                        <H4 className="text-black">Olá, {username}</H4>
                         <H6 className="text-black">Bem - Vindo(a)!</H6>
                     </View>
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoAssassin.png")}></Image>
