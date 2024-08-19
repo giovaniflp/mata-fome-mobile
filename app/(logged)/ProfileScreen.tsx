@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import BottomBar from "app/components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from "react";
+import axiosInstance from "app/config/axiosUrlConfig";
 
 export default function ProfileScreen(){
 
@@ -11,11 +12,8 @@ export default function ProfileScreen(){
     const[username, setUsername] = useState('');
     const[idUser, setIdUser] = useState('');
 
-    useEffect(()=>{
-        getSecureStorageData();
-    },[])
+    const getUsername = async () => {
 
-    const getSecureStorageData = async () => {
         const tokenStorage = await SecureStore.getItemAsync('token') || '';
         const usernameStorage = await SecureStore.getItemAsync('username') || '';
         const idUserStorage = await SecureStore.getItemAsync('idUser') || '';
@@ -24,10 +22,19 @@ export default function ProfileScreen(){
         const usernameParse = JSON.parse(usernameStorage);
         const idUserParse = JSON.parse(idUserStorage);
 
-        setToken(tokenParse);
-        setUsername(usernameParse);
-        setIdUser(idUserParse);
+        try{
+            await axiosInstance.get(`/api/cliente/${idUserParse}`).then((response)=>{
+                setUsername(response.data.nome)
+            })
+        }
+        catch(e){
+            alert(e)
+        }
     }
+
+    useEffect(()=>{
+        getUsername();
+    },[])
 
     const logoutAccount = async () => {
         await SecureStore.deleteItemAsync('token');
@@ -55,6 +62,9 @@ export default function ProfileScreen(){
                     <Button onPress={()=>{
                         router.push('MyAddress')
                     }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/pinDrop.png")}></Image>}>Meus endereços</Button>
+                    <Button onPress={()=>{
+                        router.push('PaymentScreen')
+                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/creditCard.png")}></Image>}>Formas de pagamento</Button>
                     <Button onPress={()=>{
                         router.push('NotificationScreen')
                     }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/notification.png")}></Image>}>Notificações no App</Button>
