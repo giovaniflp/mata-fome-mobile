@@ -11,13 +11,15 @@ import * as SecureStore from 'expo-secure-store';
 
 export default function RegisterNewAddressScreen(){
 
-    const[cep, setCep] = useState("")
-    const[estado, setEstado] = useState("")
-    const[cidade, setCidade] = useState("")
-    const[bairro, setBairro] = useState("")
-    const[numero, setNumero] = useState("")
-    const[complemento, setComplemento] = useState("")
-    const[logradouro, setLogradouro] = useState("")
+    const[cepCobranca, setCepCobranca] = useState("")
+    const[estadoCobranca, setEstadoCobranca] = useState("")
+    const[cidadeCobranca, setCidadeCobranca] = useState("")
+    const[enderecoCobranca, setEnderecoCobranca] = useState("")
+
+    const[numeroCartao, setNumeroCartao] = useState("")
+    const[dataValidade, setDataValidade] = useState("")
+    const[nomeTitular, setNomeTitular] = useState("")
+    const[cvv, setCvv] = useState("")
 
     const [token, setToken] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -43,7 +45,21 @@ export default function RegisterNewAddressScreen(){
         catch (e) {
             alert(e);
         }
+    }
 
+    const consultarCEP = async () => {
+        console.log(cepCobranca)
+        try{
+            await axios.get(`https://viacep.com.br/ws/${cepCobranca}/json/`).then((response)=>{
+                console.log(response.data)
+                setEstadoCobranca(response.data.uf)
+                setCidadeCobranca(response.data.localidade)
+                setEnderecoCobranca(response.data.logradouro)
+            })
+        }
+        catch(e){
+            alert(e)
+        }
     }
 
     useEffect(()=>{
@@ -54,38 +70,21 @@ export default function RegisterNewAddressScreen(){
         getSecureStorageData();
     },[userId == null])
 
-    const consultarCEP = async () => {
-        console.log(cep)
-        try{
-            await axios.get(`https://viacep.com.br/ws/${cep}/json/`).then((response)=>{
-                console.log(response.data)
-                setEstado(response.data.uf)
-                setCidade(response.data.localidade)
-                setBairro(response.data.bairro)
-                setLogradouro(response.data.logradouro)
-                setComplemento(response.data.complemento)
-                setNumero(response.data.numero)
-            })
-        }
-        catch(e){
-            alert(e)
-        }
-    }
-
-    const apiRegisterAddress = async () => {
-        const registerAddressRequestData = {
-            cep: cep,
-            estado: estado,
-            cidade: cidade,
-            bairro: bairro,
-            logradouro: logradouro,
-            numero: numero,
-            complemento: complemento
+    const apiRegisterNewCard = async () => {
+        const registerNewCardRequest = {
+            tipo: "crédito",
+            numero_cartao: numeroCartao,
+            data_validade: dataValidade,
+            nome_titular: nomeTitular,
+            cvv: cvv,
+            endereco_cobranca: enderecoCobranca,
+            cidade_cobranca: cidadeCobranca,
+            estado_cobranca: estadoCobranca,
+            cep_cobranca: cepCobranca
         }
         try{
-            await axiosInstance.post(`/api/cliente/endereco/${userId}`, registerAddressRequestData).then((response)=>{
+            await axiosInstance.post(`/api/cliente/formasDePagamento/${userId}`, registerNewCardRequest).then((response)=>{
                 console.log(response.data)
-                alert("Endereço registrado com sucesso!")
             })
         }
         catch(e){
@@ -98,28 +97,40 @@ export default function RegisterNewAddressScreen(){
             <ScrollView className="bg-white">
             <View className='bg-white'>
                 <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">Registrar novo endereço</H4>
+                        <H4 className="text-black">Registrar novo cartão de crédito</H4>
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")}></Image>
                 </View>
                 <View className="mt-5 p-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="mb-4">
-                            <H5 className="text-black">Nome do endereço</H5>
-                            <Input className="bg-white rounded-lg h-14 text-black"></Input>
+                            <H5 className="text-black">Número do cartão</H5>
+                            <Input value={numeroCartao} onChangeText={(text)=>{setNumeroCartao(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
                         <View className="mb-4">
-                            <H5 className="text-black">CEP</H5>
+                            <H5 className="text-black">Data de validade</H5>
+                            <Input value={dataValidade} onChangeText={(text)=>{setDataValidade(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                        </View>
+                        <View className="mb-4">
+                            <H5 className="text-black">Nome do titular</H5>
+                            <Input value={nomeTitular} onChangeText={(text)=>{setNomeTitular(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                        </View>
+                        <View className="mb-4">
+                            <H5 className="text-black">CVV</H5>
+                            <Input value={cvv} onChangeText={(text)=>{setCvv(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                        </View>
+                        <View className="mb-4">
+                            <H5 className="text-black">CEP de cobrança</H5>
                             <View className="flex flex-row items-center">
-                                <Input value={cep} onChangeText={(text) => setCep(text)}  className="bg-white rounded-lg h-14 text-black w-72"></Input>
+                                <Input value={cepCobranca} onChangeText={(text) => setCepCobranca(text)}  className="bg-white rounded-lg h-14 text-black w-72"></Input>
                                 <Button onPress={consultarCEP} className="w-14 h-14 ml-2" icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>}></Button>
                             </View>
                         </View>
                         <View className="mb-4">
-                            <H5 className="text-black">Estado</H5>
+                            <H5 className="text-black">Estado de cobrança</H5>
                             <View className="border rounded-lg">
                                 <Picker
-                                selectedValue={estado}
-                                onValueChange={setEstado}> 
+                                selectedValue={estadoCobranca}
+                                onValueChange={setEstadoCobranca}> 
                                     <Picker.Item label="Acre" value="AC" />
                                     <Picker.Item label="Alagoas" value="AL" />
                                     <Picker.Item label="Amapá" value="AP" />
@@ -151,27 +162,15 @@ export default function RegisterNewAddressScreen(){
                             </View>
                         </View>
                         <View className="mb-4">
-                            <H5 className="text-black">Cidade</H5>
-                            <Input value={cidade} onChangeText={(text)=>{setCidade(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                            <H5 className="text-black">Cidade de cobrança</H5>
+                            <Input value={cidadeCobranca} onChangeText={(text)=>{setCidadeCobranca(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
                         <View className="mb-4">
-                            <H5 className="text-black">Bairro</H5>
-                            <Input value={bairro} onChangeText={(text)=>{setBairro(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Logradouro</H5>
-                            <Input value={logradouro} onChangeText={(text)=>{setLogradouro(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Número</H5>
-                            <Input value={numero} onChangeText={(text)=>{setNumero(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Complemento</H5>
-                            <Input value={complemento} onChangeText={(text)=>{setComplemento(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                            <H5 className="text-black">Endereço de cobrança</H5>
+                            <Input value={enderecoCobranca} onChangeText={(text)=>{setEnderecoCobranca(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
                         <View className="my-5">
-                            <Button onPress={apiRegisterAddress}>Regitrar endereçooo</Button>
+                            <Button onPress={apiRegisterNewCard}>Regitrar novo cartão</Button>
                             <RegisterAddressToast></RegisterAddressToast>
                         </View>
                     </ScrollView>

@@ -173,6 +173,13 @@ function RootLayoutNav() {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="RegisterNewPaymentMethodScreen"
+                options={{
+                    animation:'fade',
+                    headerShown: false,
+                }}
+            />
         </Stack>
       </ThemeProvider>
     </Provider>

@@ -4,6 +4,7 @@ import Carousel from 'react-native-reanimated-carousel';
 import BottomBar from "app/components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from "react";
+import axiosInstance from "app/config/axiosUrlConfig";
 
 export default function HomeScreen(){
 
@@ -32,9 +33,14 @@ export default function HomeScreen(){
         const usernameParse = JSON.parse(usernameStorage);
         const idUserParse = JSON.parse(idUserStorage);
 
-        setToken(tokenParse);
-        setUsername(usernameParse);
-        setIdUser(idUserParse);
+        try{
+            await axiosInstance.get(`/api/cliente/${idUserParse}`).then((response)=>{
+                setUsername(response.data.nome)
+            })
+        }
+        catch(e){
+            alert(e)
+        }
     }
 
     useEffect(()=>{
