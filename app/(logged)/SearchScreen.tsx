@@ -8,7 +8,7 @@ export default function SearchScreen(){
         <View className="flex-1">
             <ScrollView>
             <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-around items-center bg-orange-300 rounded-3xl mr-3 ml-3">
+                <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Pesquisa</H4>
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoShopping.png")}></Image>
                 </View>
@@ -22,39 +22,39 @@ export default function SearchScreen(){
                                 router.push('RestaurantScreen')
                             }} className="bg-orange-300 rounded-3xl p-2 mr-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizzaria Poggers</Text>
+                                <Text className="text-white text-center">Pizzaria Poggers</Text>
                             </TouchableOpacity>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-1">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Hamburgueria</Text>
+                                <Text className="text-white text-center">Hamburgueria</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizzaria Poggers</Text>
+                                <Text className="text-white text-center">Pizzaria Poggers</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizzaria Poggers</Text>
+                                <Text className="text-white text-center">Pizzaria Poggers</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizzaria Poggers</Text>
+                                <Text className="text-white text-center">Pizzaria Poggers</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizzaria Poggers</Text>
+                                <Text className="text-white text-center">Pizzaria Poggers</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizzaria Poggers</Text>
+                                <Text className="text-white text-center">Pizzaria Poggers</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Restaurante Japonês</Text>
+                                <Text className="text-white text-center">Restaurante Japonês</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Kin Jin Pin</Text>
+                                <Text className="text-white text-center">Kin Jin Pin</Text>
                             </View>
                         </View>
                     </ScrollView>

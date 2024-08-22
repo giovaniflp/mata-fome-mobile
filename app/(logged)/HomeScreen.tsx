@@ -51,7 +51,7 @@ export default function HomeScreen(){
         <View className="flex-1">
             <ScrollView className="bg-white">
             <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-around items-center bg-orange-300 rounded-3xl mr-3 ml-3">
+                <View className="mt-10 flex flex-row justify-around items-center">
                     <View>
                         <H4 className="text-black" fontStyle="italic">Olá, {username}</H4>
                         <H6 className="text-black" fontStyle="italic">Bem - Vindo(a)!</H6>
