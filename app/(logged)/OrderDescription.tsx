@@ -86,7 +86,7 @@ export default function OrderDescription(){
                 </View>
                 <View className="flex items-center">
                         <View>
-                            <Button className="w-80 text-white" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/chat.png")}></Image>}>Contatar o restaurante</Button>
+                            <Button className="w-80 text-white bg-black" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/chat.png")}></Image>}>Contatar o restaurante</Button>
                         </View>
                         <View>
                             <Button className="my-2 w-80 bg-orange-500 text-white" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/support.png")}></Image>} onPress={()=>{
