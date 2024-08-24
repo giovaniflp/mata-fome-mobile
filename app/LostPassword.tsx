@@ -23,17 +23,17 @@ export default function LostPassword() {
 
     return (
         <ScrollView className="bg-white">
-            <View className='h-full bg-white flex justify-between'>
+            <View className='h-full flex justify-between bg-white'>
                 <View className="mt-40">
                     <View className='flex justify-center items-center'>
                         <Image source={require("./public/icons/tomato/TomatoEngineer.png")} className="w-40 h-40"></Image>
                     </View>
                     <H2 className="text-center text-orange-500 p-5">Insira seu E-mail para recuperar sua conta</H2>
-                    <View className="flex items-center">
+                    <View className="flex items-center mt-5">
                         <View>
-                            <H6 className="text-black">Email</H6>
+                            <H6 className="text-black ">Email</H6>
                             <Input 
-                                className="w-80 bg-white text-black" 
+                                className="w-80 bg-white text-black mt-1 rounded shadow hover:border-orange-600" 
                                 placeholder="Digite seu e-mail" 
                                 value={email}
                                 onChangeText={setEmail}
@@ -42,7 +42,7 @@ export default function LostPassword() {
                         </View>
                     </View>
                 </View>
-                <View className="flex items-center mt-60">
+                <View className="flex items-center mt-12">
                     <Button onPress={handleRecoverPassword} className='w-60 bg-orange-500 rounded-3xl text-white'>
                         Recuperar
                     </Button>
