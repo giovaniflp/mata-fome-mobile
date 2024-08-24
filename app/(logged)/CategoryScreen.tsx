@@ -17,7 +17,7 @@ export default function CategoryScreen(){
                         <View className="flex justify-center flex-row flex-wrap">
                             <TouchableOpacity onPress={()=>{
                                 router.push('CategoryFilteredScreen')
-                            }} className="bg-orange-300 rounded-3xl p-2">
+                            }} className="bg-white rounded-3xl p-2">
                                 <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                             </TouchableOpacity>
                             <TouchableOpacity className="bg-white rounded-3xl p-2 mt-2">

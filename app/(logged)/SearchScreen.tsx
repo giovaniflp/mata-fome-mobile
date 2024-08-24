@@ -13,7 +13,7 @@ export default function SearchScreen(){
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoShopping.png")}></Image>
                 </View>
                 <View className="flex items-center my-3 p-3">
-                    <Input className="bg-slate-200 text-black w-11/12 border-transparent" placeholder="Busque por pratos, restaurantes e categorias"></Input>
+                    <Input className="bg-slate-100 text-black w-11/12 border-transparent" placeholder="Busque por pratos, restaurantes e categorias"></Input>
                 </View>
                 <View>
                     <ScrollView showsVerticalScrollIndicator={false}>

@@ -17,45 +17,45 @@ export default function RestaurantScreen(){
                         <View className="flex justify-center flex-row flex-wrap">
                             <TouchableOpacity onPress={()=>{
                                 router.push('ProductDescription')
-                            }} className="bg-white rounded-3xl p-2">
+                            }} className="bg-orange-300 rounded-3xl p-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Hambúrguer</Text>
+                                <Text className="text-white text-center">Hambúrguer</Text>
                             </TouchableOpacity>
-                            <View className="bg-white rounded-3xl p-2">
+                            <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Frango</Text>
+                                <Text className="text-white text-center">Frango</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizza</Text>
+                                <Text className="text-white text-center">Pizza</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
                         </View>
                     </ScrollView>
