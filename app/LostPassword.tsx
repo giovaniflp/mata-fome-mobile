@@ -1,5 +1,5 @@
 import { H2, H6, Input, Button  } from "tamagui"
-import { Image, ScrollView, View } from "react-native"
+import { Image, ScrollView, View, Text } from "react-native"
 import { router } from "expo-router"
 import { useState } from "react";
 
