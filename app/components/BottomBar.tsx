@@ -4,7 +4,7 @@ import { router } from "expo-router"
 export default function BottomBar({screen} : {screen:string}){
     return(
         screen === 'HomeScreen' &&
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
+            <View className="w-full h-12 bg-orange-500 flex justify-center">
                 <View className="flex flex-row items-center justify-center gap-16">
                     <TouchableOpacity>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
@@ -22,7 +22,7 @@ export default function BottomBar({screen} : {screen:string}){
             </View>
         ||
         screen === 'SearchScreen' &&
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
+            <View className="w-full h-12 bg-orange-500 flex justify-center">
                 <View className="flex flex-row items-center justify-center gap-16">
                     <TouchableOpacity onPress={()=>{router.push('HomeScreen')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
@@ -40,7 +40,7 @@ export default function BottomBar({screen} : {screen:string}){
             </View>
         ||
         screen === 'CategoryScreen' &&
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
+            <View className="w-full h-12 bg-orange-500 flex justify-center">
                 <View className="flex flex-row items-center justify-center gap-16">
                     <TouchableOpacity onPress={()=>{router.push('HomeScreen')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
@@ -58,7 +58,7 @@ export default function BottomBar({screen} : {screen:string}){
             </View>
         ||
         screen === 'ProfileScreen' &&
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
+            <View className="w-full h-12 bg-orange-500 flex justify-center">
                 <View className="flex flex-row items-center justify-center gap-16">
                     <TouchableOpacity onPress={()=>{router.push('HomeScreen')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
@@ -75,7 +75,7 @@ export default function BottomBar({screen} : {screen:string}){
                 </View>
             </View>
         ||
-            <View className="w-full h-16 bg-orange-500 flex justify-center">
+            <View className="w-full h-12 bg-orange-500 flex justify-center">
                 <View className="flex flex-row items-center justify-center gap-16">
                     <TouchableOpacity onPress={()=>{router.push('HomeScreen')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/home.png")}></Image>
