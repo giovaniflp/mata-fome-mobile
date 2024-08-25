@@ -55,12 +55,6 @@ export default function ProfileScreen(){
                     <H3 className="text-black">{username}</H3>
                 </View>
                 <View className="flex items-center">
-                    {/* <Button onPress={()=>{
-                        router.push('OrderHistory')
-                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/order.png")}></Image>}>Pedidos realizados</Button> */}
-                    <Button onPress={()=>{
-                        router.push('CartScreen')
-                    }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")}></Image>}>Meu carrinho</Button>
                     <Button onPress={()=>{
                         router.push('MyAddress')
                     }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/pinDrop.png")}></Image>}>Meus endereços</Button>

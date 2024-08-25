@@ -38,7 +38,9 @@ export default function PaymentScreen(){
                             }} className="mt-5 bg-black">
                                 <Text className="text-white">Cartão de crédito</Text>
                             </Button>
-                            <Button className="mt-5 bg-white">
+                            <Button onPress={()=>{
+                                router.push('RegisterNewDebitPaymentScreen')
+                            }} className="mt-5 bg-white">
                                 <Text className="text-black">Cartão de débito</Text>
                             </Button>
                             <H4 className="mt-5 text-black">Vales</H4>

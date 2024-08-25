@@ -5,6 +5,8 @@ import BottomBar from "app/components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from "react";
 import axiosInstance from "app/config/axiosUrlConfig";
+import { router } from "expo-router";
+
 
 export default function HomeScreen(){
 
@@ -85,19 +87,19 @@ export default function HomeScreen(){
                         <View className="flex flex-row ml-1">
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Hambúrguer</Text>
+                                <Text className="text-white text-center">Hambúrguer</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Frango</Text>
+                                <Text className="text-white text-center">Frango</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Pizza</Text>
+                                <Text className="text-white text-center">Pizza</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 mr-1 ml-2">
                                 <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Batata frita</Text>
+                                <Text className="text-white text-center">Batata frita</Text>
                             </View>
                         </View>
                     </ScrollView>
@@ -106,23 +108,26 @@ export default function HomeScreen(){
                         <View className="flex flex-row  ml-1">
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Bebidas</Text>
+                                <Text className="text-white text-center">Bebidas</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Restaurantes</Text>
+                                <Text className="text-white text-center">Restaurantes</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Japonesa</Text>
+                                <Text className="text-white text-center">Japonesa</Text>
                             </View>
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Brasileira</Text>
+                                <Text className="text-white text-center">Brasileira</Text>
                             </View>
-                            <View className="bg-orange-300 rounded-3xl p-2 mr-1 ml-2">
-                                <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Ver mais +</Text>
+                            <View  className="bg-orange-300 rounded-3xl p-2 mr-1 ml-2">
+                                
+                                    <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
+                                    <Text className="text-white text-center">Ver mais +</Text>
+                            
+                                
                             </View>
                             </View>
                         </ScrollView>
