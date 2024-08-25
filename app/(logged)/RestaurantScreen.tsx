@@ -42,7 +42,7 @@ export default function RestaurantScreen(){
                         prateleira.produtos.length > 0 && ( // Verifica se há produtos na prateleira
                             <View key={prateleira.id} className="mb-5">
                                 <Text className="text-lg font-bold text-black mb-2">{prateleira.nomePrateleira}</Text>
-                                <View className="flex flex-row">
+                                <View className="flex flex-row flex-wrap">
                                     {prateleira.produtos.map((produto) => (
                                         <TouchableOpacity 
                                             key={produto.id} 
