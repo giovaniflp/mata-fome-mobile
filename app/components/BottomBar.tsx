@@ -12,7 +12,7 @@ export default function BottomBar({screen} : {screen:string}){
                     <TouchableOpacity onPress={()=>{router.push('SearchScreen')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{router.push('CategoryScreen')}}>
+                    <TouchableOpacity onPress={()=>{router.push('OrderHistory')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/list.png")}></Image>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{router.push('ProfileScreen')}}>
@@ -30,7 +30,7 @@ export default function BottomBar({screen} : {screen:string}){
                     <TouchableOpacity>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{router.push('CategoryScreen')}}>
+                    <TouchableOpacity onPress={()=>{router.push('OrderHistory')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/list.png")}></Image>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{router.push('ProfileScreen')}}>
@@ -39,7 +39,7 @@ export default function BottomBar({screen} : {screen:string}){
                 </View>
             </View>
         ||
-        screen === 'CategoryScreen' &&
+        screen === 'OrderHistory' &&
             <View className="w-full h-12 bg-orange-500 flex justify-center">
                 <View className="flex flex-row items-center justify-center gap-16">
                     <TouchableOpacity onPress={()=>{router.push('HomeScreen')}}>
@@ -66,7 +66,7 @@ export default function BottomBar({screen} : {screen:string}){
                     <TouchableOpacity onPress={()=>{router.push('SearchScreen')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{router.push('CategoryScreen')}}>
+                    <TouchableOpacity onPress={()=>{router.push('OrderHistory')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/list.png")}></Image>
                     </TouchableOpacity>
                     <TouchableOpacity>
@@ -83,7 +83,7 @@ export default function BottomBar({screen} : {screen:string}){
                     <TouchableOpacity onPress={()=>{router.push('SearchScreen')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{router.push('CategoryScreen')}}>
+                    <TouchableOpacity onPress={()=>{router.push('OrderHistory')}}>
                         <Image className="w-10 h-10" source={require("../public/icons/ui/list.png")}></Image>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{router.push('ProfileScreen')}}>
