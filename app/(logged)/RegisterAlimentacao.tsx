@@ -9,7 +9,7 @@ import axios from "axios";
 import axiosInstance from "app/config/axiosUrlConfig";
 import * as SecureStore from 'expo-secure-store';
 
-export default function RegisterNewAddressScreen(){
+export default function RegisterAlimentacao(){
 
     const[cepCobranca, setCepCobranca] = useState("")
     const[estadoCobranca, setEstadoCobranca] = useState("")
@@ -19,6 +19,7 @@ export default function RegisterNewAddressScreen(){
     const[numeroCartao, setNumeroCartao] = useState("")
     const[dataValidade, setDataValidade] = useState("")
     const[nomeTitular, setNomeTitular] = useState("")
+    const[cpfTitular, setcpfTitular] = useState("")
     const[cvv, setCvv] = useState("")
 
     const [token, setToken] = useState(null);
@@ -76,6 +77,7 @@ export default function RegisterNewAddressScreen(){
             numero_cartao: numeroCartao,
             data_validade: dataValidade,
             nome_titular: nomeTitular,
+            cpf_titular: cpfTitular,
             cvv: cvv,
             endereco_cobranca: enderecoCobranca,
             cidade_cobranca: cidadeCobranca,
@@ -96,33 +98,42 @@ export default function RegisterNewAddressScreen(){
         <View className="flex-1">
             <ScrollView className="bg-white">
             <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">Registrar novo cartão de crédito</H4>
-                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")}></Image>
-                </View>
-                <View className="mt-5 p-5">
+            <View className="mt-5 flex flex-row justify-beetwed items-center">
+                    <H4 className="text-black p-5">Registrar Cartão Alimentação</H4>
+                        <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")}></Image>
+                    </View>
+                <View className="p-8">
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="mb-4">
                             <H5 className="text-black">Número do cartão</H5>
                             <Input value={numeroCartao} onChangeText={(text)=>{setNumeroCartao(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
+
                         <View className="mb-4">
                             <H5 className="text-black">Data de validade</H5>
                             <Input value={dataValidade} onChangeText={(text)=>{setDataValidade(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Nome do titular</H5>
-                            <Input value={nomeTitular} onChangeText={(text)=>{setNomeTitular(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
+
                         <View className="mb-4">
                             <H5 className="text-black">CVV</H5>
                             <Input value={cvv} onChangeText={(text)=>{setCvv(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
+
                         <View className="mb-4">
-                            <H5 className="text-black">CEP de cobrança</H5>
+                            <H5 className="text-black">Nome do titular</H5>
+                            <Input value={nomeTitular} onChangeText={(text)=>{setNomeTitular(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                        </View>
+
+                        <View className="mb-4">
+                            <H5 className="text-black">CPF</H5>
+                            <Input value={cpfTitular} onChangeText={(text)=>{setcpfTitular(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                        </View>
+
+                        <View className="mb-4">
+                        <H5 className="text-black">CEP de cobrança</H5>
                             <View className="flex flex-row items-center">
-                                <Input value={cepCobranca} onChangeText={(text) => setCepCobranca(text)}  className="bg-white rounded-lg h-14 text-black w-72"></Input>
-                                <Button onPress={consultarCEP} className="w-14 h-14 ml-2" icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>}></Button>
+                                <Input value={cepCobranca} onChangeText={(text) => setCepCobranca(text)}  className="bg-white rounded-lg h-14 text-black w-60"></Input>
+                                <Button onPress={consultarCEP} className="w-14 h-14 ml-8" icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>}></Button>
                             </View>
                         </View>
                         <View className="mb-4">
@@ -170,8 +181,7 @@ export default function RegisterNewAddressScreen(){
                             <Input value={enderecoCobranca} onChangeText={(text)=>{setEnderecoCobranca(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
                         </View>
                         <View className="my-5">
-                            <Button onPress={apiRegisterNewCard}>Regitrar novo cartão</Button>
-                            <RegisterAddressToast></RegisterAddressToast>
+                        <RegisterAddressToast></RegisterAddressToast>
                         </View>
                     </ScrollView>
                     </View>

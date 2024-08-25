@@ -27,25 +27,33 @@ export default function PaymentScreen(){
                         </View>
                         <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex">
                             <H4 className="text-black">Formas de pagamento</H4>
+                            
                             <Button className=" bg-green-500 mt-5">
                                 <Text className="text-white">Usar dinheiro da carteira</Text>
                             </Button>
-                            <Button className="mt-5 bg-orange-500">
-                                <Text className="text-white">PIX</Text>
-                            </Button>
+                            
                             <Button onPress={()=>{
-                                router.push('RegisterNewPaymentMethodScreen')
+                                router.push('RegisterCredito')
                             }} className="mt-5 bg-black">
                                 <Text className="text-white">Cartão de crédito</Text>
                             </Button>
-                            <Button className="mt-5 bg-white">
+                            
+                            <Button onPress={()=>{
+                                router.push('RegisterDebito')
+                            }} className="mt-5 bg-white">
                                 <Text className="text-black">Cartão de débito</Text>
                             </Button>
+
                             <H4 className="mt-5 text-black">Vales</H4>
-                            <Button className="bg-black mt-5">
+                            <Button onPress={()=>{
+                                router.push('RegisterAlimentacao')
+                            }} className="bg-black mt-5">
                                 <Text className="text-white">Vale alimentação</Text>
                             </Button>
-                            <Button className="mt-5 bg-white">
+
+                            <Button onPress={()=>{
+                                router.push('RegisterRefeicao')
+                            }} className="bg-white mt-5">
                                 <Text className="text-black">Vale refeição</Text>
                             </Button>
                         </View>
