@@ -37,14 +37,7 @@ export default function HomeScreen(){
         const usernameParse = JSON.parse(usernameStorage);
         const idUserParse = JSON.parse(idUserStorage);
 
-        try{
-            await axiosInstance.get(`/api/cliente/${idUserParse}`).then((response)=>{
-                setUsername(response.data.nome)
-            })
-        }
-        catch(e){
-            alert(e)
-        }
+        setUsername(usernameParse)
     }
 
     useEffect(()=>{

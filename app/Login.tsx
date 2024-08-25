@@ -42,11 +42,11 @@ export default function Login() {
             password: password
         }
         try{
-            await axiosInstance.post('/api/auth', loginRequestData).then(async(response)=>{
+            await axiosInstance.post('/api/login', loginRequestData).then(async(response)=>{
                 console.log(response.data)
                 await SecureStore.setItemAsync('token', JSON.stringify(response.data.token))
-                await SecureStore.setItemAsync('username', JSON.stringify(response.data.username))
-                await SecureStore.setItemAsync('idUser', JSON.stringify(response.data.idUser))
+                await SecureStore.setItemAsync('username', JSON.stringify(response.data.ClienteData.nome))
+                await SecureStore.setItemAsync('idUser', JSON.stringify(response.data.ClienteData.id))
                 router.push('/HomeScreen')
             })
         }
