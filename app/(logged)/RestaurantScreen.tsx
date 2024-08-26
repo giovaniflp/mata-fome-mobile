@@ -42,7 +42,7 @@ export default function RestaurantScreen(){
                         prateleira.produtos.length > 0 && ( // Verifica se há produtos na prateleira
                             <View key={prateleira.id} className="mb-5">
                                 <Text className="text-lg font-bold text-black mb-2">{prateleira.nomePrateleira}</Text>
-                                <View className="flex flex-row flex-wrap">
+                                <View className="flex flex-row flex-wrap justify-center">
                                     {prateleira.produtos.map((produto) => (
                                         <TouchableOpacity 
                                             key={produto.id} 
@@ -56,10 +56,10 @@ export default function RestaurantScreen(){
                                                     },
                                                 });
                                             }} 
-                                            className="bg-orange-300 rounded-3xl p-2 m-2"
+                                            className="bg-orange-300 rounded-3xl p-2 m-2 w-40"
                                         >
                                             <Image 
-                                                className="w-40 h-24 rounded-lg" 
+                                                className="w-36 h-24 rounded-lg" 
                                                 source={produto.urlImagem 
                                                     ? { uri: produto.urlImagem } 
                                                     : require("../public/images/BrandIcon.png")} // Imagem padrão caso `urlImagem` seja `null`

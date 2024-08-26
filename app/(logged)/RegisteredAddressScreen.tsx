@@ -3,8 +3,37 @@ import { router } from "expo-router";
 import { TouchableOpacity, Image, ScrollView, View } from "react-native";
 import { Button, H4, H5, H6, Text } from "tamagui";
 import BottomBar from "app/components/BottomBar";
+import { useState, useEffect } from "react";
+import axiosInstance from "app/config/axiosUrlConfig";
+import * as SecureStore from 'expo-secure-store';
 
 export default function RegisteredAddressScreen(){
+
+    const [addressList, setAddressList] = useState([]);
+    const [selectedAddress, setSelectedAddress] = useState();
+
+    console.log(selectedAddress)
+
+    const apiGetAllRegisteredAddress = async () => {
+
+        const idUserStorage = await SecureStore.getItemAsync('idUser');
+        const idUserParse = JSON.parse(idUserStorage);
+
+            try{
+                await axiosInstance.get(`/api/clientes/${idUserParse}/enderecos`).then((response)=>{
+                    setAddressList(response.data.enderecos)
+                })
+            }
+            catch(e){
+                alert(e)
+            }
+        
+    }
+
+    useEffect(()=>{
+        apiGetAllRegisteredAddress();
+    },[])
+
     return(
         <View className="flex-1">
             <ScrollView className="bg-white">
@@ -15,78 +44,38 @@ export default function RegisteredAddressScreen(){
                 </View>
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row">
-                            <View className="w-80">
-                                <H5 className="text-black">Endereço 01</H5>
-                                <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
-                            </View>
-                            <View>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")}></Image>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row">
-                            <View className="w-80">
-                                <H5 className="text-black">Endereço 02</H5>
-                                <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
-                            </View>
-                            <View>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")}></Image>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row">
-                            <View className="w-80">
-                                <H5 className="text-black">Endereço 03</H5>
-                                <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
-                            </View>
-                            <View>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")}></Image>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row">
-                            <View className="w-80">
-                                <H5 className="text-black">Endereço 04</H5>
-                                <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
-                            </View>
-                            <View>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")}></Image>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row">
-                            <View className="w-80">
-                                <H5 className="text-black">Endereço 05</H5>
-                                <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
-                            </View>
-                            <View>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")}></Image>
-                                </TouchableOpacity>
-                                <TouchableOpacity>
-                                    <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
+                    {
+    addressList.map((address, index) => {
+        const isSelected = address.id === selectedAddress;
+
+        return (
+            <TouchableOpacity 
+                onPress={() => {
+                    setSelectedAddress(address.id);
+                }} 
+                key={address.id} 
+                className={`bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row ${isSelected ? 'border-2 border-orange-500' : 'border-transparent'}`}
+            >
+                <View className="w-80">
+                    <H5 className="text-black">Endereço {index+1} - CEP: {address.cep}</H5>
+                    <H6 className="text-black">{address.logradouro}, {address.numero}, {address.bairro}, {address.cidade} - {address.estado}</H6>
+                </View>
+                <View>
+                    <TouchableOpacity>
+                        <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")}></Image>
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")}></Image>
+                    </TouchableOpacity>
+                </View>
+            </TouchableOpacity>
+        );
+    })
+}
                         <View className="p-4 mx-2 mt-5 flex items-center">
-                            <TouchableOpacity className="flex flex-row justify-center items-center">
+                            <TouchableOpacity onPress={()=>{
+                                router.push("RegisterNewAddressScreen")
+                            }} className="flex flex-row justify-center items-center">
                                 <H4 className="text-black">Adicionar novo endereço</H4>
                                 <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")}></Image>
                             </TouchableOpacity>

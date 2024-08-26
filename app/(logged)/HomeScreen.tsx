@@ -101,7 +101,7 @@ export default function HomeScreen(){
                             {
                                 empresasList.map((empresa)=>{
                                     return(
-                                        <TouchableOpacity onPress={()=>{
+                                        <TouchableOpacity key={empresa.id} onPress={()=>{
                                             router.push({
                                                 pathname: "/RestaurantScreen",
                                                 params: {
