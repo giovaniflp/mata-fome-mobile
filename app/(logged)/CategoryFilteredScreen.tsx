@@ -22,7 +22,7 @@ export default function CategoryFilteredScreen(){
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoChicken.png")}></Image>
                 </View>
                 <View className="flex items-center my-3 p-3">
-                    <Input className="bg-white text-black w-11/12" placeholder="Busque por pratos e restaurantes japoneses"></Input>
+                    <Input className="bg-slate-100 text-black w-11/12 border-transparent" placeholder="Busque por pratos e restaurantes japoneses"></Input>
                     <View className="flex w-11/12 mt-5">
                         <View className="flex flex-row w-3/6">
                             <Checkbox className="w-6 h-6" onCheckedChange={()=>{
@@ -61,46 +61,46 @@ export default function CategoryFilteredScreen(){
                         <View className="flex justify-center flex-row flex-wrap">
                             <TouchableOpacity onPress={()=>{
                                 router.push('ProductDescription')
-                            }} className="bg-white rounded-3xl p-2">
+                            }} className="bg-orange-300 rounded-3xl p-2 mt-2 mr-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                                 <Image className="w-10 h-10 rounded-full absolute bottom-8 right-3" source={require("../public/images/PizzaBox.png")}></Image>
-                                <Text className="text-black text-center">Sushi grelhado</Text>
+                                <Text className="text-white text-center">Sushi grelhado</Text>
                             </TouchableOpacity>
-                            <View className="bg-white rounded-3xl p-2">
+                            <View className="bg-orange-300 rounded-3xl p-2 mt-2 ">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Yang Ping</Text>
+                                <Text className="text-white text-center">Yang Ping</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2">
+                            <View className="bg-orange-300 rounded-3xl p-2 mt-2 mr-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mt-2 mr-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-2 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
-                            <View className="bg-white rounded-3xl p-2 mr-1">
+                            <View className="bg-orange-300 rounded-3xl p-2 mr-1 mt-2">
                                 <Image className="w-40 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                <Text className="text-black text-center">Sushi</Text>
+                                <Text className="text-white text-center">Sushi</Text>
                             </View>
                         </View>
                     </ScrollView>

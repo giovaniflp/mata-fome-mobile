@@ -13,29 +13,29 @@ export default function CategoryScreen(){
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoChef.png")}></Image>
                 </View>
                 <View>
-                    <ScrollView className="mt-5" showsVerticalScrollIndicator={false}>
+                    <ScrollView className="mt-5 mr-6 ml-6 " showsVerticalScrollIndicator={false}>
                         <View className="flex justify-center flex-row flex-wrap">
                             <TouchableOpacity onPress={()=>{
                                 router.push('CategoryFilteredScreen')
                             }} className="bg-white rounded-3xl p-2">
                                 <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                             </TouchableOpacity>
-                            <TouchableOpacity className="bg-white rounded-3xl p-2">
+                            <TouchableOpacity className="bg-white rounded-3xl p-2 mt-2">
+                                <Image className="w-96 h-28 " source={require("../public/images/slide01.jpg")}></Image>
+                            </TouchableOpacity>
+                            <TouchableOpacity className="bg-white rounded-3xl p-2 mt-2">
                                 <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                             </TouchableOpacity>
-                            <TouchableOpacity className="bg-white rounded-3xl p-2">
+                            <TouchableOpacity className="bg-white rounded-3xl p-2 mt-2">
                                 <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                             </TouchableOpacity>
-                            <TouchableOpacity className="bg-white rounded-3xl p-2">
+                            <TouchableOpacity className="bg-white rounded-3xl p-2 mt-2">
                                 <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                             </TouchableOpacity>
-                            <TouchableOpacity className="bg-white rounded-3xl p-2">
+                            <TouchableOpacity className="bg-white rounded-3xl p-2 mt-2">
                                 <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                             </TouchableOpacity>
-                            <TouchableOpacity className="bg-white rounded-3xl p-2">
-                                <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                            </TouchableOpacity>
-                            <TouchableOpacity className="bg-white rounded-3xl p-2">
+                            <TouchableOpacity className="bg-white rounded-3xl p-2 mt-2">
                                 <Image className="w-96 h-28 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                             </TouchableOpacity>
                         </View>

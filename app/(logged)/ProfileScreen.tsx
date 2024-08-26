@@ -22,14 +22,7 @@ export default function ProfileScreen(){
         const usernameParse = JSON.parse(usernameStorage);
         const idUserParse = JSON.parse(idUserStorage);
 
-        try{
-            await axiosInstance.get(`/api/cliente/${idUserParse}`).then((response)=>{
-                setUsername(response.data.nome)
-            })
-        }
-        catch(e){
-            alert(e)
-        }
+        setUsername(usernameParse)
     }
 
     useEffect(()=>{
@@ -43,8 +36,10 @@ export default function ProfileScreen(){
         router.push('/')
     }
 
+    
+
     return(
-        <View className="flex-1">
+        <View className="flex-1 bg-white">
             <ScrollView className="bg-white">
                 <View className="flex items-center mt-10">
                     <Image source={require("../public/images/slide01.jpg")} className="w-40 h-40 rounded-full"></Image>
@@ -54,24 +49,18 @@ export default function ProfileScreen(){
                 </View>
                 <View className="flex items-center">
                     <Button onPress={()=>{
-                        router.push('OrderHistory')
-                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/order.png")}></Image>}>Pedidos realizados</Button>
-                    <Button onPress={()=>{
-                        router.push('CartScreen')
-                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")}></Image>}>Meu carrinho</Button>
-                    <Button onPress={()=>{
                         router.push('MyAddress')
-                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/pinDrop.png")}></Image>}>Meus endereços</Button>
+                    }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/pinDrop.png")}></Image>}>Meus endereços</Button>
                     <Button onPress={()=>{
                         router.push('PaymentScreen')
-                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/creditCard.png")}></Image>}>Formas de pagamento</Button>
+                    }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/creditCard.png")}></Image>}>Formas de pagamento</Button>
                     <Button onPress={()=>{
                         router.push('NotificationScreen')
-                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/notification.png")}></Image>}>Notificações no App</Button>
+                    }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/notification.png")}></Image>}>Notificações no App</Button>
                     <Button onPress={()=>{
                         router.push('SupportScreen')
-                    }} className="bg-black text-white w-60 mb-2" icon={<Image className="w-10 h-10" source={require("../public/icons/tomato/TomatoSupport.png")}></Image>}>Suporte</Button>
-                    <Button onPress={logoutAccount} className="bg-red-500 text-white w-60" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/logout.png")}></Image>}>Deslogar da conta</Button>
+                    }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-10 h-10" source={require("../public/icons/tomato/TomatoSupport.png")}></Image>}>Suporte</Button>
+                    <Button onPress={logoutAccount} className="bg-red-500 text-white w-60 mt-3"  icon={<Image className="w-5 h-5" source={require("../public/icons/ui/logout.png")}></Image>}>Deslogar da conta</Button>
                 </View>
             </ScrollView>
             <BottomBar screen="ProfileScreen"></BottomBar>

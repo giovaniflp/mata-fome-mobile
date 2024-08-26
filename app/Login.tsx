@@ -42,11 +42,11 @@ export default function Login() {
             password: password
         }
         try{
-            await axiosInstance.post('/api/auth', loginRequestData).then(async(response)=>{
+            await axiosInstance.post('/api/login', loginRequestData).then(async(response)=>{
                 console.log(response.data)
                 await SecureStore.setItemAsync('token', JSON.stringify(response.data.token))
-                await SecureStore.setItemAsync('username', JSON.stringify(response.data.username))
-                await SecureStore.setItemAsync('idUser', JSON.stringify(response.data.idUser))
+                await SecureStore.setItemAsync('username', JSON.stringify(response.data.ClienteData.nome))
+                await SecureStore.setItemAsync('idUser', JSON.stringify(response.data.ClienteData.id))
                 router.push('/HomeScreen')
             })
         }
@@ -62,12 +62,12 @@ export default function Login() {
                 <Image source={require("./public/icons/tomato/TomatoNotebook.png")} className="w-40 h-40"></Image>
             </View>
             <View className="flex items-center mt-8">
-                <H2 className="text-center text-orange-500">Entrar</H2>
+                <H2 className="text-center text-orange-500">ENTRAR</H2>
                 <View className="flex items-center mt-8">
                     <View>
                         <H6 className="text-black">Email</H6>
                         <Input
-                            className="w-80 bg-white text-black"
+                            className="w-80 bg-white text-black rounded shadow hover:border-orange-600"
                             placeholder="Digite seu e-mail"
                             value={email}
                             onChangeText={setEmail}
@@ -78,7 +78,7 @@ export default function Login() {
                             <H6 className="text-black">Senha</H6>
                         </View>
                         <Input
-                            className="w-80 bg-white text-black"
+                            className="w-80 bg-white text-black rounded shadow hover:border-orange-600"
                             placeholder="Digite sua senha"
                             secureTextEntry
                             value={password}
@@ -87,7 +87,7 @@ export default function Login() {
                         {error ? <Text className="text-red-500 mt-4 mx-14 text-xs text-center">{error}</Text> : null}
                     </View>
                     <Button onPress={apiLoginUser} className='w-60 bg-orange-500 rounded-3xl mt-8 text-white'>Entrar</Button>
-                    <H6 className="text-black my-8">Ou</H6>
+                    <H6 className="text-black my-4">Ou</H6>
                     <Button onPress={()=>{
                         router.push('/HomeScreen')
                     }} icon={<Image source={GoogleIcon} className="w-7 h-7"></Image>} className="bg-orange-500 text-white">Logar com o Google</Button>

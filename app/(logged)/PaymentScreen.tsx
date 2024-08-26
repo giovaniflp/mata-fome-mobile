@@ -14,7 +14,7 @@ export default function PaymentScreen(){
                 </View>
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex">
+                        <View className="bg-gray-200 rounded-3xl p-4 mt-5 flex ml-4 mr-4">
                             <View className="w-80">
                                 <H4 className="text-black">Saldo em carteira</H4>
                                 <H5 className="text-orange-500">R$ 25,93</H5>
@@ -25,7 +25,7 @@ export default function PaymentScreen(){
                                 </Button>
                             </View>
                         </View>
-                        <View className="bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex">
+                        <View className="bg-gray-200 rounded-3xl p-4 mt-6 flex ml-4 mr-4">
                             <H4 className="text-black">Formas de pagamento</H4>
                             
                             <Button className=" bg-green-500 mt-5">
@@ -37,7 +37,6 @@ export default function PaymentScreen(){
                             }} className="mt-5 bg-black">
                                 <Text className="text-white">Cartão de crédito</Text>
                             </Button>
-                            
                             <Button onPress={()=>{
                                 router.push('RegisterDebito')
                             }} className="mt-5 bg-white">
