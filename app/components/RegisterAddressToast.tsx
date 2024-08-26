@@ -41,7 +41,7 @@ export function RegisterAddressToast() {
               message: "O endereço foi registrado com sucesso!",
             })
           }} className="bg-green-500 w-40">
-                            <Text className="text-white">Confirmar</Text>
+                            <Text className="text-white">Registrar</Text>
                         </Button>
     </View>
   )
