@@ -81,7 +81,7 @@ export default function Register() {
         }
         console.log(registerRequestData)
         try{
-            await axiosInstance.post("/api/cliente", registerRequestData).then((response)=>{
+            await axiosInstance.post("/api/clientes", registerRequestData).then((response)=>{
                 console.log(response)
                 if(response.status == 201){
                     router.push('/ConfirmEmailCode')

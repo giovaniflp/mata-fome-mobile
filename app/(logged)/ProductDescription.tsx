@@ -59,7 +59,7 @@ export default function ProductDescription(){
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="flex items-center">
-                                <Image className="w-80 h-60 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
+                                <Image className="w-80 h-60 rounded-lg" source={{uri: productData.urlImagem}}></Image>
                         </View>
                         <View className="flex flex-row justify-evenly items-center my-5">
                             <View className="flex items-center">

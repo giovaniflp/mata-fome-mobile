@@ -83,7 +83,7 @@ export default function RegisterNewAddressScreen(){
             complemento: complemento
         }
         try{
-            await axiosInstance.post(`/api/cliente/endereco/${userId}`, registerAddressRequestData).then((response)=>{
+            await axiosInstance.post(`/api/clientes/${userId}/enderecos`, registerAddressRequestData).then((response)=>{
                 console.log(response.data)
                 alert("Endereço registrado com sucesso!")
             })
