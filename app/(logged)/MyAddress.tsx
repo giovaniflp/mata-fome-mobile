@@ -32,6 +32,28 @@ export default function MyAddress() {
         apiGetAllRegisteredAddress();
     }, []);
 
+
+    // function editAddress(){
+
+    //     const idEnderecoStorage = await SecureStore.getItemAsync('idEndereco');
+    //         const idEnderecoParse = JSON.parse(idEnderecoStorage);
+
+    //         if (!idEnderecoParse) {
+    //             alert("Endereço não encontrado.");
+    //             return;
+    //         }
+
+    //         try {
+    //             const response = await axiosInstance.get(`/api/clientes/${enderecoId}/enderecos`);
+    //             setAddressList(response.data.enderecos);
+    //         } catch (e) {
+    //             alert(e.message || "Erro ao alerar endereço.");
+    //         }
+    //     };
+
+
+    // }
+
     return (
         <View className="flex-1">
             <ScrollView className="bg-white">
@@ -56,7 +78,24 @@ export default function MyAddress() {
                                             <H6 className="text-black">{address.logradouro}, {address.numero}, {address.bairro}, {address.cidade} - {address.estado}</H6>
                                         </View>
                                         <View className="flex flex-row ml-2">
-                                            <TouchableOpacity>
+                                            <TouchableOpacity key={address.id}
+                                            
+                                            onPress={()=>{
+                                                router.push({
+                                                    pathname: "/EditAdress",
+                                                    params: {
+                                                        idAdress: address.id,
+                                                        logradouro: address.logradouro,
+                                                        numero: address.numero,
+                                                        bairro: address.bairro,
+                                                        cidade: address.cidade,
+                                                        estado: address.estado
+
+                                                    }
+                                                })
+                                            }}
+                                            
+                                            >
                                                 <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")} />
                                             </TouchableOpacity>
                                             <TouchableOpacity className="ml-2">

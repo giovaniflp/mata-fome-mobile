@@ -1,9 +1,9 @@
-import { router, useLocalSearchParams } from "expo-router";
-import { TouchableOpacity, Image, ScrollView, View } from "react-native";
-import { H4, Text } from "tamagui";
 import BottomBar from "app/components/BottomBar";
 import axiosInstance from "app/config/axiosUrlConfig";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
+import { Image, ScrollView, TouchableOpacity, View } from "react-native";
+import { H4, Text } from "tamagui";
 
 export default function RestaurantScreen(){
 
