@@ -8,7 +8,7 @@ import { Button, H4, H5, H6 } from "tamagui"; // Ajuste conforme necessário par
 
 export default function MyAddress() {
     const [addressList, setAddressList] = useState([]);
-    const [selectedAddress, setSelectedAddress] = useState();
+    const [selectedAddress, setSelectedAddress] = useState(null); // Alterado para null
     const router = useRouter(); // Ajuste conforme necessário para o roteamento
 
     useEffect(() => {
@@ -31,6 +31,36 @@ export default function MyAddress() {
 
         apiGetAllRegisteredAddress();
     }, []);
+
+    const apiDeleteAddress = async (addressId) => {
+        if (!addressId) {
+            alert("Endereço não encontrado.");
+            return;
+        }
+
+        try {
+            // Envie apenas a URL para o endpoint de exclusão
+            const response = await axiosInstance.delete(`/api/clientes/enderecos/${addressId}`);
+            
+            // Verifique a resposta do servidor
+            if (response.status === 204) {
+                // Status 204 No Content indica que a exclusão foi bem-sucedida
+                console.log("Endereço excluído com sucesso!");
+                alert("Endereço excluído com sucesso!");
+
+                // Atualize a lista de endereços
+                setAddressList((prevList) => prevList.filter(address => address.id !== addressId));
+            } else {
+                // Caso o status da resposta seja diferente de 204, mostre a mensagem de sucesso
+                console.log(response.data);
+                alert("Endereço excluído com sucesso!");
+            }
+        } catch (e) {
+            // Tratamento de erro
+            console.error("Erro ao excluir o endereço:", e);
+            alert("Erro ao excluir o endereço: " + e.message);
+        }
+    };
 
     return (
         <View className="flex-1">
@@ -68,14 +98,17 @@ export default function MyAddress() {
                                                             cidade: address.cidade,
                                                             estado: address.estado,
                                                             cep: address.cep,
-                                                            complemento: address.complemento,
+                                                            complemento: address.complemento
                                                         }
                                                     });
                                                 }}
                                             >
                                                 <Image className="w-10 h-10" source={require("../public/icons/ui/edit.png")} />
                                             </TouchableOpacity>
-                                            <TouchableOpacity className="ml-2">
+                                            <TouchableOpacity
+                                                className="ml-2"
+                                                onPress={() => apiDeleteAddress(address.id)} // Passa o ID do endereço para a função de exclusão
+                                            >
                                                 <Image className="w-10 h-10" source={require("../public/icons/ui/delete.png")} />
                                             </TouchableOpacity>
                                         </View>
