@@ -96,8 +96,8 @@ export default function HomeScreen(){
                 </View>
                 <View>
                     <H4 className="text-black ml-4 mt-4 mb-4" fontStyle="italic">Restaurantes</H4>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        <View className="flex flex-row ml-1">
+                    <ScrollView className="mt-5 mr-6 ml-6 " showsVerticalScrollIndicator={false}>
+                        <View className="flex justify-center flex-row flex-wrap">
                             {
                                 empresasList.map((empresa)=>{
                                     return(
@@ -109,7 +109,7 @@ export default function HomeScreen(){
                                                     nomeEmpresa: empresa.nomeFantasia
                                                 }
                                             })
-                                        }} className="bg-orange-300 rounded-3xl p-2 ml-2">
+                                        }} className="bg-orange-300 rounded-3xl p-2 ml-2 mt-2">
                                             <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                                             <Text className="text-white text-center">{empresa.nomeFantasia}</Text>
                                         </TouchableOpacity>
@@ -138,32 +138,17 @@ export default function HomeScreen(){
                                 <Text className="text-white text-center">Brasileira</Text>
                             </View>
                             <View  className="bg-orange-300 rounded-3xl p-2 mr-1 ml-2">
-                                    <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
+                                    <TouchableOpacity onPress={()=>{
+                                router.push("/CategoryScreen")
+                            }}>
+                                        <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                                     <Text className="text-white text-center">Ver mais +</Text>
+                                    </TouchableOpacity>
+                                    
                             </View>
                             </View>
                         </ScrollView>
-                        <H4 className="text-black ml-4 mt-4 mb-4" fontStyle="italic">Categorias</H4>
-                        <View className="flex flex-row flex-wrap justify-center gap-4">
-                            <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                    <Text className="text-white text-center">Ver mais +</Text>
-                            </View>
-                            <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                    <Text className="text-white text-center">Ver mais +</Text>
-                            </View>
-                            <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                    <Text className="text-white text-center">Ver mais +</Text>
-                            </View>
-                            <TouchableOpacity onPress={()=>{
-                                router.push("/CategoryScreen")
-                            }} className="bg-orange-300 rounded-3xl p-2 ml-2">
-                                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                                    <Text className="text-white text-center">Ver mais +</Text>
-                            </TouchableOpacity>
-                        </View>
+                        
                     </View>
                 </View>
             </ScrollView>

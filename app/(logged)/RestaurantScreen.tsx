@@ -65,6 +65,10 @@ export default function RestaurantScreen(){
                                                     : require("../public/images/BrandIcon.png")} // Imagem padrão caso `urlImagem` seja `null`
                                             />
                                             <Text className="text-white text-center">{produto.nome}</Text>
+                                            <Text className="text-white text-center">Descrição :{produto.descricao}</Text>
+                                            <Text className="text-white text-center">Preço : {produto.preco}</Text>
+
+
                                         </TouchableOpacity>
                                     ))}
             </View>

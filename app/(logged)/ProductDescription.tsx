@@ -78,7 +78,7 @@ export default function ProductDescription(){
                                 <H5 className="text-black">{productData.nome}</H5>
                             </View>
                             <View className="my-4">
-                                <H4 className="text-orange-500">Ingredientes</H4>
+                                <H4 className="text-orange-500">Descrição</H4>
                                 <H6 className="text-black text-xs">{productData.descricao}</H6>
                             </View>
                             <View className="mb-4">
