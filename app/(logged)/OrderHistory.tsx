@@ -18,7 +18,7 @@ export default function OrderHistory() {
                         {[
                             { date: '27/07 às 02:42', status: 'Finalizado', total: 'R$ 55,00', statusColor: 'text-green-500' },
                             { date: '27/07 às 02:40', status: 'Em progresso', total: 'R$ 55,00', statusColor: 'text-orange-500' },
-                            { date: '27/07 às 02:38', total: 'R$ 50,00' },
+                            //{ date: '27/07 às 02:38', total: 'R$ 50,00' },
                             // Adicione outros pedidos aqui...
                         ].map((order, index) => (
                             <View key={index} className="bg-white rounded-3xl p-4 shadow-md mb-4 flex flex-row items-center">
