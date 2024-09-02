@@ -31,7 +31,7 @@ export default function RestaurantScreen(){
         <View className="flex-1">
             <ScrollView className="bg-white">
             <View className='bg-white '>
-                <View className=" items-center bg-orange-400 rounded-3xl p-2 m-2 w-15 ">
+                <View className=" items-center bg-gray-200 rounded-3xl p-2 m-2 w-15 ">
                     <Image className="w-20 h-20 mt-4  " source={require("../public/icons/tomato/TomatoCoffee.png")}></Image>
                     <H4 className="text-black">{nomeEmpresa}</H4>
                 </View>
@@ -41,7 +41,7 @@ export default function RestaurantScreen(){
                         {prateleiras.map((prateleira) => (
                         prateleira.produtos.length > 0 && ( // Verifica se há produtos na prateleira
                             <View key={prateleira.id} className="mb-5">
-                                <Text className="text-lg font-bold text-black mb-2 mr-2">{prateleira.nomePrateleira}</Text>
+                                <Text className="text-lg font-bold text-black mb-2 ml-3">{prateleira.nomePrateleira}</Text>
                                 <View className="flex flex-row flex-wrap justify-center">
                                     {prateleira.produtos.map((produto) => (
                                         <TouchableOpacity 
@@ -64,22 +64,25 @@ export default function RestaurantScreen(){
                                                     ? { uri: produto.urlImagem } 
                                                     : require("../public/images/BrandIcon.png")} // Imagem padrão caso `urlImagem` seja `null`
                                             />
-                                            <Text className="text-black text-center">{produto.nome}</Text>
-                                            <Text className="text-black text-center">Descriçao : {produto.descricao}</Text>
-                                            <Text className="text-black text-center">Preco : {produto.preco}</Text>
+                                            <View className="ml-6">
+                                                <Text className="text-black text-center">{produto.nome}</Text>
+                                                <Text className="text-black text-center ">Descriçao : {produto.descricao}</Text>
+                                                <Text className="text-black text-center">Preco : {produto.preco}</Text>
+                                            </View>
+                                            
 
 
                                         </TouchableOpacity>
                                     ))}
-            </View>
-        </View>
-    )
-))}
+                            </View>
+                        </View>
+                        )
+                        ))}
 
                         </View>
                     </ScrollView>
-                    </View>
                 </View>
+            </View>
             </ScrollView>
             <BottomBar screen="RestaurantScreen"></BottomBar>
         </View>
