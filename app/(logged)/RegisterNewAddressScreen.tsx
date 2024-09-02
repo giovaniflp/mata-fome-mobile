@@ -1,5 +1,5 @@
 import { useRouter } from "expo-router";
-import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { TouchableOpacity, Image, ScrollView, View, StyleSheet } from "react-native";
 import { Button, H4, H5, Input } from "tamagui";
 import BottomBar from "app/components/BottomBar";
 import { Picker } from '@react-native-picker/picker';
@@ -8,6 +8,7 @@ import { RegisterAddressToast } from "app/components/RegisterAddressToast";
 import axios from "axios";
 import axiosInstance from "app/config/axiosUrlConfig";
 import * as SecureStore from 'expo-secure-store';
+import { TextInputMask } from 'react-native-masked-text';
 
 export default function RegisterNewAddressScreen() {
     const [cep, setCep] = useState("");
@@ -81,6 +82,7 @@ export default function RegisterNewAddressScreen() {
             const response = await axiosInstance.post(`/api/clientes/${userId}/enderecos`, registerAddressRequestData);
             console.log(response.data);
             alert("Endereço registrado com sucesso!");
+            router.push('RegisteredAddressScreen');
         } catch (e) {
             alert("Erro ao registrar o endereço: " + e.message);
         }
@@ -97,26 +99,32 @@ export default function RegisterNewAddressScreen() {
                     <View className="mt-5 p-5">
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View className="mb-4">
-                                <H5 className="text-black">Nome do endereço</H5>
+                                <H5 className="text-black">Endereço</H5>
                                 <Input
                                     value={logradouro}
                                     onChangeText={setLogradouro}
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">CEP</H5>
-                                <View className="flex flex-row items-center">
-                                    <Input
+                            <View style={styles.inputGroup}>
+                                <H5 style={styles.label}>CEP</H5>
+                                <View style={styles.cepContainer}>
+                                    <TextInputMask
+                                        type={'custom'}
+                                        options={{
+                                            mask: '99999-999' // Máscara para o CEP
+                                        }}
                                         value={cep}
                                         onChangeText={setCep}
-                                        className="bg-white rounded-lg h-14 text-black w-72"
+                                        placeholder="00000-000"
+                                        style={styles.input}
                                     />
                                     <Button
                                         onPress={consultarCEP}
-                                        className="w-14 h-14 ml-2"
-                                        icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")} />}
-                                    />
+                                        style={styles.searchButton}
+                                    >
+                                        <Image style={styles.searchIcon} source={require("../public/icons/ui/search.png")} />
+                                    </Button>
                                 </View>
                             </View>
                             <View className="mb-4">
@@ -196,10 +204,15 @@ export default function RegisterNewAddressScreen() {
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
-                            <View className="my-5">
-                                <Button onPress={apiRegisterAddress}>Registrar endereço</Button>
-                                <RegisterAddressToast />
-                            </View>
+                            <View style={styles.buttonContainer}>
+                    <Button
+                        onPress={apiRegisterAddress}
+                        style={styles.submitButton}
+                        
+                    >
+                        Registrar endereço
+                    </Button>
+                </View>
                         </ScrollView>
                     </View>
                 </View>
@@ -208,3 +221,85 @@ export default function RegisterNewAddressScreen() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+    },
+    scrollView: {
+        flex: 1,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        marginTop: 10,
+    },
+    title: {
+        color: '#000',
+    },
+    image: {
+        width: 80,
+        height: 80,
+    },
+    form: {
+        flex: 1,
+        paddingHorizontal: 20,
+        paddingTop: 20,
+    },
+    inputGroup: {
+        marginBottom: 16,
+    },
+    label: {
+        color: '#000',
+        marginBottom: 8,
+    },
+    input: {
+        backgroundColor: '#fff',
+        borderColor: '#000',
+        borderWidth: 1,
+        borderRadius: 8,
+        height: 60,
+        paddingHorizontal: 10,
+        flex: 1, // Isso garante que o TextInput ocupe o espaço disponível
+    },
+    cepContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    searchButton: {
+        marginLeft: 10,
+        padding: 0,
+        height: 50,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    searchIcon: {
+        width: 24,
+        height: 24,
+    },
+    pickerContainer: {
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 8,
+        overflow: 'hidden',
+    },
+    picker: {
+        height: 50,
+        width: '100%',
+    },
+    buttonContainer: {
+        marginTop: 20,
+        alignItems: 'center',
+    },
+    submitButton: {
+        backgroundColor: '#FFA500', // Laranja
+        borderRadius: 8,
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        color: '#fff',
+    },
+});
