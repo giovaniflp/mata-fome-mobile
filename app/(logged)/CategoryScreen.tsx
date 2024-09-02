@@ -7,7 +7,7 @@ export default function CategoryScreen(){
     return(
         <View className="flex-1">
             <ScrollView showsVerticalScrollIndicator={false}>
-            <View className='bg-white'>
+            <View className='bg-white mb-8'>
                 <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Categorias</H4>
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoChef.png")}></Image>
@@ -53,6 +53,7 @@ export default function CategoryScreen(){
                     </View>
                 </View>
             </ScrollView>
+            
             <BottomBar screen="CategoryScreen"></BottomBar>
         </View>
     )
