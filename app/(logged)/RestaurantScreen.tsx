@@ -30,10 +30,10 @@ export default function RestaurantScreen(){
     return(
         <View className="flex-1">
             <ScrollView className="bg-white">
-            <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">{nomeEmpresa}</H4>
-                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoCoffee.png")}></Image>
+            <View className='bg-white '>
+                <View className=" items-center bg-orange-400 rounded-3xl p-2 m-2 w-15 ">
+                    <Image className="w-20 h-20 mt-4  " source={require("../public/icons/tomato/TomatoCoffee.png")}></Image>
+                    <H4 className="text-black">{nomeEmpresa}</H4>
                 </View>
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
@@ -41,7 +41,7 @@ export default function RestaurantScreen(){
                         {prateleiras.map((prateleira) => (
                         prateleira.produtos.length > 0 && ( // Verifica se há produtos na prateleira
                             <View key={prateleira.id} className="mb-5">
-                                <Text className="text-lg font-bold text-black mb-2">{prateleira.nomePrateleira}</Text>
+                                <Text className="text-lg font-bold text-black mb-2 mr-2">{prateleira.nomePrateleira}</Text>
                                 <View className="flex flex-row flex-wrap justify-center">
                                     {prateleira.produtos.map((produto) => (
                                         <TouchableOpacity 
@@ -56,7 +56,7 @@ export default function RestaurantScreen(){
                                                     },
                                                 });
                                             }} 
-                                            className="bg-orange-300 rounded-3xl p-2 m-2 w-40"
+                                            className="bg-white-300 rounded-3xl p-2 m-2 w-full"
                                         >
                                             <Image 
                                                 className="w-36 h-24 rounded-lg" 
@@ -64,7 +64,11 @@ export default function RestaurantScreen(){
                                                     ? { uri: produto.urlImagem } 
                                                     : require("../public/images/BrandIcon.png")} // Imagem padrão caso `urlImagem` seja `null`
                                             />
-                                            <Text className="text-white text-center">{produto.nome}</Text>
+                                            <Text className="text-black text-center">{produto.nome}</Text>
+                                            <Text className="text-black text-center">Descriçao : {produto.descricao}</Text>
+                                            <Text className="text-black text-center">Preco : {produto.preco}</Text>
+
+
                                         </TouchableOpacity>
                                     ))}
             </View>
