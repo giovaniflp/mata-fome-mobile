@@ -98,14 +98,6 @@ export default function RegisterNewAddressScreen() {
                     </View>
                     <View className="mt-5 p-5">
                         <ScrollView showsVerticalScrollIndicator={false}>
-                            <View className="mb-4">
-                                <H5 className="text-black">Endereço</H5>
-                                <Input
-                                    value={logradouro}
-                                    onChangeText={setLogradouro}
-                                    className="bg-white rounded-lg h-14 text-black"
-                                />
-                            </View>
                             <View style={styles.inputGroup}>
                                 <H5 style={styles.label}>CEP</H5>
                                 <View style={styles.cepContainer}>

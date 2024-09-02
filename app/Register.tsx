@@ -111,7 +111,7 @@ export default function Register() {
                     <TextInputMask
                         type={'custom'}
                         options={{
-                            mask: '(99) 99999-9999'
+                            mask: '(99) 9999-9999'
                         }}
                         value={phone}
                         onChangeText={setPhone}
