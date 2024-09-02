@@ -111,9 +111,7 @@ export default function BottomBar({screen} : {screen:string}){
             </View>
             
         ||
-        
-
-        
+               
             <View className="w-full h-12 bg-orange-500 flex justify-center">
                 <View className="flex flex-row items-center justify-center gap-10">
                     <TouchableOpacity onPress={()=>{router.push('HomeScreen')}}>

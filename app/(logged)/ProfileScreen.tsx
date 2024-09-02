@@ -6,11 +6,11 @@ import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from "react";
 import axiosInstance from "app/config/axiosUrlConfig";
 
-export default function ProfileScreen(){
+export default function ProfileScreen() {
 
-    const[token, setToken] = useState('');
-    const[username, setUsername] = useState('');
-    const[idUser, setIdUser] = useState('');
+    const [token, setToken] = useState('');
+    const [username, setUsername] = useState('');
+    const [idUser, setIdUser] = useState('');
 
     const getUsername = async () => {
 
@@ -25,9 +25,9 @@ export default function ProfileScreen(){
         setUsername(usernameParse)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getUsername();
-    },[])
+    }, [])
 
     const logoutAccount = async () => {
         await SecureStore.deleteItemAsync('token');
@@ -36,9 +36,8 @@ export default function ProfileScreen(){
         router.push('/')
     }
 
-    
 
-    return(
+    return (
         <View className="flex-1 bg-white">
             <ScrollView className="bg-white">
                 <View className="flex items-center mt-10">
@@ -48,19 +47,19 @@ export default function ProfileScreen(){
                     <H3 className="text-black">{username}</H3>
                 </View>
                 <View className="flex items-center">
-                    <Button onPress={()=>{
+                    <Button onPress={() => {
                         router.push('MyAddress')
                     }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/pinDrop.png")}></Image>}>Meus endereços</Button>
-                    <Button onPress={()=>{
+                    <Button onPress={() => {
                         router.push('PaymentScreen')
                     }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/creditCard.png")}></Image>}>Formas de pagamento</Button>
-                    <Button onPress={()=>{
+                    <Button onPress={() => {
                         router.push('NotificationScreen')
                     }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/notification.png")}></Image>}>Notificações no App</Button>
-                    <Button onPress={()=>{
+                    <Button onPress={() => {
                         router.push('SupportScreen')
                     }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-10 h-10" source={require("../public/icons/tomato/TomatoSupport.png")}></Image>}>Suporte</Button>
-                    <Button onPress={logoutAccount} className="bg-red-500 text-white w-60 mt-3"  icon={<Image className="w-5 h-5" source={require("../public/icons/ui/logout.png")}></Image>}>Deslogar da conta</Button>
+                    <Button onPress={logoutAccount} className="bg-red-500 text-white w-60 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/logout.png")}></Image>}>Deslogar da conta</Button>
                 </View>
             </ScrollView>
             <BottomBar screen="ProfileScreen"></BottomBar>

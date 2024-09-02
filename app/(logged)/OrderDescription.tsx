@@ -83,13 +83,13 @@ export default function OrderDescription() {
                                 <H5 className="text-orange-500 font-bold">R$ 55,00</H5>
                             </View>
                         </View>
-                        
+
                         <View className="flex items-center">
                             <Button className="w-80 text-white bg-black " icon={<Image className="w-5 h-5" source={require("../public/icons/ui/chat.png")} />}>Contatar o restaurante</Button>
                             <Button className="w-80 bg-orange-500 text-white mt-5" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/support.png")} />} onPress={() => {
                                 router.push('SupportScreen')
                             }}>Falar com o suporte</Button>
-                            <Button className="w-80 bg-red-500 text-white mt-5" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/cancel.png")} />}>Cancelar pedido</Button>
+                            <Button className="w-80 bg-red-500 text-white mt-5 mb-5" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/cancel.png")} />}>Cancelar pedido</Button>
                         </View>
                     </ScrollView>
                     <BottomBar screen="OrderDescription"></BottomBar>
