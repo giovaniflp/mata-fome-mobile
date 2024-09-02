@@ -72,7 +72,7 @@ export default function RegisterNewAddressScreen(){
 
     const apiRegisterNewCard = async () => {
         const registerNewCardRequest = {
-            tipo: "crédito",
+            tipo: "débito",
             numero_cartao: numeroCartao,
             data_validade: dataValidade,
             nome_titular: nomeTitular,
@@ -83,7 +83,7 @@ export default function RegisterNewAddressScreen(){
             cep_cobranca: cepCobranca
         }
         try{
-            await axiosInstance.post(`/api/cliente/formasDePagamento/${userId}`, registerNewCardRequest).then((response)=>{
+            await axiosInstance.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest).then((response)=>{
                 console.log(response.data)
             })
         }

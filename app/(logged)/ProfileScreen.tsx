@@ -5,8 +5,11 @@ import BottomBar from "app/components/BottomBar";
 import * as SecureStore from 'expo-secure-store';
 import { useEffect, useState } from "react";
 import axiosInstance from "app/config/axiosUrlConfig";
+import { useCarrinho } from "app/providers/CarrinhoProvider"
 
 export default function ProfileScreen(){
+
+    const { carrinho, adicionarAoCarrinho, removerDoCarrinho, limparCarrinho } = useCarrinho();
 
     const[token, setToken] = useState('');
     const[username, setUsername] = useState('');
@@ -33,6 +36,10 @@ export default function ProfileScreen(){
         await SecureStore.deleteItemAsync('token');
         await SecureStore.deleteItemAsync('username');
         await SecureStore.deleteItemAsync('idUser');
+        await SecureStore.deleteItemAsync('empresaId');
+        await SecureStore.deleteItemAsync('formaPagamentoId');
+        await SecureStore.deleteItemAsync('enderecoEntregaId');
+        limparCarrinho()
         router.push('/')
     }
 

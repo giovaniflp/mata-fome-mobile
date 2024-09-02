@@ -3,6 +3,7 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 // Define a interface para um produto
 interface Produto {
     id: number;
+    idEmpresa: number;
     nome: string;
     preco: number;
     descricao?: string;
@@ -32,24 +33,31 @@ export const CarrinhoProvider: React.FC<CarrinhoProviderProps> = ({ children }) 
 
     const adicionarAoCarrinho = (produto: Produto) => {
         setCarrinho((prevCarrinho) => {
-            const produtoExistente = prevCarrinho.find((item) => item.id === produto.id);
+            // Verifica se existe um produto no carrinho com um idEmpresa diferente
+            const produtoExistente = prevCarrinho.find((item) => item.idEmpresa !== produto.idEmpresa);
             
             if (produtoExistente) {
-                // Atualiza a quantidade do produto existente incrementando a quantidade especificada
-                return prevCarrinho.map((item) =>
-                    item.id === produto.id
-                        ? { ...item, quantidade: item.quantidade + 1 } // Incrementa a quantidade existente
-                        : item
-                );
+                // Se encontrar, limpa o carrinho e adiciona o novo produto
+                return [{ ...produto, quantidade: produto.quantidade }];
             } else {
-                // Adiciona o produto novo ao carrinho com a quantidade especificada
-                return [...prevCarrinho, { ...produto, quantidade: produto.quantidade }];
+                // Se não encontrar, adiciona o novo produto ao carrinho
+                const produtoNoCarrinho = prevCarrinho.find((item) => item.id === produto.id);
+                
+                if (produtoNoCarrinho) {
+                    // Atualiza a quantidade do produto existente incrementando a quantidade especificada
+                    return prevCarrinho.map((item) =>
+                        item.id === produto.id
+                            ? { ...item, quantidade: item.quantidade + 1 } // Incrementa a quantidade existente
+                            : item
+                    );
+                } else {
+                    // Adiciona o produto novo ao carrinho com a quantidade especificada
+                    return [...prevCarrinho, { ...produto, quantidade: produto.quantidade }];
+                }
             }
         });
     };
-    
-    
-    
+
     const removerDoCarrinho = (produtoId: number) => {
         setCarrinho((prevCarrinho) => {
             const produtoExistente = prevCarrinho.find((item) => item.id === produtoId);
@@ -67,8 +75,6 @@ export const CarrinhoProvider: React.FC<CarrinhoProviderProps> = ({ children }) 
             return prevCarrinho.filter((item) => item.id !== produtoId);
         });
     };
-    
-    
 
     const limparCarrinho = () => {
         setCarrinho([]);

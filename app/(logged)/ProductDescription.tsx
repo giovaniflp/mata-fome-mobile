@@ -35,15 +35,17 @@ export default function ProductDescription(){
         apiGetProductData();
     },[])
 
-    const addProductToCart = () => {
+    const addProductToCart = async() => {
         adicionarAoCarrinho({
             id: productData.id,
+            idEmpresa: Number(idEmpresa),
             nome: productData.nome,
             preco: productData.preco,
             descricao: productData.descricao,
             urlImagem: productData.urlImagem,
             quantidade: quantity
         })
+        await SecureStore.setItemAsync('empresaId', idEmpresa);
     }
 
 

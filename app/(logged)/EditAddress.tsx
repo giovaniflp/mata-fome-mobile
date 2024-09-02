@@ -1,4 +1,5 @@
 import { useRouter, useLocalSearchParams } from "expo-router";
+import { router } from "expo-router";
 import { TouchableOpacity, Image, ScrollView, View } from "react-native";
 import { Button, H4, H5, Input } from "tamagui";
 import BottomBar from "app/components/BottomBar";
@@ -83,6 +84,7 @@ export default function RegisterNewAddressScreen() {
             const response = await axiosInstance.patch(`/api/clientes/${userId}/enderecos/${idAddress}`, registerAddressRequestData);
             console.log(response.data);
             alert("Endereço alterado com sucesso!");
+            router.push("MyAddress");
         } catch (e) {
             alert("Erro ao alterar o endereço: " + e.message);
         }

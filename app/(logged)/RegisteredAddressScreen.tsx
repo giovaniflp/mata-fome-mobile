@@ -12,8 +12,6 @@ export default function RegisteredAddressScreen(){
     const [addressList, setAddressList] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState();
 
-    console.log(selectedAddress)
-
     const apiGetAllRegisteredAddress = async () => {
 
         const idUserStorage = await SecureStore.getItemAsync('idUser');
@@ -34,6 +32,10 @@ export default function RegisteredAddressScreen(){
         apiGetAllRegisteredAddress();
     },[])
 
+    const saveAddressIdInStorage = async (addressId) => {
+        await SecureStore.setItemAsync('enderecoEntregaId', JSON.stringify(addressId));
+    }
+
     return(
         <View className="flex-1">
             <ScrollView className="bg-white">
@@ -52,6 +54,7 @@ export default function RegisteredAddressScreen(){
             <TouchableOpacity 
                 onPress={() => {
                     setSelectedAddress(address.id);
+                    saveAddressIdInStorage(address.id);
                 }} 
                 key={address.id} 
                 className={`bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row ${isSelected ? 'border-2 border-orange-500' : 'border-transparent'}`}
