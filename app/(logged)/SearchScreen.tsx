@@ -1,28 +1,56 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { useRouter } from "expo-router"; // Corrigido import para useRouter
 import { TouchableOpacity, Image, ScrollView, View } from "react-native";
 import { H4, Input, Text } from "tamagui";
+import { useRouter } from "expo-router";
 import BottomBar from "app/components/BottomBar";
+import axiosInstance from "app/config/axiosUrlConfig";
 
 export default function SearchScreen() {
-  const [nomePrateleiras, setNomePrateleiras] = useState([]);
-  const router = useRouter(); // Use useRouter ao invés de router diretamente
+  const [empresas, setEmpresas] = useState([]); // Alterado para armazenar o array completo de empresas
+  const [searchQuery, setSearchQuery] = useState(''); // Estado para armazenar o valor da barra de pesquisa
 
-  const fetchNomePrateleiras = async () => {
+  const router = useRouter();
+
+  const fetchnomeFantasia = async () => {
     try {
-      const response = await axios.get('http://matafome-api.ashyfield-34914be1.brazilsouth.azurecontainerapps.io/api/empresas/6/prateleiras'); // Substitua pela URL real
+      const response = await axiosInstance.get(`/api/empresas`); // Substitua pela URL real
       const data = response.data;
-      const prateleiras = data.map((item) => item.nomePrateleira);
-      setNomePrateleiras(prateleiras);
+      setEmpresas(data); // Salva todos os dados da empresa
     } catch (error) {
       console.error("Erro ao buscar os dados:", error.message);
     }
   };
 
   useEffect(() => {
-    fetchNomePrateleiras();
+    fetchnomeFantasia();
   }, []);
+
+  const fetchEmpresasPorNomeFantasia = async (query) => {
+    try {
+      const response = await axiosInstance.get(
+        `/api/empresas/buscarPorNomeFantasia`,
+        {
+          params: {
+            nome_fantasia: query,
+            page: 0,
+            size: 10
+          }
+        }
+      );
+      const data = response.data;
+      setEmpresas(data.content); // Supondo que a resposta seja paginada
+    } catch (error) {
+      console.error("Erro ao buscar empresas por nome fantasia:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      fetchEmpresasPorNomeFantasia(searchQuery);
+    } else {
+      fetchnomeFantasia();
+    }
+  }, [searchQuery]);
 
   return (
     <View className="flex-1">
@@ -39,27 +67,32 @@ export default function SearchScreen() {
             <Input
               className="bg-slate-100 text-black w-11/12 border-transparent"
               placeholder="Busque por pratos, restaurantes e categorias"
+              value={searchQuery} // Define o valor atual do input
+              onChangeText={setSearchQuery} // Atualiza o estado de searchQuery conforme o usuário digita
             />
           </View>
           <View>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View className="flex justify-center flex-row flex-wrap">
-                {nomePrateleiras.map((nome, index) => (
+                {empresas.map((empresa, index) => (
                   <TouchableOpacity
                     key={index}
                     onPress={() => {
                       router.push({
-                        pathname: '/RestaurantScreen', // Certifique-se de que o caminho está correto
-                        params: { nomePrateleira: nome }, // Passando os parâmetros corretamente
+                        pathname: '/RestaurantScreen',
+                        params: {
+                          idEmpresa: empresa.id,
+                          nomeEmpresa: empresa.nomeFantasia
+                        }, // Passando os parâmetros corretamente
                       });
                     }}
                     className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2"
                   >
                     <Image
                       className="w-40 h-24 rounded-lg"
-                      source={require("../public/images/slide01.jpg")}
+                      source={{ uri: empresa.imgPerfil }} // Usando a imagem de perfil da API
                     />
-                    <Text className="text-white text-center">{nome}</Text>
+                    <Text className="text-white text-center">{empresa.nomeFantasia}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
