@@ -56,7 +56,7 @@ export default function ProfileScreen(){
                 </View>
                 <View className="flex items-center">
                     <Button onPress={()=>{
-                        router.push('MyAddress')
+                        router.push('RegisteredAddressProfileScreen')
                     }} className="bg-black text-white w-60 mb-2 mt-3" icon={<Image className="w-5 h-5" source={require("../public/icons/ui/pinDrop.png")}></Image>}>Meus endereços</Button>
                     <Button onPress={()=>{
                         router.push('PaymentScreen')

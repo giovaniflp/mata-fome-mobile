@@ -84,7 +84,6 @@ export default function RegisterNewAddressScreen() {
             const response = await axiosInstance.patch(`/api/clientes/${userId}/enderecos/${idAddress}`, registerAddressRequestData);
             console.log(response.data);
             alert("Endereço alterado com sucesso!");
-            router.push("MyAddress");
         } catch (e) {
             alert("Erro ao alterar o endereço: " + e.message);
         }
@@ -202,7 +201,6 @@ export default function RegisterNewAddressScreen() {
                             </View>
                             <View className="my-5">
                                 <Button onPress={apiEditAddress}>Alterar endereço</Button>
-                                <RegisterAddressToast />
                             </View>
                         </ScrollView>
                     </View>
