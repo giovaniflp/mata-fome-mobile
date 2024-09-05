@@ -11,7 +11,7 @@ export default function SearchScreen() {
 
   const fetchNomePrateleiras = async () => {
     try {
-      const response = await axios.get('http://matafome-api.ashyfield-34914be1.brazilsouth.azurecontainerapps.io/api/empresas/6/prateleiras'); // Substitua pela URL real
+      const response = await axios.get('https://matafome-api.whiteglacier-7456d729.brazilsouth.azurecontainerapps.io/api/empresas/{id}/prateleiras'); // Substitua pela URL real
       const data = response.data;
       const prateleiras = data.map((item) => item.nomePrateleira);
       setNomePrateleiras(prateleiras);
