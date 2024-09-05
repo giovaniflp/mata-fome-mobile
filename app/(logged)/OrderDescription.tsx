@@ -39,8 +39,8 @@ export default function OrderDescription() {
                         </View>
                         <View className="bg-gray-200 rounded-2xl p-4 mx-4 mt-5">
                             <View className="flex flex-col items-center">
-                                <H5 className="text-orange-500 font-semibold">Rastreamento de pedido</H5>
-                                <Button className="w-full bg-red-500 mt-2 text-white" onPress={() => {
+                                <H6 className="text-orange-500 font-semibold text-lg">Rastreamento de pedido</H6>
+                                <Button className="w-full bg-black text-white font-bold text-lg mt-3" onPress={() => {
                                     showLocation({
                                         address: 'Estr. de Bulhões - Bulhões, Jaboatão dos Guararapes - PE, 54080-000',
                                         title: 'Estr. de Bulhões - Bulhões, Jaboatão dos Guararapes - PE, 54080-000',
@@ -121,7 +121,7 @@ export default function OrderDescription() {
                         <View className="bg-gray-200 rounded-2xl p-4 mx-4 mt-5">
                             <View className="flex flex-col items-center">
                                 <H5 className="text-orange-500 font-semibold text-center">Por favor, avalie o pedido e deixe seu comentário!</H5>
-                                <TextArea className="w-full bg-white text-black mt-3 p-2 border border-gray-300 rounded-xl" placeholder="Escreva seu comentário aqui..."></TextArea>
+                                <TextArea className="w-full bg-white text-black text-center mt-3 p-2 border border-gray-700 rounded-xl mx-auto" placeholder="Escreva seu comentário aqui..."></TextArea>
                                 <View className="mt-3 flex flex-row items-center">
                                     <StarRating rating={rating} onChange={setRating} />
                                     <AvaliationToast></AvaliationToast>
