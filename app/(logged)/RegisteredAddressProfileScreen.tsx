@@ -12,6 +12,7 @@ export default function MyAddress() {
     const router = useRouter();
 
     useEffect(() => {
+
         const apiGetAllRegisteredAddress = async () => {
             const idUserStorage = await SecureStore.getItemAsync('idUser');
             const idUserParse = JSON.parse(idUserStorage);
@@ -60,7 +61,7 @@ export default function MyAddress() {
             <ScrollView className="bg-white">
                 <View className='bg-white'>
                     <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">Selecione o local de entrega</H4>
+                        <H4 className="text-black">Meus Endereços</H4>
                         <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")} />
                     </View>
                     <View className="mt-5">
@@ -116,14 +117,6 @@ export default function MyAddress() {
                                     <H4 className="text-black">Adicionar novo endereço</H4>
                                     <Image className="w-10 h-10 ml-2" source={require("../public/icons/ui/plus.png")} />
                                 </TouchableOpacity>
-                            </View>
-                            <View className="flex flex-row justify-around items-center my-5">
-                                <Button className="bg-green-500 w-40">
-                                    <Text className="text-xs text-white">Vou retirar no local</Text>
-                                </Button>
-                                <Button onPress={() => router.push("PaymentScreen")} className="bg-orange-500 w-40">
-                                    <Text className="text-white">Continuar</Text>
-                                </Button>
                             </View>
                         </ScrollView>
                     </View>
