@@ -149,9 +149,16 @@ export default function SearchScreen() {
                         },
                       });
                     }}
-                    className="bg-gray-300 rounded-3xl p-2 mr-2 mb-2"
+                    className="bg-white rounded-lg shadow-lg m-2 p-3 w-40"
+                    style={{ alignItems: "center" }} // Centraliza o conteúdo do card
                   >
-                    <Text className="text-black text-center">{empresa.nomeFantasia}</Text>
+                    {/* Exibe a imagem de perfil do restaurante */}
+                    <Image
+                      className="rounded-lg"
+                      source={{ uri: empresa.imgCapa }} // Supondo que `imgPerfil` contenha a URL da imagem
+                      style={{ width: 80, height: 80 }}
+                    />
+                    <Text className="text-black text-center mt-2">{empresa.nomeFantasia}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
