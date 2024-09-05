@@ -6,16 +6,17 @@ import BottomBar from "app/components/BottomBar";
 import axiosInstance from "app/config/axiosUrlConfig";
 
 export default function SearchScreen() {
-  const [empresas, setEmpresas] = useState([]); // Alterado para armazenar o array completo de empresas
+  const [empresas, setEmpresas] = useState([]); // Estado para armazenar as empresas
+  const [categorias, setCategorias] = useState([]); // Estado para armazenar as categorias
   const [searchQuery, setSearchQuery] = useState(''); // Estado para armazenar o valor da barra de pesquisa
 
   const router = useRouter();
 
   const fetchnomeFantasia = async () => {
     try {
-      const response = await axiosInstance.get(`/api/empresas`); // Substitua pela URL real
+      const response = await axiosInstance.get(`/api/empresas`); // Busca todas as empresas
       const data = response.data;
-      setEmpresas(data); // Salva todos os dados da empresa
+      setEmpresas(data); // Salva todos os dados das empresas
     } catch (error) {
       console.error("Erro ao buscar os dados:", error.message);
     }
@@ -25,6 +26,29 @@ export default function SearchScreen() {
     fetchnomeFantasia();
   }, []);
 
+  // Função para buscar categorias e transformá-las em um array de objetos
+  const fetchCategorias = async () => {
+    try {
+      const response = await axiosInstance.get(`/api/empresas/categorias`); // Busca as categorias
+      const data = response.data;
+
+      // Transforma o objeto em um array de categorias
+      const categoriasArray = Object.entries(data).map(([key, value]) => ({
+        id: key,
+        nome: value
+      }));
+
+      setCategorias(categoriasArray); // Salva todas as categorias no estado
+    } catch (error) {
+      console.error("Erro ao buscar os dados das categorias:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchCategorias();
+  }, []);
+
+  // Função para buscar empresas por nome fantasia
   const fetchEmpresasPorNomeFantasia = async (query) => {
     try {
       const response = await axiosInstance.get(
@@ -33,7 +57,7 @@ export default function SearchScreen() {
           params: {
             nome_fantasia: query,
             page: 0,
-            size: 10
+            size: 10,
           }
         }
       );
@@ -44,6 +68,27 @@ export default function SearchScreen() {
     }
   };
 
+  // Função para buscar restaurantes por categoria selecionada
+  const fetchEmpresasPorCategoria = async (categoria) => {
+    try {
+      const response = await axiosInstance.get(
+        `/api/empresas/filtrarPorCategoria`, 
+        {
+          params: {
+            categoria: categoria.toLowerCase(), // Converte a categoria para minúsculas
+            page: 0,
+            size: 10,
+          }
+        }
+      );
+      const data = response.data;
+      setEmpresas(data.content); // Atualiza o estado com os restaurantes filtrados
+    } catch (error) {
+      console.error("Erro ao buscar empresas por categoria:", error.message);
+    }
+  };
+
+  // Quando o searchQuery muda, buscar por nome fantasia
   useEffect(() => {
     if (searchQuery.length > 0) {
       fetchEmpresasPorNomeFantasia(searchQuery);
@@ -74,6 +119,24 @@ export default function SearchScreen() {
           <View>
             <ScrollView showsVerticalScrollIndicator={false}>
               <View className="flex justify-center flex-row flex-wrap">
+                {categorias.map((categoria, index) => (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => fetchEmpresasPorCategoria(categoria.id)} // Chama a função ao clicar em uma categoria
+                    className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2"
+                  >
+                    {/* Como não há imagem no objeto categoria, você pode usar uma imagem padrão ou remover a Image */}
+                    <Text className="text-white text-center">{categoria.nome}</Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+
+          <View className="flex items-center my-3 p-3">
+            <H4 className="text-black">Restaurantes</H4>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              <View className="flex justify-center flex-row flex-wrap">
                 {empresas.map((empresa, index) => (
                   <TouchableOpacity
                     key={index}
@@ -83,21 +146,18 @@ export default function SearchScreen() {
                         params: {
                           idEmpresa: empresa.id,
                           nomeEmpresa: empresa.nomeFantasia
-                        }, // Passando os parâmetros corretamente
+                        },
                       });
                     }}
-                    className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2"
+                    className="bg-gray-300 rounded-3xl p-2 mr-2 mb-2"
                   >
-                    <Image
-                      className="w-40 h-24 rounded-lg"
-                      source={{ uri: empresa.imgPerfil }} // Usando a imagem de perfil da API
-                    />
-                    <Text className="text-white text-center">{empresa.nomeFantasia}</Text>
+                    <Text className="text-black text-center">{empresa.nomeFantasia}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
             </ScrollView>
           </View>
+
         </View>
       </ScrollView>
       <BottomBar screen="SearchScreen" />
