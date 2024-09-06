@@ -52,14 +52,7 @@ function RootLayoutNav() {
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen
-            name="(RegisteredAddressProfileScreen)"
-            options={{
-              headerShown: false,
-              animation: "fade",
-            }}
-          />
-          <Stack.Screen
-            name="(index)"
+            name="Index"
             options={{
               headerShown: false,
               animation: "fade",

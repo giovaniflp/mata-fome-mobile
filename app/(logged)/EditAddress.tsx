@@ -200,8 +200,14 @@ export default function RegisterNewAddressScreen() {
                                 />
                             </View>
                             <View className="my-5">
-                                <Button onPress={apiEditAddress}>Alterar endereço</Button>
+                                <Button
+                                    onPress={apiEditAddress}
+                                    className="w-full h-14 bg-orange-500 rounded-full shadow-lg text-white text-center font-bold"
+                                >
+                                    Alterar endereço
+                                </Button>
                             </View>
+
                         </ScrollView>
                     </View>
                 </View>
