@@ -35,15 +35,17 @@ export default function ProductDescription(){
         apiGetProductData();
     },[])
 
-    const addProductToCart = () => {
+    const addProductToCart = async() => {
         adicionarAoCarrinho({
             id: productData.id,
+            idEmpresa: Number(idEmpresa),
             nome: productData.nome,
             preco: productData.preco,
             descricao: productData.descricao,
             urlImagem: productData.urlImagem,
             quantidade: quantity
         })
+        await SecureStore.setItemAsync('empresaId', idEmpresa);
     }
 
 
@@ -78,7 +80,7 @@ export default function ProductDescription(){
                                 <H5 className="text-black">{productData.nome}</H5>
                             </View>
                             <View className="my-4">
-                                <H4 className="text-orange-500">Ingredientes</H4>
+                                <H4 className="text-orange-500">Descrição</H4>
                                 <H6 className="text-black text-xs">{productData.descricao}</H6>
                             </View>
                             <View className="mb-4">

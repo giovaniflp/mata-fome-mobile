@@ -81,7 +81,6 @@ export default function HomeScreen() {
                         </View>
                         <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoAssassin.png")} />
                     </View>
-
                     {/* Carousel de imagens */}
                     <View className="flex items-center my-5 ">
                         <Carousel
@@ -153,7 +152,6 @@ export default function HomeScreen() {
                             ))}
                         </View>
                     </ScrollView>
-
                 </View>
             </ScrollView >
             <BottomBar screen="HomeScreen" />

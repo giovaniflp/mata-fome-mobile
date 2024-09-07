@@ -84,7 +84,7 @@ export default function CartScreen(){
                     </View>
                 </View>
                 <View>
-                    <Button onPress={() => router.push("RegisteredAddressScreen")} className="bg-orange-500 w-48">
+                    <Button onPress={() => router.push("MyAddress")} className="bg-orange-500 w-48">
                         <Text className="text-xs">Continuar com a compra</Text>
                     </Button>
                 </View>

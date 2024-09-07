@@ -38,7 +38,6 @@ export default function RestaurantScreen() {
             alert(e);
         }
     };
-
     // Chama a API para obter os detalhes da empresa e as prateleiras ao carregar o componente
     useEffect(() => {
         apiGetEmpresaDetails();
@@ -49,6 +48,7 @@ export default function RestaurantScreen() {
         <View className="flex-1">
             <ScrollView className="bg-white">
                 <View className='bg-white'>
+
                     {/* Exibe a imagem de perfil do restaurante e capa no fundo */}
                     <View className="mt-10 items-center pb-10">
                         {/* Exibe a imagem de capa do restaurante */}
@@ -75,7 +75,6 @@ export default function RestaurantScreen() {
                         {/* Nome do restaurante abaixo das imagens */}
                         {/* <H4 className="text-black mt-10">{nomeEmpresa}</H4> */}
                     </View>
-
                     <View className="mt-5">
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View className="flex justify-center flex-col">
@@ -128,5 +127,7 @@ export default function RestaurantScreen() {
             </ScrollView>
             <BottomBar screen="RestaurantScreen"></BottomBar>
         </View>
+
     );
 }
+
