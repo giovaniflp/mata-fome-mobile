@@ -41,6 +41,7 @@ export default function OrderHistory(){
     const apiGetClientePedidos = async() => {
         const response = await axiosInstance.get(`/api/clientes/${idUser}/pedidos`).then((response)=>{
             setPedidos(response.data)
+            console.log(response.data)
         })
     }
 

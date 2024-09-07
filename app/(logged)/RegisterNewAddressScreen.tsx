@@ -55,6 +55,7 @@ export default function RegisterNewAddressScreen() {
     try {
       const response = await axios.get(`https://viacep.com.br/ws/${cep}/json/`);
       const data = response.data;
+      console.log(data)
       setEstado(data.uf);
       setCidade(data.localidade);
       setBairro(data.bairro);
@@ -184,27 +185,28 @@ export default function RegisterNewAddressScreen() {
 
           <YStack space="$4">
             <H5 color="black">Cidade</H5>
-            <Input value={cidade} onChangeText={setCidade} bg="white" />
+            <Input className="text-black" value={cidade} onChangeText={setCidade} bg="white" />
           </YStack>
 
           <YStack space="$4">
             <H5 color="black">Bairro</H5>
-            <Input value={bairro} onChangeText={setBairro} bg="white" />
+            <Input className="text-black" value={bairro} onChangeText={setBairro} bg="white" />
           </YStack>
 
           <YStack space="$4">
             <H5 color="black">Logradouro</H5>
-            <Input value={logradouro} onChangeText={setLogradouro} bg="white" />
+            <Input className="text-black" value={logradouro} onChangeText={setLogradouro} bg="white" />
           </YStack>
 
           <YStack space="$4">
             <H5 color="black">Número</H5>
-            <Input value={numero} onChangeText={setNumero} bg="white" />
+            <Input className="text-black" value={numero} onChangeText={setNumero} bg="white" />
           </YStack>
 
           <YStack space="$4">
             <H5 color="black">Complemento</H5>
             <Input
+            className="text-black"
               value={complemento}
               onChangeText={setComplemento}
               bg="white"

@@ -52,7 +52,7 @@ function RootLayoutNav() {
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
           <Stack.Screen
-            name="Index"
+            name="index"
             options={{
               headerShown: false,
               animation: "fade",
