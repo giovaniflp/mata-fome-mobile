@@ -156,7 +156,7 @@ export default function SearchScreen() {
                     <Image
                       className="rounded-lg"
                       source={{ uri: empresa.imgCapa }} // Supondo que imgPerfil contenha a URL da imagem
-                      style={{ width: 80, height: 80 }}
+                      style={{ width: 150, height: 80 }}
                     />
                     <Text className="text-black text-center mt-2">{empresa.nomeFantasia}</Text>
                   </TouchableOpacity>
