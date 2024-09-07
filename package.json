@@ -54,6 +54,7 @@
     "react-native-web": "^0.19.12",
     "socket.io-client": "^4.7.5",
     "sockjs-client": "^1.6.1",
+    "stompjs": "^2.3.3",
     "tamagui": "^1.101.7"
   },
   "devDependencies": {

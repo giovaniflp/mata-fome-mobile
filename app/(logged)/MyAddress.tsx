@@ -11,6 +11,10 @@ export default function MyAddress() {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const router = useRouter();
 
+    const saveAddressIdInStorage = async (addressId) => {
+        await SecureStore.setItemAsync('enderecoEntregaId', JSON.stringify(addressId));
+    }
+
     useEffect(() => {
         const apiGetAllRegisteredAddress = async () => {
             const idUserStorage = await SecureStore.getItemAsync('idUser');
@@ -70,7 +74,12 @@ export default function MyAddress() {
 
                                 return (
                                     <TouchableOpacity
-                                        onPress={() => setSelectedAddress(address.id)}
+                                        onPress={
+                                            () => (
+                                                setSelectedAddress(address.id),
+                                                saveAddressIdInStorage(address.id)
+                                            )
+                                        }
                                         key={address.id}
                                         className={`bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex flex-row justify-between ${isSelected ? 'border-2 border-orange-500' : 'border-transparent'}`}
                                     >
