@@ -14,7 +14,7 @@ export default function SearchScreen() {
 
   const fetchnomeFantasia = async () => {
     try {
-      const response = await axiosInstance.get(`/api/empresas`); // Busca todas as empresas
+      const response = await axiosInstance.get(/api/empresas); // Busca todas as empresas
       const data = response.data;
       setEmpresas(data); // Salva todos os dados das empresas
     } catch (error) {
@@ -29,7 +29,7 @@ export default function SearchScreen() {
   // Função para buscar categorias e transformá-las em um array de objetos
   const fetchCategorias = async () => {
     try {
-      const response = await axiosInstance.get(`/api/empresas/categorias`); // Busca as categorias
+      const response = await axiosInstance.get(/api/empresas/categorias); // Busca as categorias
       const data = response.data;
 
       // Transforma o objeto em um array de categorias
@@ -52,7 +52,7 @@ export default function SearchScreen() {
   const fetchEmpresasPorNomeFantasia = async (query) => {
     try {
       const response = await axiosInstance.get(
-        `/api/empresas/buscarPorNomeFantasia`,
+        /api/empresas/buscarPorNomeFantasia,
         {
           params: {
             nome_fantasia: query,
@@ -72,7 +72,7 @@ export default function SearchScreen() {
   const fetchEmpresasPorCategoria = async (categoria) => {
     try {
       const response = await axiosInstance.get(
-        `/api/empresas/filtrarPorCategoria`, 
+        /api/empresas/filtrarPorCategoria, 
         {
           params: {
             categoria: categoria.toLowerCase(), // Converte a categoria para minúsculas
@@ -123,7 +123,7 @@ export default function SearchScreen() {
                   <TouchableOpacity
                     key={index}
                     onPress={() => fetchEmpresasPorCategoria(categoria.id)} // Chama a função ao clicar em uma categoria
-                    className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2"
+                    className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2 ml-1"
                   >
                     {/* Como não há imagem no objeto categoria, você pode usar uma imagem padrão ou remover a Image */}
                     <Text className="text-white text-center">{categoria.nome}</Text>
@@ -155,7 +155,7 @@ export default function SearchScreen() {
                     {/* Exibe a imagem de perfil do restaurante */}
                     <Image
                       className="rounded-lg"
-                      source={{ uri: empresa.imgCapa }} // Supondo que `imgPerfil` contenha a URL da imagem
+                      source={{ uri: empresa.imgCapa }} // Supondo que imgPerfil contenha a URL da imagem
                       style={{ width: 80, height: 80 }}
                     />
                     <Text className="text-black text-center mt-2">{empresa.nomeFantasia}</Text>
