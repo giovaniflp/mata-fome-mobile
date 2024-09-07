@@ -11,30 +11,71 @@ export default function RestaurantScreen() {
     const { nomeEmpresa } = useLocalSearchParams();
 
     const [prateleiras, setPrateleiras] = useState([]);
+    const [empresa, setEmpresa] = useState({
+        imgCapa: '',
+        imgPerfil: ''
+    });
 
+    // Função para obter os detalhes da empresa, incluindo as imagens de capa e perfil
+    const apiGetEmpresaDetails = async () => {
+        try {
+            const response = await axiosInstance.get(`/api/empresas/${idEmpresa}`);
+            setEmpresa({
+                imgCapa: response.data.imgCapa,
+                imgPerfil: response.data.imgPerfil,
+            });
+        } catch (e) {
+            console.error("Erro ao buscar detalhes da empresa:", e);
+        }
+    };
+
+    // Função para obter as prateleiras da empresa
     const apiGetPrateleiras = async () => {
         try {
-            await axiosInstance.get(`/api/empresas/${idEmpresa}/prateleiras`).then((response) => {
-                setPrateleiras(response.data.prateleiras)
-            })
+            const response = await axiosInstance.get(`/api/empresas/${idEmpresa}/prateleiras`);
+            setPrateleiras(response.data.prateleiras);
+        } catch (e) {
+            alert(e);
         }
-        catch (e) {
-            alert(e)
-        }
-    }
+    };
 
+    // Chama a API para obter os detalhes da empresa e as prateleiras ao carregar o componente
     useEffect(() => {
+        apiGetEmpresaDetails();
         apiGetPrateleiras();
-    }, [])
+    }, []);
 
     return (
         <View className="flex-1">
             <ScrollView className="bg-white">
                 <View className='bg-white'>
-                    <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">{nomeEmpresa}</H4>
-                        <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoCoffee.png")}></Image>
+                    {/* Exibe a imagem de perfil do restaurante e capa no fundo */}
+                    <View className="mt-10 items-center pb-10">
+                        {/* Exibe a imagem de capa do restaurante */}
+                        <View className="relative w-full">
+                            <Image
+                                className="w-full h-40 rounded-lg"
+                                source={
+                                    empresa.imgCapa
+                                        ? { uri: empresa.imgCapa } // Usa a imagem de capa se disponível
+                                        : require("../public/images/BrandIcon.png") // Imagem padrão se a URL for vazia
+                                }
+                            />
+                            {/* Exibe a imagem de perfil do restaurante sobre a capa */}
+                            <Image
+                                className="absolute w-20 h-20 rounded-full border-1 border-black"
+                                source={
+                                    empresa.imgPerfil
+                                        ? { uri: empresa.imgPerfil } // Usa a imagem de perfil se disponível
+                                        : require("../public/images/BrandIcon.png") // Imagem padrão se a URL for vazia
+                                }
+                                style={{ bottom: -40, left: '25%', transform: [{ translateX: -50 }] }}
+                            />
+                        </View>
+                        {/* Nome do restaurante abaixo das imagens */}
+                        {/* <H4 className="text-black mt-10">{nomeEmpresa}</H4> */}
                     </View>
+
                     <View className="mt-5">
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View className="flex justify-center flex-col">
@@ -69,7 +110,7 @@ export default function RestaurantScreen() {
                                                         </View>
                                                         <Image
                                                             className="w-24 h-24 rounded-lg"
-                                                            style={{ backgroundColor: '#FFFFFF' }} 
+                                                            style={{ backgroundColor: '#FFFFFF' }}
                                                             source={produto.urlImagem
                                                                 ? { uri: produto.urlImagem }
                                                                 : require("../public/images/BrandIcon.png")} // Imagem padrão caso `urlImagem` seja `null`
@@ -87,6 +128,5 @@ export default function RestaurantScreen() {
             </ScrollView>
             <BottomBar screen="RestaurantScreen"></BottomBar>
         </View>
-    )
-
+    );
 }
