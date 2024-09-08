@@ -8,8 +8,9 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { router, SplashScreen, Stack } from "expo-router";
 import { Provider } from "./Provider";
+import * as SecureStore from "expo-secure-store";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -46,6 +47,20 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+
+  //Verifica se o usuário está logado com o SecureStore, olhando se o token existe ou é nulo
+  const verifyToken = async () => {
+    const token = await SecureStore.getItemAsync("token");
+    if (token) {
+      router.push("/HomeScreen");
+    } else {
+      router.push("/");
+    }
+  }
+
+  useEffect(() => {
+    verifyToken();
+  });
 
   return (
     <Provider>
