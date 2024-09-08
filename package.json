@@ -30,6 +30,7 @@
     "expo": "51.0.32",
     "expo-font": "~12.0.6",
     "expo-linking": "~6.3.1",
+    "expo-notifications": "~0.28.16",
     "expo-router": "~3.5.15",
     "expo-secure-store": "~13.0.2",
     "expo-status-bar": "^1.12.1",
@@ -54,8 +55,7 @@
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
     "tamagui": "^1.110.2",
-    "text-encoding": "^0.7.0",
-    "expo-notifications": "~0.28.16"
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
