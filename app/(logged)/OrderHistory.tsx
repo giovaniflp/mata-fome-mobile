@@ -9,8 +9,19 @@ import * as SecureStore from 'expo-secure-store';
 import { format, parseISO } from 'date-fns';
 import SockJS from "sockjs-client";
 import { Client, Stomp } from "@stomp/stompjs";
+import * as Notifications from 'expo-notifications';
 
 export default function OrderHistory() {
+
+    // Configuração de notificação
+    Notifications.setNotificationHandler({
+        handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+        }),
+    });
+
     const [idUser, setIdUser] = useState();
     const [pedidos, setPedidos] = useState([]);
     const [socket, setSocket] = useState(null);
@@ -28,10 +39,18 @@ export default function OrderHistory() {
           console.log('Conectado ao WebSocket');
       
           // Subscrevendo ao tópico para receber pedidos
-          stompClient.subscribe('/topic/pedidoCliente/102', (message) => {
+          stompClient.subscribe(`/topic/pedidoCliente/${idUser}`, (message) => {
             try {
               const pedidoData = JSON.parse(message.body);
-              console.log(pedidoData);
+
+                                  // Enviar notificação de atualização
+                                  Notifications.scheduleNotificationAsync({
+                                    content: {
+                                    title: 'Atualização de Pedido',
+                                    body: `O status de um de seus pedidos foi atualizado para ${pedidoData.status}`,
+                                    },
+                                    trigger: null,
+                                });
       
               // Atualize o estado com o pedido recebido
               setPedidos((prevPedidos) => {
@@ -42,6 +61,7 @@ export default function OrderHistory() {
                   // Se o pedido existe, substitua-o pelo novo
                   const updatedPedidos = [...prevPedidos];
                   updatedPedidos[pedidoIndex] = { ...prevPedidos[pedidoIndex], ...pedidoData };
+
                   return updatedPedidos;
                 } else {
                   // Caso contrário, adicione o novo pedido à lista
