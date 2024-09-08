@@ -55,7 +55,8 @@
     "socket.io-client": "^4.7.5",
     "sockjs-client": "^1.6.1",
     "stompjs": "^2.3.3",
-    "tamagui": "^1.101.7"
+    "tamagui": "^1.101.7",
+    "text-encoding": "^0.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
