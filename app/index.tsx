@@ -1,9 +1,37 @@
 import { H4, H6, Button } from 'tamagui'
 import { ToastControl } from './CurrentToast'
-import { Image, View } from 'react-native'
+import { Alert, Image, View } from 'react-native'
 import { router } from 'expo-router'
+import { useState, useEffect } from 'react'
+import * as Notifications from 'expo-notifications';
 
 export default function Index() {
+
+  const [notificationPermission, setNotificationPermission] = useState(false);
+
+  // Função para solicitar permissão de notificação
+  const askNotificationPermission = async () => {
+    const { status } = await Notifications.getPermissionsAsync();
+    
+    if (status !== 'granted') {
+      const { status: newStatus } = await Notifications.requestPermissionsAsync();
+      setNotificationPermission(newStatus === 'granted');
+
+      if (newStatus !== 'granted') {
+        Alert.alert(
+          'Permissão de Notificação',
+          'As notificações estão desativadas. Por favor, ative as notificações nas configurações do dispositivo.'
+        );
+      }
+    } else {
+      setNotificationPermission(true);
+    }
+  };
+
+  useEffect(() => {
+    // Solicita permissão de notificação ao carregar o componente
+    askNotificationPermission();
+  }, []);
 
   return (
     <View className='h-full bg-white flex justify-center'>

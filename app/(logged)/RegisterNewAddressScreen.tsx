@@ -229,6 +229,7 @@ export default function RegisterNewAddressScreen() {
           <YStack space="$4">
             <H5 color="black">Complemento</H5>
             <Input
+            className="text-black"
               value={complemento}
               onChangeText={setComplemento}
               placeholder="Digite o complemento"
