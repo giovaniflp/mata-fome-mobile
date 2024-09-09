@@ -96,24 +96,35 @@ export default function RestaurantScreen() {
                                                                 },
                                                             });
                                                         }}
-                                                        className="bg-orange-300 rounded-1xl p-2 mb-2 w-full flex-row justify-between items-center"
+                                                        className="bg-orange-300 rounded-1xl p-2 mb-2 w-full flex-row items-center"
                                                     >
-                                                        <View className="flex flex-col justify-between">
-                                                            <Text className="text-white text-xl pb-5">{produto.nome}</Text>
-                                                            <Text className="text-white pt-5">
-                                                                {new Intl.NumberFormat('pt-BR', {
-                                                                    style: 'currency',
-                                                                    currency: 'BRL',
-                                                                }).format(produto.preco)}
-                                                            </Text>
+                                                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                            <View style={{ flex: 1, paddingRight: 10 }}>
+                                                                <Text className="text-white text-xl pb-2">
+                                                                    {produto.nome.length > 25 ? `${produto.nome.substring(0, 25)}...` : produto.nome}
+                                                                </Text>
+                                                                <Text className="text-white text-x pb-2">
+                                                                    {produto.descricao.length > 30 ? `${produto.descricao.substring(0, 30)}...` : produto.descricao}
+                                                                </Text>
+                                                                <Text className="text-white pt-5">
+                                                                    {new Intl.NumberFormat('pt-BR', {
+                                                                        style: 'currency',
+                                                                        currency: 'BRL',
+                                                                    }).format(produto.preco)}
+                                                                </Text>
+                                                            </View>
+                                                            <Image
+                                                                style={{
+                                                                    width: 96,  // Tamanho fixo
+                                                                    height: 96, // Tamanho fixo
+                                                                    borderRadius: 12, // Arredondado
+                                                                    backgroundColor: '#FFFFFF'
+                                                                }}
+                                                                source={produto.urlImagem
+                                                                    ? { uri: produto.urlImagem }
+                                                                    : require("../public/images/BrandIcon.png")}
+                                                            />
                                                         </View>
-                                                        <Image
-                                                            className="w-24 h-24 rounded-lg"
-                                                            style={{ backgroundColor: '#FFFFFF' }}
-                                                            source={produto.urlImagem
-                                                                ? { uri: produto.urlImagem }
-                                                                : require("../public/images/BrandIcon.png")} // Imagem padrão caso `urlImagem` seja `null`
-                                                        />
                                                     </TouchableOpacity>
                                                 ))}
                                             </View>
