@@ -73,93 +73,89 @@ export default function Register() {
 
     return (
         <KeyboardAvoidingView
-            style={{ flex: 1 }}
+            style={styles.container}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-            <ScrollView
-                contentContainerStyle={styles.scrollContainer}
-                keyboardShouldPersistTaps='handled'
-            >
-                <View style={styles.container}>
-                    <View style={styles.imageContainer}>
-                        <Image source={require('./public/images/BrandIcon.png')} style={styles.image} />
+            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContainer}>
+                <View style={styles.imageContainer} className='mt-10'>
+                    <Image source={require('./public/images/BrandIcon.png')} style={styles.image} />
+                </View>
+                <H2 style={styles.title}>Registrar</H2>
+                <View style={styles.form}>
+                    <View style={styles.inputContainer}>
+                        <H6 style={styles.label}>Nome</H6>
+                        <Input
+                            style={styles.input}
+                            placeholder="Digite seu nome"
+                            value={name}
+                            onChangeText={setName}
+                        />
                     </View>
-                    <H2 style={styles.title}>Registrar</H2>
-                    <View style={styles.form}>
-                        <View style={styles.inputContainer}>
-                            <H6 style={styles.label}>Nome</H6>
-                            <Input
-                                style={styles.input}
-                                placeholder="Digite seu nome"
-                                value={name}
-                                onChangeText={setName}
-                            />
+                    <View style={styles.inputContainer}>
+                        <H6 style={styles.label}>Email</H6>
+                        <Input
+                            style={styles.input}
+                            placeholder="Digite seu e-mail"
+                            value={email}
+                            onChangeText={setEmail}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <H6 style={styles.label}>CPF</H6>
+                        <TextInputMask
+                            type={'cpf'}
+                            value={cpf}
+                            onChangeText={setCpf}
+                            style={styles.input}
+                            placeholder="Digite seu CPF"
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <H6 style={styles.label}>Telefone</H6>
+                        <TextInputMask
+                            type={'custom'}
+                            options={{
+                                mask: '(99) 99999-9999'
+                            }}
+                            value={phone}
+                            onChangeText={setPhone}
+                            style={styles.input}
+                            placeholder="Digite seu telefone"
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <H6 style={styles.label}>Senha</H6>
+                        <Input
+                            style={styles.input}
+                            placeholder="Digite sua senha"
+                            secureTextEntry
+                            value={password}
+                            onChangeText={setPassword}
+                        />
+                    </View>
+                    <View style={styles.inputContainer}>
+                        <H6 style={styles.label}>Confirmar senha</H6>
+                        <Input
+                            style={styles.input}
+                            placeholder="Confirme sua senha"
+                            secureTextEntry
+                            value={confirmPassword}
+                            onChangeText={setConfirmPassword}
+                        />
+                    </View>
+                    {errorMessage ? (
+                        <View style={styles.errorContainer}>
+                            <H6 style={styles.errorMessage}>{errorMessage}</H6>
                         </View>
-                        <View style={styles.inputContainer}>
-                            <H6 style={styles.label}>Email</H6>
-                            <Input
-                                style={styles.input}
-                                placeholder="Digite seu e-mail"
-                                value={email}
-                                onChangeText={setEmail}
-                            />
-                        </View>
-                        <View style={styles.inputContainer}>
-                            <H6 style={styles.label}>CPF</H6>
-                            <TextInputMask
-                                type={'cpf'}
-                                value={cpf}
-                                onChangeText={setCpf}
-                                style={styles.input}
-                                placeholder="Digite seu CPF"
-                            />
-                        </View>
-                        <View style={styles.inputContainer}>
-                            <H6 style={styles.label}>Telefone</H6>
-                            <TextInputMask
-                                type={'custom'}
-                                options={{
-                                    mask: '(99) 9999-9999'
-                                }}
-                                value={phone}
-                                onChangeText={setPhone}
-                                style={styles.input}
-                                placeholder="Digite seu telefone"
-                            />
-                        </View>
-                        <View style={styles.inputContainer}>
-                            <H6 style={styles.label}>Senha</H6>
-                            <Input
-                                style={styles.input}
-                                placeholder="Digite sua senha"
-                                secureTextEntry
-                                value={password}
-                                onChangeText={setPassword}
-                            />
-                        </View>
-                        <View style={styles.inputContainer}>
-                            <H6 style={styles.label}>Confirmar senha</H6>
-                            <Input
-                                style={styles.input}
-                                placeholder="Confirme sua senha"
-                                secureTextEntry
-                                value={confirmPassword}
-                                onChangeText={setConfirmPassword}
-                            />
-                        </View>
-                        {errorMessage ? (
-                            <View style={styles.errorContainer}>
-                                <H6 style={styles.errorMessage}>{errorMessage}</H6>
-                            </View>
-                        ) : null}
-                        <View style={styles.buttonContainer}>
-                            <Button
-                                onPress={apiRegisterUser}
-                                style={styles.submitButton}
-                            >
-                                Enviar
-                            </Button>
-                        </View>
+                    ) : null}
+                    <View style={styles.buttonContainer}>
+                        <Button
+                        className='mb-5'
+                            onPress={apiRegisterUser}
+                            style={styles.submitButton}
+                        >
+                            Enviar
+                        </Button>
                     </View>
                 </View>
             </ScrollView>
