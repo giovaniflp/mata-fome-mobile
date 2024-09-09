@@ -105,18 +105,18 @@ export default function RegisterNewAddressScreen(){
                     <ScrollView showsVerticalScrollIndicator={false}>
                         <View className="mb-4">
                             <H5 className="text-black">Nome do endereço</H5>
-                            <Input className="bg-white rounded-lg h-14 text-black"></Input>
+                            <Input className="bg-white  h-14 text-black rounded-lg shadow"></Input>
                         </View>
                         <View className="mb-4">
                             <H5 className="text-black">CEP</H5>
                             <View className="flex flex-row items-center">
-                                <Input value={cep} onChangeText={(text) => setCep(text)}  className="bg-white rounded-lg h-14 text-black w-72"></Input>
+                                <Input value={cep} onChangeText={(text) => setCep(text)}  className="bg-white rounded-lg shadow h-14 text-black w-72"></Input>
                                 <Button onPress={consultarCEP} className="w-14 h-14 ml-2" icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>}></Button>
                             </View>
                         </View>
                         <View className="mb-4">
                             <H5 className="text-black">Estado</H5>
-                            <View className="border rounded-lg">
+                            <View className="border rounded-lg shadow">
                                 <Picker
                                 selectedValue={estado}
                                 onValueChange={setEstado}> 
@@ -152,26 +152,26 @@ export default function RegisterNewAddressScreen(){
                         </View>
                         <View className="mb-4">
                             <H5 className="text-black">Cidade</H5>
-                            <Input value={cidade} onChangeText={(text)=>{setCidade(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                            <Input value={cidade} onChangeText={(text)=>{setCidade(text)}} className="bg-white rounded-lg shadow h-14 text-black"></Input>
                         </View>
                         <View className="mb-4">
                             <H5 className="text-black">Bairro</H5>
-                            <Input value={bairro} onChangeText={(text)=>{setBairro(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                            <Input value={bairro} onChangeText={(text)=>{setBairro(text)}} className="bg-white rounded-lg shadow h-14 text-black"></Input>
                         </View>
                         <View className="mb-4">
                             <H5 className="text-black">Logradouro</H5>
-                            <Input value={logradouro} onChangeText={(text)=>{setLogradouro(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                            <Input value={logradouro} onChangeText={(text)=>{setLogradouro(text)}} className="bg-white rounded-lg shadow h-14 text-black"></Input>
                         </View>
                         <View className="mb-4">
                             <H5 className="text-black">Número</H5>
-                            <Input value={numero} onChangeText={(text)=>{setNumero(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                            <Input value={numero} onChangeText={(text)=>{setNumero(text)}} className="bg-white rounded-lg shadow h-14 text-black"></Input>
                         </View>
                         <View className="mb-4">
                             <H5 className="text-black">Complemento</H5>
-                            <Input value={complemento} onChangeText={(text)=>{setComplemento(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
+                            <Input value={complemento} onChangeText={(text)=>{setComplemento(text)}} className="bg-white rounded-lg shadow h-14 text-black"></Input>
                         </View>
                         <View className="my-5">
-                            <Button onPress={apiRegisterAddress}>Regitrar endereçooo</Button>
+                            <Button className="mb-2" onPress={apiRegisterAddress}>Regitrar endereço</Button>
                             <RegisterAddressToast></RegisterAddressToast>
                         </View>
                     </ScrollView>

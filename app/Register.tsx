@@ -101,9 +101,9 @@ export default function Register() {
             <H2 className="text-center text-orange-500">Registrar</H2>
             <View className="flex items-center mt-4">
                 <View>
-                    <H6 className="text-black">Nome</H6>
+                    <H6 className="text-black ">Nome</H6>
                     <Input
-                        className="w-80 bg-white text-black"
+                        className="w-80 bg-white text-black rounded shadow"
                         placeholder="Digite seu nome"
                         value={name}
                         onChangeText={setName}
@@ -112,7 +112,7 @@ export default function Register() {
                 <View className="mt-4">
                     <H6 className="text-black">Email</H6>
                     <Input
-                        className="w-80 bg-white text-black"
+                        className="w-80 bg-white text-black rounded shadow"
                         placeholder="Digite seu e-mail"
                         value={email}
                         onChangeText={setEmail}
@@ -121,8 +121,8 @@ export default function Register() {
                 <View className="mt-4">
                     <H6 className="text-black">CPF</H6>
                     <Input
-                        className="w-80 bg-white text-black"
-                        placeholder="Digite seu número"
+                        className="w-80 bg-white text-black rounded shadow"
+                        placeholder="Digite o número do seu CPF"
                         value={cpf}
                         onChangeText={setCpf}
                     />
@@ -130,7 +130,7 @@ export default function Register() {
                 <View className="mt-4">
                     <H6 className="text-black">Telefone</H6>
                     <Input
-                        className="w-80 bg-white text-black"
+                        className="w-80 bg-white text-black rounded shadow"
                         placeholder="Digite seu número"
                         value={phone}
                         onChangeText={setPhone}
@@ -139,7 +139,7 @@ export default function Register() {
                 <View className="mt-4">
                     <H6 className="text-black">Senha</H6>
                     <Input
-                        className="w-80 bg-white text-black"
+                        className="w-80 bg-white text-black rounded shadow"
                         placeholder="Digite sua senha"
                         secureTextEntry
                         value={password}
@@ -149,7 +149,7 @@ export default function Register() {
                 <View className="mt-4">
                     <H6 className="text-black">Confirmar senha</H6>
                     <Input
-                        className="w-80 bg-white text-black"
+                        className="w-80 bg-white text-black rounded shadow"
                         placeholder="Confirme sua senha"
                         secureTextEntry
                         value={confirmPassword}

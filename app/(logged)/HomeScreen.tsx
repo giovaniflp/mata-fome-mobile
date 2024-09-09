@@ -16,6 +16,8 @@ export default function HomeScreen(){
 
     const [empresasList, setEmpresasList] = useState([]);
 
+    const [produtoList,setProdutoList] = useState([]);
+
     const imagesList = [
         {
             image: require("../public/images/slide01.jpg")
@@ -60,6 +62,25 @@ export default function HomeScreen(){
 
     useEffect(()=>{
         apiGetEmpresa();
+    },[])
+
+
+    const apiGetProduto = async () => {
+        try{
+            await axiosInstance.get('/api/produtoes').then((response)=>{
+                setProdutoList(response.data)
+            })
+        }
+        catch(e){
+            alert(e)
+        }
+        finally{
+            
+        }
+    }
+
+    useEffect(()=>{
+        apiGetProduto();
     },[])
 
     return (
@@ -121,6 +142,7 @@ export default function HomeScreen(){
                     <H4 className="text-black ml-4 mt-4 mb-4" fontStyle="italic">Comidas</H4>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         <View className="flex flex-row ml-1">
+
                             <View className="bg-orange-300 rounded-3xl p-2 ml-2">
                                 <Image className="w-24 h-24 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
                                 <Text className="text-white text-center">Bebidas</Text>
@@ -149,3 +171,5 @@ export default function HomeScreen(){
         </View>
     )
 }
+
+

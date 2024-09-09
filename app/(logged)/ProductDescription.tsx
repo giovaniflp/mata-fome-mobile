@@ -5,9 +5,10 @@ import { ShoppingCartToast } from "app/components/ShoppingCartToast";
 import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import BottomBar from "app/components/BottomBar";
 import axiosInstance from "app/config/axiosUrlConfig";
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
 import * as SecureStore from 'expo-secure-store';
 import { useCarrinho } from "app/providers/CarrinhoProvider";
+import { Alert } from "react-native";
 
 export default function ProductDescription(){
 
@@ -46,6 +47,17 @@ export default function ProductDescription(){
         })
     }
 
+
+    const showAlert = () => {
+        Alert.alert(
+          'Prezado Cliente',
+          'Este produto foi adicionado ao carrinho!',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressionado') }
+          ],
+          { cancelable: false }
+        );
+      };
 
 
     return(
@@ -106,6 +118,7 @@ export default function ProductDescription(){
                                 {/* <ShoppingCartToast></ShoppingCartToast> */}
                                 <Button onPress={()=>{
                                     addProductToCart()
+                                    showAlert()
                                 }} icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")}></Image>} className="bg-orange-500 w-48">
                             <Text className="text-xs text-white">Adicionar ao carrinho</Text>
                         </Button>

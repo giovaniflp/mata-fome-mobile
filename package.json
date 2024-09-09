@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@babel/generator": "^7.25.0",
+    "@react-native-google-signin/google-signin": "^13.0.1",
     "@react-native-picker/picker": "^2.7.7",
     "@react-navigation/native": "^6.1.17",
     "@tamagui/config": "^1.101.7",
@@ -28,6 +29,7 @@
     "expo-font": "~12.0.6",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.15",
+    "expo-secure-store": "~13.0.2",
     "expo-splash-screen": "~0.27.4",
     "expo-status-bar": "^1.12.1",
     "expo-system-ui": "~3.0.4",
@@ -46,8 +48,7 @@
     "react-native-star-rating-widget": "^1.8.0",
     "react-native-svg": "15.2.0",
     "react-native-web": "^0.19.12",
-    "tamagui": "^1.101.7",
-    "expo-secure-store": "~13.0.2"
+    "tamagui": "^1.101.7"
   },
   "devDependencies": {
     "@babel/core": "^7.24.6",
