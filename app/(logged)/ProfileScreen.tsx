@@ -4,32 +4,34 @@ import { router } from "expo-router";
 import BottomBar from "app/components/BottomBar";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
-import axiosInstance from "app/config/axiosUrlConfig";
+import { Feather } from "@expo/vector-icons";
 import { useCarrinho } from "app/providers/CarrinhoProvider";
 
+const MenuItem = ({ icon, title, subtitle, onPress }) => (
+  <TouchableOpacity onPress={onPress} className="flex-row items-center p-4 bg-white">
+    <View className="w-8 h-8 mr-4 justify-center items-center">
+      {icon}
+    </View>
+    <View className="flex-1">
+      <Text className="text-base font-medium">{title}</Text>
+      {subtitle && <Text className="text-sm text-gray-500">{subtitle}</Text>}
+    </View>
+    <Feather name="chevron-right" size={24} color="#999" />
+  </TouchableOpacity>
+);
+
 export default function ProfileScreen() {
-  const { carrinho, adicionarAoCarrinho, removerDoCarrinho, limparCarrinho } =
-    useCarrinho();
-
-  const [token, setToken] = useState("");
+  const { limparCarrinho } = useCarrinho();
   const [username, setUsername] = useState("");
-  const [idUser, setIdUser] = useState("");
-
-  const getUsername = async () => {
-    const tokenStorage = (await SecureStore.getItemAsync("token")) || "";
-    const usernameStorage = (await SecureStore.getItemAsync("username")) || "";
-    const idUserStorage = (await SecureStore.getItemAsync("idUser")) || "";
-
-    const tokenParse = JSON.parse(tokenStorage);
-    const usernameParse = JSON.parse(usernameStorage);
-    const idUserParse = JSON.parse(idUserStorage);
-
-    setUsername(usernameParse);
-  };
 
   useEffect(() => {
     getUsername();
   }, []);
+
+  const getUsername = async () => {
+    const usernameStorage = await SecureStore.getItemAsync("username");
+    setUsername(JSON.parse(usernameStorage) || "");
+  };
 
   const logoutAccount = async () => {
     await SecureStore.deleteItemAsync("token");
@@ -43,89 +45,57 @@ export default function ProfileScreen() {
   };
 
   return (
-    <View className="flex-1 bg-white">
-      <ScrollView className="bg-white">
-        <View className="flex items-center mt-10">
-          <Image
-            source={require("../public/images/slide01.jpg")}
-            className="w-40 h-40 rounded-full"
-          ></Image>
+    <View className="flex-1 bg-gray-100">
+      <ScrollView>
+        {/* Cabeçalho da tela com o título e a imagem */}
+        <View className="bg-white p-4 mb-2">
+          <View className="mt-10 flex flex-row justify-around items-center">
+            <H4 className="text-black">Configuração de perfil</H4>
+            <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")} />
+          </View>
         </View>
-        <View className="flex items-center my-5">
-          <H3 className="text-black">{username}</H3>
-        </View>
-        <View className="flex items-center">
-          <Button
-            onPress={() => {
-              router.push("RegisteredAddressProfileScreen");
-            }}
-            className="bg-black text-white w-60 mb-2 mt-3"
-            icon={
-              <Image
-                className="w-5 h-5"
-                source={require("../public/icons/ui/pinDrop.png")}
-              ></Image>
-            }
-          >
-            Meus endereços
-          </Button>
-          <Button
-            onPress={() => {
-              router.push("PaymentScreen");
-            }}
-            className="bg-black text-white w-60 mb-2 mt-3"
-            icon={
-              <Image
-                className="w-5 h-5"
-                source={require("../public/icons/ui/creditCard.png")}
-              ></Image>
-            }
-          >
-            Formas de pagamento
-          </Button>
-          <Button
-            onPress={() => {
-              router.push("NotificationScreen");
-            }}
-            className="bg-black text-white w-60 mb-2 mt-3"
-            icon={
-              <Image
-                className="w-5 h-5"
-                source={require("../public/icons/ui/notification.png")}
-              ></Image>
-            }
-          >
-            Notificações no App
-          </Button>
-          <Button
-            onPress={() => {
-              router.push("SupportScreen");
-            }}
-            className="bg-black text-white w-60 mb-2 mt-3"
-            icon={
-              <Image
-                className="w-10 h-10"
-                source={require("../public/icons/tomato/TomatoSupport.png")}
-              ></Image>
-            }
-          >
-            Suporte
-          </Button>
-          <Button
+
+        {/* Menu de itens do perfil */}
+        <View className="mt-5 bg-white">
+          <MenuItem
+            icon={<Feather name="map-pin" size={24} color="#000" />}
+            title="Meus endereços"
+            subtitle="Gerencie seus endereços de entrega"
+            onPress={() => router.push("RegisteredAddressProfileScreen")}
+          />
+
+          <MenuItem
+            icon={<Feather name="credit-card" size={24} color="#000" />}
+            title="Formas de pagamento"
+            subtitle="Configure suas opções de pagamento"
+            onPress={() => router.push("PaymentScreen")}
+          />
+
+          <MenuItem
+            icon={<Feather name="bell" size={24} color="#000" />}
+            title="Notificações no App"
+            subtitle="Central de notificações e alertas"
+            onPress={() => router.push("NotificationScreen")}
+          />
+
+          <MenuItem
+            icon={<Feather name="headphones" size={24} color="#000" />}
+            title="Suporte"
+            subtitle="Entre em contato com o suporte"
+            onPress={() => router.push("SupportScreen")}
+          />
+
+          <MenuItem
+            icon={<Feather name="log-out" size={24} color="#f00" />}
+            title="Deslogar da conta"
+            subtitle="Sair da sua conta atual"
             onPress={logoutAccount}
-            className="bg-red-500 text-white w-60 mt-3"
-            icon={
-              <Image
-                className="w-5 h-5"
-                source={require("../public/icons/ui/logout.png")}
-              ></Image>
-            }
-          >
-            Deslogar da conta
-          </Button>
+          />
         </View>
       </ScrollView>
-      <BottomBar screen="ProfileScreen"></BottomBar>
+
+      {/* Barra inferior de navegação */}
+      <BottomBar screen="ProfileScreen" />
     </View>
   );
 }
