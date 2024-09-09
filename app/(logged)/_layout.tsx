@@ -101,13 +101,6 @@ function RootLayoutNav() {
                         }}
                     />
                     <Stack.Screen
-                        name="RegisteredAddressScreen"
-                        options={{
-                            animation: 'fade',
-                            headerShown: false,
-                        }}
-                    />
-                    <Stack.Screen
                         name="PaymentScreen"
                         options={{
                             animation: 'fade',
