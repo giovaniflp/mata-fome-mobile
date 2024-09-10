@@ -72,18 +72,18 @@ export default function OrderConfirmationScreen(){
     return(
         <View className="flex-1">
             <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-around items-center">
+                <View className="mt-10 flex flex-row justify-around items-center ">
                     <H4 className="text-black">Confirmação de pedido</H4>
                     <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoDelivery.png")}></Image>
                 </View>
             </View>
             <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
             {carrinho.map((produto) => (
-            <View key={produto.id} className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center flex-col mt-5">
-                <View className="flex flex-row">
+            <View key={produto.id} className="bg-white  border-b border-gray-400 shadow-200 p-4 flex justify-right flex-row mt-5">
+                <View className="flex flex-row items-center">
                     <View>
                         <Image
-                            className="w-32 h-32 rounded-3xl"
+                            className="w-20 h-20 rounded-full"
                             source={produto.urlImagem
                                 ? { uri: produto.urlImagem }
                                 : require("../public/images/slide01.jpg")} // Imagem padrão
@@ -91,24 +91,24 @@ export default function OrderConfirmationScreen(){
                     </View>
                 </View>
                 <View>
-                    <H5 className="my-2 text-orange-500">Descrição</H5>
-                    <H6 className="text-black">{produto.descricao}</H6>
+                    <H5 className="ml-4 text-orange-500">Produto</H5>
+                    <H6 className="ml-4 text-black">{produto.nome}</H6>
                 </View>
             </View>
         ))}
-                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
+                <View className="bg-white  border-b border-gray-400 shadow-200 p-4 flex justify-center flex-col">
                     <View className="w-80">
                                 <H5 className="text-orange-500">Observação*</H5>
                                 <H6 className="text-black">Por favor, retirar a mostarda e quero a carne bem passada.</H6>
                     </View>
                 </View>
-                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
+                <View className="bg-white  border-b border-gray-400 shadow-l p-4 flex justify-center flex-col">
                     <View className="w-80">
-                                <H5 className="text-black">Endereço 01 - (Padrão)</H5>
+                                <H5 className="text-orange-500">Endereço 01 - (Padrão)</H5>
                                 <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
                     </View>
                 </View>
-                <View className="bg-gray-200 rounded-3xl p-4 mx-2 flex justify-center mt-5">
+                <View className="bg-white  border-b border-gray-400 shadow-500 p-4 flex justify-center flex-col mt-5">
                     <H4 className="text-black">Forma de pagamento</H4>
                     <View className="flex flex-row items-center mt-2">
                         <Image className="w-10 h-10" source={require("../public/icons/ui/creditCard.png")}></Image>

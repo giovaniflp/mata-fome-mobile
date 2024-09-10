@@ -183,8 +183,6 @@ export default function SearchScreen() {
                     <Text className="text-black text-center mt-2">{empresa.nomeFantasia}</Text>
                   </TouchableOpacity>
                 ))}
-                <View className="flex justify-center flex-row flex-wrap">
-                </View>
               </View>
             </ScrollView>
           </View>
@@ -194,3 +192,4 @@ export default function SearchScreen() {
     </View>
   );
 }
+0
