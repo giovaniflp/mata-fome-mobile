@@ -6,6 +6,10 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { useFonts } from 'expo-font'
 import { SplashScreen, Stack } from 'expo-router'
 import { Provider } from 'app/Provider'
+import { TextDecoder, TextEncoder } from 'text-encoding';
+
+global.TextDecoder = TextDecoder;
+global.TextEncoder = TextEncoder;
 
 export {
     // Catch any errors thrown by the Layout component.
@@ -91,13 +95,6 @@ function RootLayoutNav() {
                     />
                     <Stack.Screen
                         name="CartScreen"
-                        options={{
-                            animation: 'fade',
-                            headerShown: false,
-                        }}
-                    />
-                    <Stack.Screen
-                        name="RegisteredAddressScreen"
                         options={{
                             animation: 'fade',
                             headerShown: false,

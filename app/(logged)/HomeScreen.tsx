@@ -14,6 +14,8 @@ export default function HomeScreen() {
     const [empresasList, setEmpresasList] = useState([]);
     const [comidaList, setComidaList] = useState([]); // Para armazenar produtos
 
+    const [produtoList,setProdutoList] = useState([]);
+
     const imagesList = [
         {
             image: require("../public/images/slide01.jpg")
@@ -48,7 +50,7 @@ export default function HomeScreen() {
             const response = await axiosInstance.get('/api/empresas');
             setEmpresasList(response.data);
         } catch (e) {
-            alert(e);
+
         }
     };
 
@@ -61,8 +63,8 @@ export default function HomeScreen() {
         try {
             const response = await axiosInstance.get('/api/empresas/{empresaId}/prateleiras/{prateleiraId}/produtos?page=0&size=10');
             setComidaList(response.data.content); // Atribui os produtos ao estado comidaList
+            console.log(response.data.content);
         } catch (e) {
-            alert(e);
         }
     };
 
