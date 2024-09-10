@@ -8,41 +8,42 @@ import { ActivityIndicator, Alert, Image, ScrollView, TouchableOpacity, View } f
 import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import { Button, Text } from "tamagui";
 
-export default function ProductDescription(){
+export default function ProductDescription() {
 
     const { adicionarAoCarrinho } = useCarrinho();
 
-    const {idEmpresa} = useLocalSearchParams();
-    const {idProduto} = useLocalSearchParams();
-    const {idPrateleira} = useLocalSearchParams();
+    const { idEmpresa } = useLocalSearchParams();
+    const { idProduto } = useLocalSearchParams();
+    const { idPrateleira } = useLocalSearchParams();
+
 
     const [productData, setProductData] = useState({});
-    const[quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(1);
     const [loading, setLoading] = useState(true)
 
     const [idEmpresaState, setIdEmpresaState] = useState(Number(idEmpresa))
 
 
     const apiGetProductData = async () => {
-        try{
-            await axiosInstance.get(`/api/empresas/{idEmpresa}/prateleiras/{idPrateleira}/produtos/${idProduto}`).then((response)=>{
+        try {
+            await axiosInstance.get(`/api/empresas/{idEmpresa}/prateleiras/{idPrateleira}/produtos/${idProduto}`).then((response) => {
                 setProductData(response.data)
                 setIdEmpresaState(response.data.idEmpresa)
             })
         }
-        catch(e){
+        catch (e) {
             alert(e)
         }
-        finally{
+        finally {
             setLoading(false)
         }
-    } 
+    }
 
-    useEffect(()=>{
+    useEffect(() => {
         apiGetProductData();
-    },[])
+    }, [])
 
-    const addProductToCart = async() => {
+    const addProductToCart = async () => {
         adicionarAoCarrinho({
             id: productData.Produto.id,
             idEmpresa: Number(idEmpresaState),
@@ -58,16 +59,16 @@ export default function ProductDescription(){
 
     const showAlert = () => {
         Alert.alert(
-          'Prezado Cliente',
-          'Este produto foi adicionado ao carrinho!',
-          [
-            { text: 'OK', onPress: () => console.log('OK Pressionado') }
-          ],
-          { cancelable: false }
+            'Prezado Cliente',
+            'Este produto foi adicionado ao carrinho!',
+            [
+                { text: 'OK', onPress: () => console.log('OK Pressionado') }
+            ],
+            { cancelable: false }
         );
-      };
+    };
 
-      if (loading) {
+    if (loading) {
         return (
             <View className="flex-1 justify-center items-center bg-white">
                 <ActivityIndicator size="large"></ActivityIndicator>
@@ -75,76 +76,82 @@ export default function ProductDescription(){
         );
     }
 
-    return(
+    return (
         <View className="flex-1">
-        <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
-            <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-around items-center">
-                    <Text className="text-black text-lg font-bold">Descrição do produto</Text>
-                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoSpeaker.png")} />
-                </View>
-                <View className="mt-5">
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View className="flex items-center">
-                            <Image className="w-80 h-60 rounded-lg" source={{ uri: productData.Produto.urlImagem }} />
-                        </View>
-                        <View className="flex flex-row justify-evenly items-center my-5">
+            <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
+                <View className='bg-white'>
+                    <View className="mt-10 flex flex-row justify-around items-center">
+                        <Text className="text-black text-lg font-bold">Descrição do produto</Text>
+                        <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoSpeaker.png")} />
+                    </View>
+                    <View className="mt-5">
+                        <ScrollView showsVerticalScrollIndicator={false}>
                             <View className="flex items-center">
-                                <StarRatingDisplay rating={4.5} />
-                                <Text className="text-black">Baseado em <Text className="text-orange-500">4523</Text> opiniões</Text>
+                                <Image className="w-80 h-60 rounded-lg" source={{ uri: productData.Produto.urlImagem }} />
                             </View>
-                            <View>
-                                <Image className="w-10 h-10 rounded-full" source={require("../public/images/slide03.jpg")} />
-                            </View>
-                        </View>
-                        <View className="p-7">
-                            <View>
-                                <Text className="text-orange-500 text-lg font-bold">Nome do produto</Text>
-                                <Text className="text-black text-base">{productData.Produto.nome}</Text>
-                            </View>
-                            <View className="my-4">
-                                <Text className="text-orange-500 text-lg font-bold">Descrição</Text>
-                                <Text className="text-black text-xs">{productData.Produto.descricao}</Text>
-                            </View>
-                            <View className="mb-4">
-                                <Text className="text-orange-500 text-lg font-bold">Preço</Text>
-                                <Text className="text-black">R$ {productData.Produto.preco} (Unid.)</Text>
-                            </View>
-                        </View>
-                        <View className="border-t-2 pt-4 mb-4">
-                            <View className="flex flex-row items-center justify-around">
-                                <View className="flex flex-row items-center justify-between w-28">
-                                    <TouchableOpacity onPress={() => {
-                                        if (quantity > 1) {
-                                            setQuantity(quantity - 1);
-                                        }
-                                    }}>
-                                        <Image className="w-10 h-10" source={require("../public/icons/ui/minus.png")} />
-                                    </TouchableOpacity>
-                                    <Text className="text-black text-lg">{quantity}</Text>
-                                    <TouchableOpacity onPress={() => {
-                                        setQuantity(quantity + 1);
-                                    }}>
-                                        <Image className="w-10 h-10" source={require("../public/icons/ui/plus.png")} />
-                                    </TouchableOpacity>
+                            {/* <View className="flex flex-row justify-evenly items-center my-5">
+                                <View className="flex items-center">
+                                    <StarRatingDisplay rating={4.5} />
+                                    <Text className="text-black">Baseado em <Text className="text-orange-500">4523</Text> opiniões</Text>
                                 </View>
-                                <Button
-                                    onPress={() => {
-                                        addProductToCart();
-                                        showAlert();
-                                    }}
-                                    icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")} />}
-                                    className="bg-orange-500 w-48"
-                                >
-                                    <Text className="text-xs text-white">Adicionar ao carrinho</Text>
-                                </Button>
+                                <View>
+                                    <Image className="w-10 h-10 rounded-full" source={require("../public/images/slide03.jpg")} />
+                                </View>
+                            </View> */}
+                            <View className="p-7">
+                                <View>
+                                    <Text className="text-black text-base text-xl font-bold">{productData.Produto.nome}</Text>
+                                </View>
+                                <View className="my-4">
+                                    <Text className="text-black text-xs">{productData.Produto.descricao}</Text>
+                                </View>
+                                <View className="mb-4">
+                                    <Text className="text-orange-500 text-lg font-bold">Preço</Text>
+                                    <Text className="text-black">R$ {productData.Produto.preco}</Text>
+                                </View>
+                                <View>
+                                    <Text className="text-orange-500 text-lg font-bold">Adicionais</Text>
+                                </View>
+
                             </View>
-                        </View>
-                    </ScrollView>
+
+                        </ScrollView>
+
+
+                    </View>
+                </View>
+            </ScrollView>
+            <View className="pt-3 mb-3" >
+                <View className="flex flex-row items-center justify-around ">
+                    <View className="flex flex-row items-center justify-between w-28 border-black-200 border rounded-lg bg-white">
+                        <TouchableOpacity onPress={() => {
+                            if (quantity > 1) {
+                                setQuantity(quantity - 1);
+                            }
+                        }}>
+                            <Image className="w-8 h-8" source={require("../public/icons/ui/minus.png")} />
+                        </TouchableOpacity>
+                        <Text className="text-black text-2xl">{quantity}</Text>
+                        <TouchableOpacity onPress={() => {
+                            setQuantity(quantity + 1);
+                        }}>
+                            <Image className="w-8 h-8" source={require("../public/icons/ui/plus.png")} />
+                        </TouchableOpacity>
+                    </View>
+
+                    <Button
+                        onPress={() => {
+                            addProductToCart();
+                            showAlert();
+                        }}
+                        icon={<Image className="w-5 h-5" source={require("../public/icons/ui/shoppingCart.png")} />}
+                        className="bg-orange-500 w-48"
+                    >
+                        <Text className="text-xs text-white">Adicionar ao carrinho</Text>
+                    </Button>
                 </View>
             </View>
-        </ScrollView>
-        <BottomBar screen="ProductDescription" />
-    </View>
+            <BottomBar screen="ProductDescription" />
+        </View>
     )
 }

@@ -37,6 +37,7 @@ export default function PaymentScreen(){
     }
 
     return(
+        
         <View className="flex-1">
             <ScrollView className="bg-white">
             <View className='bg-white'>
@@ -46,7 +47,8 @@ export default function PaymentScreen(){
                 </View>
                 <View className="mt-5">
                     <ScrollView showsVerticalScrollIndicator={false}>
-                        <View className="bg-gray-200 rounded-3xl p-4 mt-5 flex ml-4 mr-4">
+                        {/* <View className="bg-orange-50 p-4 mx-5 mt-5 flex flex-row items-center shadow-xl"
+>
                             <View className="w-80">
                                 <H4 className="text-black">Saldo em carteira</H4>
                                 <H5 className="text-orange-500">R$ 25,93</H5>
@@ -56,10 +58,10 @@ export default function PaymentScreen(){
                                     <Text className="text-white">Adicionar saldo</Text>
                                 </Button>
                             </View>
-                        </View>
-                        <View className="bg-gray-200 rounded-3xl p-4 mt-5 flex ml-4 mr-4">
+                        </View> */}
+                        <View className="bg-white-200 p-4 mt-5 flex ml-4 mr-4 border rounded-lg shadow-xl">
                             <View className="w-80">
-                                <H4 className="text-black">Minhas formas de pagamento</H4>
+                                <H4 className="text-black">Meus cartões</H4>
                             </View>
                             <View>
                                 {
@@ -71,7 +73,7 @@ export default function PaymentScreen(){
                                             <TouchableOpacity onPress={()=>{
                                                 setSelectedPaymentMethod(paymentMethod.id)
                                                 savePaymentMethodIdInStorage(paymentMethod.id)
-                                            }} key={paymentMethod.id} className={`bg-gray-200 rounded-3xl p-4 mx-2 mt-5 flex ${isSelected ? 'border-2 border-orange-500' : 'border-transparent'}`}>
+                                            }} key={paymentMethod.id} className={`bg-gray-100 rounded-lg p-4 mx-2 mt-5 flex ${isSelected ? 'border-2 border-orange-500' : 'border-transparent'}`}>
                                                 <H5 className="text-black">{paymentMethod.tipo}</H5>
                                                 <H6 className="text-black">Terminado em {paymentMethod.numero_cartao.slice(-4)}</H6>
                                             </TouchableOpacity>
@@ -80,7 +82,7 @@ export default function PaymentScreen(){
                                 }
                             </View>
                         </View>
-                        <View className="bg-gray-200 rounded-3xl p-4 mt-6 flex ml-4 mr-4">
+                        <View className="bg-white-200 p-4 mt-5 flex ml-4 mr-4 border rounded-lg shadow-xl">
                             <H4 className="text-black">Formas de pagamento</H4>
                             <Button className=" bg-green-500 mt-5">
                                 <Text className="text-white">Usar dinheiro da carteira</Text>

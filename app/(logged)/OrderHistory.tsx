@@ -136,7 +136,7 @@ export default function OrderHistory() {
                             {pedidos.map((pedido) => (
                                 <View
                                     key={pedido.id}
-                                    className="bg-gray-200 rounded-3xl p-4 mx-5 mt-5 flex flex-row items-center"
+                                    className="bg-orange-50 p-4 mx-5 mt-5 flex flex-row items-center shadow-xl"
                                 >
                                     <TouchableOpacity
                                         onPress={() => {

@@ -183,36 +183,6 @@ export default function SearchScreen() {
                     <Text className="text-black text-center mt-2">{empresa.nomeFantasia}</Text>
                   </TouchableOpacity>
                 ))}
-                <View className="flex justify-center flex-row flex-wrap">
-
-                <View className="flex flex-row flex-wrap justify-center gap-4">
-                  <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                  </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                  </View>
-                  
-                </View>
-                </View>
               </View>
             </ScrollView>
           </View>
@@ -222,3 +192,4 @@ export default function SearchScreen() {
     </View>
   );
 }
+0
