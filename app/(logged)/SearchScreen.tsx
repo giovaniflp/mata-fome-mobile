@@ -109,7 +109,7 @@ export default function SearchScreen() {
 
   return (
     <View className="flex-1">
-      <ScrollView>
+      <ScrollView className="bg-white">
         <View className="bg-white">
           <View className="mt-10 flex flex-row justify-around items-center">
             <H4 className="text-black">Categorias</H4>
@@ -134,7 +134,7 @@ export default function SearchScreen() {
                   <TouchableOpacity
                     key={index}
                     onPress={() => fetchEmpresasPorCategoria(categoria.id)} // Chama a função ao clicar em uma categoria
-                    className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2 ml-1"
+                    className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2 ml-2"
                   >
                     <Text className="text-white text-center">{categoria.nome}</Text>
                   </TouchableOpacity>
@@ -184,34 +184,6 @@ export default function SearchScreen() {
                   </TouchableOpacity>
                 ))}
                 <View className="flex justify-center flex-row flex-wrap">
-
-                <View className="flex flex-row flex-wrap justify-center gap-4">
-                  <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                  </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                </View>
-                <View className="bg-orange-300 rounded-3xl p-2 ml-2">
-                    <Image className="w-36 h-36 rounded-lg" source={require("../public/images/slide01.jpg")}></Image>
-                    <Text className="text-white text-center">Ver mais +</Text>
-                  </View>
-                  
-                </View>
                 </View>
               </View>
             </ScrollView>
