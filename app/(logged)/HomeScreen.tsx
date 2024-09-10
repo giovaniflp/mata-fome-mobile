@@ -14,6 +14,8 @@ export default function HomeScreen() {
     const [empresasList, setEmpresasList] = useState([]);
     const [comidaList, setComidaList] = useState([]); // Para armazenar produtos
 
+    const [produtoList,setProdutoList] = useState([]);
+
     const imagesList = [
         {
             image: require("../public/images/slide01.jpg")
@@ -48,7 +50,7 @@ export default function HomeScreen() {
             const response = await axiosInstance.get('/api/empresas');
             setEmpresasList(response.data);
         } catch (e) {
-            alert(e);
+
         }
     };
 
@@ -61,8 +63,8 @@ export default function HomeScreen() {
         try {
             const response = await axiosInstance.get('/api/empresas/{empresaId}/prateleiras/{prateleiraId}/produtos?page=0&size=10');
             setComidaList(response.data.content); // Atribui os produtos ao estado comidaList
+            console.log(response.data.content);
         } catch (e) {
-            alert(e);
         }
     };
 
@@ -99,36 +101,12 @@ export default function HomeScreen() {
                         />
                     </View>
 
-                    {/* Lista de Restaurantes */}
-                    <H4 className="text-black ml-4 mt-4 mb-4 " fontStyle="italic">Restaurantes</H4>
-                    <ScrollView className="mt-5 mr-6 ml-6 " showsVerticalScrollIndicator={true}>
-                        <View className="flex justify-center flex-row flex-wrap">
-                            {empresasList.map((empresa) => (
-                                <TouchableOpacity
-                                    key={empresa.id}
-                                    onPress={() => {
-                                        router.push({
-                                            pathname: "/RestaurantScreen",
-                                            params: {
-                                                idEmpresa: empresa.id,
-                                                nomeEmpresa: empresa.nomeFantasia
-                                            }
-                                        });
-                                    }}
-                                    className="bg-white rounded-3xl p-2 " 
-                                >
-                                    <Image className="w-80 h-28 rounded-lg" source={{ uri: empresa.imgCapa }} style={{ width: 370, height: 100 }} />
-                                    <Text className="text-black text-center">{empresa.nomeFantasia}</Text>
-                                </TouchableOpacity>
-                            ))}
-                        </View>
-                    </ScrollView>
+                    
 
                     {/* Lista de Comidas */}
-                    <H4 className="text-black ml-4 mt-4 mb-4" fontStyle="italic">Comidas</H4>
-
+                    <H4 className="text-black ml-8 mt-4 mb-4" fontStyle="italic">Comidas</H4>
                     <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        <View className="flex flex-row ml-1" style={{ height: 300 }}>
+                        <View className="flex flex-row ml-1" style={{ height: 200 }}>
                             {comidaList.map((comida) => (
                                 <TouchableOpacity
                                     key={comida.id}
@@ -152,6 +130,32 @@ export default function HomeScreen() {
                             ))}
                         </View>
                     </ScrollView>
+
+                    {/* Lista de Restaurantes */}
+                    <H4 className="text-black ml-8 mt-4 mb-4 " fontStyle="italic">Restaurantes</H4>
+                    <ScrollView className="mt-5 mr-6 ml-6 " showsVerticalScrollIndicator={true}>
+                        <View className="flex justify-center flex-row flex-wrap">
+                            {empresasList.map((empresa) => (
+                                <TouchableOpacity
+                                    key={empresa.id}
+                                    onPress={() => {
+                                        router.push({
+                                            pathname: "/RestaurantScreen",
+                                            params: {
+                                                idEmpresa: empresa.id,
+                                                nomeEmpresa: empresa.nomeFantasia
+                                            }
+                                        });
+                                    }}
+                                    className="bg-white rounded-3xl p-2 " 
+                                >
+                                    <Image className="w-80 h-28 rounded-lg" source={{ uri: empresa.imgCapa }} style={{ width: 370, height: 100 }} />
+                                    <Text className="text-black text-center">{empresa.nomeFantasia}</Text>
+                                </TouchableOpacity>
+                            ))}
+                        </View>
+                    </ScrollView>
+
                 </View>
             </ScrollView >
             <BottomBar screen="HomeScreen" />
