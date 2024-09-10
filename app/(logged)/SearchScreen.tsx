@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { TouchableOpacity, Image, ScrollView, View } from "react-native";
-import { H4, Input, Text } from "tamagui";
+import { H4, Input, Text, Button } from "tamagui"; // Importei o Button do Tamagui
 import { useRouter } from "expo-router";
 import BottomBar from "app/components/BottomBar";
 import axiosInstance from "app/config/axiosUrlConfig";
@@ -9,6 +9,7 @@ export default function SearchScreen() {
   const [empresas, setEmpresas] = useState([]); // Estado para armazenar as empresas
   const [categorias, setCategorias] = useState([]); // Estado para armazenar as categorias
   const [searchQuery, setSearchQuery] = useState(''); // Estado para armazenar o valor da barra de pesquisa
+  const [filtroAtivo, setFiltroAtivo] = useState(false); // Estado para controlar se há um filtro ativo
 
   const router = useRouter();
 
@@ -63,6 +64,7 @@ export default function SearchScreen() {
       );
       const data = response.data;
       setEmpresas(data.content); // Supondo que a resposta seja paginada
+      setFiltroAtivo(true); // Marca o filtro como ativo
     } catch (error) {
       console.error("Erro ao buscar empresas por nome fantasia:", error.message);
     }
@@ -72,7 +74,7 @@ export default function SearchScreen() {
   const fetchEmpresasPorCategoria = async (categoria) => {
     try {
       const response = await axiosInstance.get(
-        '/api/empresas/filtrarPorCategoria', 
+        '/api/empresas/filtrarPorCategoria',
         {
           params: {
             categoria: categoria.toLowerCase(), // Converte a categoria para minúsculas
@@ -83,6 +85,7 @@ export default function SearchScreen() {
       );
       const data = response.data;
       setEmpresas(data.content); // Atualiza o estado com os restaurantes filtrados
+      setFiltroAtivo(true); // Marca o filtro como ativo
     } catch (error) {
       console.error("Erro ao buscar empresas por categoria:", error.message);
     }
@@ -96,6 +99,13 @@ export default function SearchScreen() {
       fetchnomeFantasia();
     }
   }, [searchQuery]);
+
+  // Função para desfazer o filtro
+  const desfazerFiltro = () => {
+    setSearchQuery(''); // Reseta o valor de busca
+    fetchnomeFantasia(); // Restaura a lista original de empresas
+    setFiltroAtivo(false); // Marca que não há filtro ativo
+  };
 
   return (
     <View className="flex-1">
@@ -116,8 +126,9 @@ export default function SearchScreen() {
               onChangeText={setSearchQuery} // Atualiza o estado de searchQuery conforme o usuário digita
             />
           </View>
+
           <View>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View className="flex justify-center flex-row flex-wrap">
                 {categorias.map((categoria, index) => (
                   <TouchableOpacity
@@ -125,13 +136,24 @@ export default function SearchScreen() {
                     onPress={() => fetchEmpresasPorCategoria(categoria.id)} // Chama a função ao clicar em uma categoria
                     className="bg-orange-300 rounded-3xl p-2 mr-2 mb-2 ml-1"
                   >
-                    {/* Como não há imagem no objeto categoria, você pode usar uma imagem padrão ou remover a Image */}
                     <Text className="text-white text-center">{categoria.nome}</Text>
                   </TouchableOpacity>
                 ))}
               </View>
             </ScrollView>
           </View>
+
+          {/* Botão de desfazer filtro */}
+          {filtroAtivo && (
+            <View className="flex my-2 p-4">
+              <Button
+                className="bg-orange-400 text-black"
+                onPress={desfazerFiltro}
+              >
+                Desfazer filtro
+              </Button>
+            </View>
+          )}
 
           <View className="flex items-center my-3 p-3">
             <H4 className="text-black">Restaurantes</H4>
@@ -194,7 +216,6 @@ export default function SearchScreen() {
               </View>
             </ScrollView>
           </View>
-
         </View>
       </ScrollView>
       <BottomBar screen="SearchScreen" />
