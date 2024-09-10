@@ -41,16 +41,20 @@ export default function OrderHistory() {
           // Subscrevendo ao tópico para receber pedidos
           stompClient.subscribe(`/topic/pedidoCliente/${idUser}`, (message) => {
             try {
-              const pedidoData = JSON.parse(message.body);
+                const pedidoData = JSON.parse(message.body);
 
-                                  // Enviar notificação de atualização
-                                  Notifications.scheduleNotificationAsync({
-                                    content: {
-                                    title: 'Atualização de Pedido',
-                                    body: `O status de um de seus pedidos foi atualizado para ${pedidoData.status}`,
-                                    },
-                                    trigger: null,
-                                });
+                // Ajustar o texto de status para exibição
+                const statusDisplay =
+                  pedidoData.status === 'EM_TRANSITO' ? 'EM TRÂNSITO' : pedidoData.status;
+                
+                // Enviar notificação de atualização
+                Notifications.scheduleNotificationAsync({
+                  content: {
+                    title: 'Atualização de Pedido',
+                    body: `O status de um de seus pedidos foi atualizado para ${statusDisplay}`,
+                  },
+                  trigger: null,
+                });
       
               // Atualize o estado com o pedido recebido
               setPedidos((prevPedidos) => {
@@ -168,7 +172,7 @@ export default function OrderHistory() {
                                                 pedido.status === 'PROCESSANDO' ? 'text-orange-500' :
                                                 pedido.status === 'EM_TRANSITO' ? 'text-blue-500' :
                                                 'text-gray-500'
-                                            }>{pedido.status}</Text>
+                                            }>{pedido.status === 'EM_TRANSITO' ? 'EM TRÂNSITO' : pedido.status}</Text>
                                         </Text>
                                         <Text className="text-black text-sm">Total - R$ {Number(pedido.valorTotal)+Number(pedido.taxaEntrega)}</Text>
                                     </TouchableOpacity>
