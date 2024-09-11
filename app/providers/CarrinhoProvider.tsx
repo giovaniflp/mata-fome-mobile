@@ -158,7 +158,7 @@ export const CarrinhoProvider: React.FC<CarrinhoProviderProps> = ({ children }) 
 };
 
 // Hook para usar o contexto
-export const useCarrinho = (): CarrinhoContextData => {
+export const useCarrinho = (p0: string): CarrinhoContextData => {
     const context = useContext(CarrinhoContext);
     if (!context) {
         throw new Error('useCarrinho must be used within a CarrinhoProvider');

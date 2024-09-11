@@ -1,17 +1,22 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native';
-import axiosInstance from 'app/config/axiosUrlConfig';
-import { useRouter, useFocusEffect } from 'expo-router';
+import BottomBar from "app/components/BottomBar";
+import axiosInstance from "app/config/axiosUrlConfig";
+import { useRouter } from "expo-router";
 import * as SecureStore from 'expo-secure-store';
-import BottomBar from 'app/components/BottomBar';
-import { Button, H4, H5, H6 } from 'tamagui'; // Ajuste conforme necessário para a biblioteca de UI
+import { useEffect, useState, useCallback } from "react";
+import { Image, ScrollView, Text, TouchableOpacity, View, Alert } from "react-native";
+import { Button, H4, H5, H6 } from "tamagui"; // Ajuste conforme necessário para a biblioteca de UI
+import { useFocusEffect } from 'expo-router'; // Importa useFocusEffect
 
-export default function RegisteredAddressProfileScreen() {
+export default function MyAddress() {
     const [addressList, setAddressList] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState(null);
     const router = useRouter();
 
-    const fetchAddressList = async () => {
+    const saveAddressIdInStorage = async (addressId) => {
+        await SecureStore.setItemAsync('enderecoEntregaId', JSON.stringify(addressId));
+    }
+
+    const fetchAddressList = useCallback(async () => {
         const idUserStorage = await SecureStore.getItemAsync('idUser');
         const idUserParse = JSON.parse(idUserStorage);
 
@@ -26,16 +31,12 @@ export default function RegisteredAddressProfileScreen() {
         } catch (e) {
             alert(e.message || "Erro ao buscar endereços.");
         }
-    };
-
-    useEffect(() => {
-        fetchAddressList();
     }, []);
 
     useFocusEffect(
         useCallback(() => {
             fetchAddressList();
-        }, [])
+        }, [fetchAddressList])
     );
 
     const apiDeleteAddress = (addressId) => {
@@ -83,7 +84,7 @@ export default function RegisteredAddressProfileScreen() {
             <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
                 <View className='bg-white'>
                     <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">Selecione o local de entrega</H4>
+                        <H4 className="text-black">Meus endereços</H4>
                         <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")} />
                     </View>
                     <View className="mt-5">
@@ -92,7 +93,10 @@ export default function RegisteredAddressProfileScreen() {
 
                             return (
                                 <TouchableOpacity
-                                    onPress={() => setSelectedAddress(address.id)}
+                                    onPress={() => (
+                                        setSelectedAddress(address.id),
+                                        saveAddressIdInStorage(address.id)
+                                    )}
                                     key={address.id}
                                     style={{
                                         backgroundColor: 'white',
@@ -169,7 +173,7 @@ export default function RegisteredAddressProfileScreen() {
                         })}
 
                         <View style={{ padding: 16, alignItems: 'center' }}>
-                            <TouchableOpacity 
+                            <TouchableOpacity
                                 onPress={() => router.push("RegisterNewAddressScreen")}
                                 style={{
                                     flexDirection: 'row',
@@ -183,6 +187,7 @@ export default function RegisteredAddressProfileScreen() {
                                 <H4 style={{ color: 'white' }}>Adicionar novo endereço</H4>
                                 <Image style={{ width: 40, height: 40, marginLeft: 8, tintColor: 'white' }} source={require("../public/icons/ui/plus.png")} />
                             </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>

@@ -1,24 +1,20 @@
-import { ShoppingCartToast } from "app/components/ShoppingCartToast"
-import { router } from "expo-router"
-import { TouchableOpacity, Image, ScrollView, View } from "react-native"
-import { Button, H4, H5, H6, Text, Input, TextArea } from "tamagui"
-import { DiscountTicketToast } from "app/components/DiscountTicketToast"
-import BottomBar from "app/components/BottomBar"
-import { useCarrinho } from "app/providers/CarrinhoProvider"
+import { ShoppingCartToast } from "app/components/ShoppingCartToast";
+import { router } from "expo-router";
+import { TouchableOpacity, Image, ScrollView, View } from "react-native";
+import { Button, H4, H5, H6, Text, Input, TextArea } from "tamagui";
+import { DiscountTicketToast } from "app/components/DiscountTicketToast";
+import BottomBar from "app/components/BottomBar";
+import { useCarrinho } from "app/providers/CarrinhoProvider";
 
 export default function CartScreen() {
-
     const { carrinho, adicionarAoCarrinho, removerDoCarrinho } = useCarrinho();
     
-
-    console.log(carrinho);
-
     const calcularSubtotal = () => {
         return carrinho.reduce((total, produto) => total + produto.preco * produto.quantidade, 0);
     };
 
     return (
-        <View className="flex-1">
+        <View className="flex-1 bg-gray-100">
             <View className="bg-white">
                 <View className="mt-10 flex flex-row justify-around items-center">
                     <H4 className="text-black">Carrinho de compras</H4>
@@ -38,15 +34,14 @@ export default function CartScreen() {
                                 />
                             </View>
 
-                            <View className="w-56 flex justify-center ml-2 ">
-                                
+                            <View className="w-56 flex justify-center ml-2">
                                 <H5 className="text-black">{produto.nome}</H5>
                                 <Text className="text-black mb-2">R$ {produto.preco.toFixed(2)}</Text>
-                                <View className="flex flex-row items-center justify-between w-28 border-black-200 border rounded-lg bg-white">
+                                <View className="flex flex-row items-center justify-between w-28 border-gray-300 border rounded-lg bg-white">
                                     <TouchableOpacity onPress={() => adicionarAoCarrinho(produto)}>
-                                        <Image className="w-8 h-8 " source={require("../public/icons/ui/plus.png")} />
+                                        <Image className="w-8 h-8" source={require("../public/icons/ui/plus.png")} />
                                     </TouchableOpacity>
-                                    <H4 className="text-black mx-2 ">{produto.quantidade}</H4>
+                                    <H4 className="text-black mx-2">{produto.quantidade}</H4>
                                     <TouchableOpacity onPress={() => removerDoCarrinho(produto.id)}>
                                         <Image className="w-8 h-8" source={require("../public/icons/ui/minus.png")} />
                                     </TouchableOpacity>
@@ -60,18 +55,17 @@ export default function CartScreen() {
                     </View>
                 ))}
 
-                <View className=" justify-center pl-10 pt-5 pb-5 pr-10 border-t border-b border-gray-300 shadow">
+                <View className="justify-center pl-10 pt-5 pb-5 pr-10 border-t border-b border-gray-300 shadow">
                     <H5 className="text-black text-xs">Cupom de desconto</H5>
                     <View className="flex flex-row items-center">
-                        <Input className="bg-white w-60 text-black" />
+                        <Input className="bg-white text-black w-60" placeholder="Digite seu cupom" />
                         <DiscountTicketToast />
                     </View>
                 </View>
                 <View className="border-b border-gray-300 p-4 mx-2 flex justify-center mt-5 mb-5">
-
                     <View className="mt-5">
-                        <H5 className="text-black text-x">Observação</H5>
-                        <TextArea className="bg-white-200 text-black " verticalAlign="top" />
+                        <H5 className="text-black">Observação</H5>
+                        <TextArea className="bg-white text-black border border-gray-300 p-2" placeholder="Escreva sua observação" verticalAlign="top" />
                     </View>
                     <View className="mt-5">
                         <H5 className="text-black">Subtotal</H5>
@@ -90,7 +84,7 @@ export default function CartScreen() {
                         </View>
                         <View>
                             <Button onPress={() => router.push("MyAddress")} className="bg-orange-500 w-48">
-                                <Text className="text-xs">Continuar com a compra</Text>
+                                <Text className="text-xs text-white">Continuar com a compra</Text>
                             </Button>
                         </View>
                     </View>
@@ -98,6 +92,5 @@ export default function CartScreen() {
             </ScrollView>
             <BottomBar screen="CartScreen" />
         </View>
-
-    )
+    );
 }
