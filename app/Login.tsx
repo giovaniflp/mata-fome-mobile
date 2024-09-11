@@ -51,7 +51,7 @@ export default function Login() {
             })
         }
         catch(e){
-            alert(e)
+
         }
     }
 
