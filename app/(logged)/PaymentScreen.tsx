@@ -53,7 +53,7 @@ export default function PaymentScreen() {
 
         <View style={styles.paymentMethodsSection}>
           <Text style={styles.sectionTitle}>Minhas formas de pagamento</Text>
-          {paymentMethods.map((paymentMethod, index) => {
+          {paymentMethods.map((paymentMethod) => {
             const isSelected = paymentMethod.id === selectedPaymentMethod;
 
             return (
@@ -117,6 +117,15 @@ export default function PaymentScreen() {
               <Text style={styles.transactionAmount}>{transaction.amount}</Text>
             </View>
           ))}
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              onPress={() => router.push('OrderConfirmationScreen')}
+              style={styles.continueButton}
+            >
+              <Text style={styles.continueButtonText}>Continuar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
 
@@ -131,7 +140,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   scrollViewContent: {
-    paddingBottom: 60, // Adjust this value to the height of your BottomBar
+    paddingBottom: 60, // Ajuste esse valor para a altura do seu BottomBar
   },
   header: {
     backgroundColor: '#ffffff',
@@ -231,5 +240,22 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+  },
+  buttonContainer: {
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  continueButton: {
+    backgroundColor: '#FFA500', // cor laranja
+    borderRadius: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    width: '80%',
+  },
+  continueButtonText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });

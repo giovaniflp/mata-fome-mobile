@@ -1,4 +1,9 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import { Client } from '@stomp/stompjs';
+import SockJS from "sockjs-client";
+import * as SecureStore from 'expo-secure-store';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import * as Notifications from 'expo-notifications';
+
 
 // Define a interface para um produto
 interface Produto {
@@ -80,6 +85,71 @@ export const CarrinhoProvider: React.FC<CarrinhoProviderProps> = ({ children }) 
         setCarrinho([]);
     };
 
+    const [idUser, setIdUser] = useState();
+
+    const getSecureStorageData = async () => {
+        const tokenStorage = await SecureStore.getItemAsync('token');
+        const usernameStorage = await SecureStore.getItemAsync('username');
+        const idUserStorage = await SecureStore.getItemAsync('idUser');
+
+        const idUserParse = JSON.parse(idUserStorage);
+        console.log(idUserParse);
+
+        setIdUser(idUserParse);
+    };
+
+    useEffect(() => {
+        getSecureStorageData();
+    }, []);
+
+    useEffect(() => {
+        // Conectando ao WebSocket
+        const socket = new SockJS('https://matafome-api.whiteglacier-7456d729.brazilsouth.azurecontainerapps.io/ws');
+        const stompClient = new Client({
+          webSocketFactory: () => socket,
+          debug: (str) => console.log(str),
+          reconnectDelay: 5000, // Tenta reconectar em caso de falha
+        });
+      
+        stompClient.onConnect = () => {
+          console.log('Conectado ao WebSocket');
+            
+          // Subscrevendo ao tópico para receber pedidos
+          stompClient.subscribe(`/topic/pedidoCliente/${idUser}`, (message) => {
+            try {
+                const pedidoData = JSON.parse(message.body);
+
+                // Ajustar o texto de status para exibição
+                const statusDisplay =
+                  pedidoData.status === 'EM_TRANSITO' ? 'EM TRÂNSITO' : pedidoData.status;
+                
+                // Enviar notificação de atualização
+                Notifications.scheduleNotificationAsync({
+                  content: {
+                    title: 'Atualização de Pedido',
+                    body: `O status de um de seus pedidos foi atualizado para ${statusDisplay}`,
+                  },
+                  trigger: null,
+                });
+      
+              // Atualize o estado com o pedido recebidoç
+            } catch (error) {
+              console.error('Erro ao processar mensagem WebSocket:', error);
+            }
+          });
+          
+        };
+      
+        stompClient.activate(); // Ativa o WebSocket
+      
+        // Limpa a conexão quando o componente for desmontado
+        return () => {
+          stompClient.deactivate();
+        };
+      }, [idUser != null]);
+
+      const [socket, setSocket] = useState(null);
+
     return (
         <CarrinhoContext.Provider value={{ carrinho, adicionarAoCarrinho, removerDoCarrinho, limparCarrinho }}>
             {children}
@@ -88,7 +158,7 @@ export const CarrinhoProvider: React.FC<CarrinhoProviderProps> = ({ children }) 
 };
 
 // Hook para usar o contexto
-export const useCarrinho = (): CarrinhoContextData => {
+export const useCarrinho = (p0: string): CarrinhoContextData => {
     const context = useContext(CarrinhoContext);
     if (!context) {
         throw new Error('useCarrinho must be used within a CarrinhoProvider');
