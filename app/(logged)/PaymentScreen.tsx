@@ -8,7 +8,7 @@ import axiosInstance from 'app/config/axiosUrlConfig';
 export default function PaymentScreen() {
   const [idUser, setIdUser] = useState(null);
   const [paymentMethods, setPaymentMethods] = useState([]);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState([]);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
   const getIdUser = async () => {
     const idUserStorage = await SecureStore.getItemAsync('idUser');
@@ -53,50 +53,55 @@ export default function PaymentScreen() {
 
         <View style={styles.paymentMethodsSection}>
           <Text style={styles.sectionTitle}>Minhas formas de pagamento</Text>
-          {paymentMethods.map((paymentMethod) => {
-            const isSelected = paymentMethod.id === selectedPaymentMethod;
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.paymentMethodsList}>
+            {paymentMethods.map((paymentMethod) => {
+              const isSelected = paymentMethod.id === selectedPaymentMethod;
 
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedPaymentMethod(paymentMethod.id);
-                  savePaymentMethodIdInStorage(paymentMethod.id);
-                }}
-                key={paymentMethod.id}
-                style={[
-                  styles.paymentOption,
-                  isSelected && styles.selectedPaymentOption
-                ]}
-              >
-                <Text style={styles.paymentOptionText}>{paymentMethod.tipo}</Text>
-                <Text style={styles.paymentOptionSubtitle}>Terminado em {paymentMethod.numero_cartao.slice(-4)}</Text>
-              </TouchableOpacity>
-            );
-          })}
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedPaymentMethod(paymentMethod.id);
+                    savePaymentMethodIdInStorage(paymentMethod.id);
+                  }}
+                  key={paymentMethod.id}
+                  style={[
+                    styles.paymentOption,
+                    isSelected && styles.selectedPaymentOption
+                  ]}
+                >
+                  <Text style={styles.paymentOptionText}>{paymentMethod.tipo}</Text>
+                  <Text style={styles.paymentOptionSubtitle}>Terminado em {paymentMethod.numero_cartao.slice(-4)}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+
+          <TouchableOpacity
+            onPress={() => router.push('OrderConfirmationScreen')}
+            style={styles.continueButton}
+          >
+            <Text style={styles.continueButtonText}>Continuar</Text>
+          </TouchableOpacity>
         </View>
 
-        <View style={styles.paymentMethodsSection}>
+        <View style={styles.newPaymentMethodSection}>
           <Text style={styles.sectionTitle}>Nova forma de pagamento</Text>
-          <View style={styles.paymentOptions}>
-            <TouchableOpacity onPress={() => router.push('RegisterNewPaymentMethodScreen')} style={styles.paymentOption}>
-              <Text style={styles.paymentOptionIcon}>💳</Text>
-              <Text style={styles.paymentOptionText}>Cartão de crédito</Text>
+          <View style={styles.newPaymentMethodsList}>
+            <TouchableOpacity onPress={() => router.push('RegisterNewPaymentMethodScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>💳</Text>
+              <Text style={styles.newPaymentOptionText}>Cartão de crédito</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('RegisterNewDebitPaymentScreen')} style={styles.paymentOption}>
-              <Text style={styles.paymentOptionIcon}>💳</Text>
-              <Text style={styles.paymentOptionText}>Cartão de débito</Text>
+            <TouchableOpacity onPress={() => router.push('RegisterNewDebitPaymentScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>💳</Text>
+              <Text style={styles.newPaymentOptionText}>Cartão de débito</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('RegisterNewVoucherScreen')} style={styles.paymentOption}>
-              <Text style={styles.paymentOptionIcon}>🎫</Text>
-              <Text style={styles.paymentOptionText}>Vale alimentação</Text>
+            <TouchableOpacity onPress={() => router.push('RegisterNewVoucherScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>🎫</Text>
+              <Text style={styles.newPaymentOptionText}>Vale alimentação</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('RegisterNewVoucherScreen')} style={styles.paymentOption}>
-              <Text style={styles.paymentOptionIcon}>🎫</Text>
-              <Text style={styles.paymentOptionText}>Vale refeição</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('PayWithWalletScreen')} style={styles.paymentOption}>
-              <Text style={styles.paymentOptionIcon}>💰</Text>
-              <Text style={styles.paymentOptionText}>Pagar com a carteira</Text>
+            <TouchableOpacity onPress={() => router.push('RegisterNewVoucherScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>🎫</Text>
+              <Text style={styles.newPaymentOptionText}>Vale refeição</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -117,15 +122,6 @@ export default function PaymentScreen() {
               <Text style={styles.transactionAmount}>{transaction.amount}</Text>
             </View>
           ))}
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              onPress={() => router.push('OrderConfirmationScreen')}
-              style={styles.continueButton}
-            >
-              <Text style={styles.continueButtonText}>Continuar</Text>
-            </TouchableOpacity>
-          </View>
         </View>
       </ScrollView>
 
@@ -188,15 +184,13 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
   },
-  paymentOptions: {
+  paymentMethodsList: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexWrap: 'nowrap',
   },
   paymentOption: {
     alignItems: 'center',
-    width: '48%',
-    marginBottom: 10,
+    marginHorizontal: 10,
     backgroundColor: '#ffffff',
     borderRadius: 8,
     paddingVertical: 10,
@@ -211,6 +205,47 @@ const styles = StyleSheet.create({
   paymentOptionText: {
     textAlign: 'center',
     fontSize: 12,
+  },
+  selectedPaymentOption: {
+    backgroundColor: '#f0f0f0',
+    borderColor: '#FFA500', // Alterado para laranja
+    borderWidth: 2,
+  },
+  paymentOptionSubtitle: {
+    fontSize: 14,
+    color: '#888',
+  },
+  newPaymentMethodSection: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    marginBottom: 20,
+  },
+  newPaymentMethodsList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center', // Centraliza os itens horizontalmente
+    alignItems: 'center', // Centraliza os itens verticalmente
+  },
+  newPaymentOption: {
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginBottom: 15, // Ajuste para um espaçamento uniforme
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    paddingVertical: 12, // Ajuste para o tamanho padrão
+    paddingHorizontal: 20, // Ajuste para o tamanho padrão
+    borderColor: '#ddd',
+    borderWidth: 1,
+    width: '45%', // Ajuste para garantir que caibam dois botões por linha
+    maxWidth: 160, // Limita a largura máxima
+  },
+  newPaymentOptionIcon: {
+    fontSize: 24,
+    marginBottom: 5,
+  },
+  newPaymentOptionText: {
+    textAlign: 'center',
+    fontSize: 14,
   },
   transactionHistorySection: {
     backgroundColor: '#ffffff',
@@ -241,17 +276,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  buttonContainer: {
-    marginTop: 20,
-    alignItems: 'center',
-  },
   continueButton: {
-    backgroundColor: '#FFA500', // cor laranja
+    backgroundColor: '#FFA500',
     borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
     alignItems: 'center',
-    width: '80%',
+    marginTop: 20,
   },
   continueButtonText: {
     color: '#ffffff',

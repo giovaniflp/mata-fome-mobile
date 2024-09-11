@@ -30,38 +30,53 @@ export default function RegisterNewPaymentMethodScreen() {
             const tokenStorage = await SecureStore.getItemAsync('token');
             const idUserStorage = await SecureStore.getItemAsync('idUser');
 
-            const tokenParse = JSON.parse(tokenStorage);
-            const idUserParse = JSON.parse(idUserStorage);
-
-            setToken(tokenParse);
-            setUserId(idUserParse);
-
-            console.log(token);
-            console.log(userId);
+            if (tokenStorage && idUserStorage) {
+                setToken(JSON.parse(tokenStorage));
+                setUserId(JSON.parse(idUserStorage));
+            } else {
+                alert('Dados de autenticação não encontrados.');
+            }
         } catch (e) {
-            alert(e);
+            console.error("Erro ao obter dados de armazenamento seguro: ", e);
+            alert('Erro ao obter dados de autenticação.');
+        } finally {
+            setLoading(false);
         }
     }
 
     const consultarCEP = async () => {
-        console.log(cepCobranca);
+        if (!cepCobranca) {
+            alert('CEP não pode estar vazio.');
+            return;
+        }
+
         try {
-            await axios.get(`https://viacep.com.br/ws/${cepCobranca}/json/`).then((response) => {
-                console.log(response.data);
-                setEstadoCobranca(response.data.uf);
-                setCidadeCobranca(response.data.localidade);
-                setEnderecoCobranca(response.data.logradouro);
-            });
+            const response = await axios.get(`https://viacep.com.br/ws/${cepCobranca}/json/`);
+            if (response.data.erro) {
+                alert('CEP inválido.');
+                return;
+            }
+            setEstadoCobranca(response.data.uf);
+            setCidadeCobranca(response.data.localidade);
+            setEnderecoCobranca(response.data.logradouro);
         } catch (e) {
-            alert(e);
+            console.error("Erro ao consultar CEP: ", e);
+            alert('Erro ao consultar o CEP.');
         }
     }
 
     useEffect(() => {
-        getSecureStorageData();
-    }, [token == null, userId == null]);
+        if (token === null || userId === null) {
+            getSecureStorageData();
+        }
+    }, [token, userId]);
 
     const apiRegisterNewCard = async () => {
+        if (!numeroCartao || !dataValidade || !nomeTitular || !cvv || !enderecoCobranca || !cidadeCobranca || !estadoCobranca || !cepCobranca) {
+            alert('Todos os campos devem ser preenchidos.');
+            return;
+        }
+
         const registerNewCardRequest = {
             tipo: "crédito",
             numero_cartao: numeroCartao,
@@ -74,24 +89,19 @@ export default function RegisterNewPaymentMethodScreen() {
             cep_cobranca: cepCobranca
         };
 
-        console.log(registerNewCardRequest)
-        
         try {
-            const response = await axios.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest, {
+            const response = await axiosInstance.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             });
+            alert("Cartão cadastrado com sucesso.");
             console.log(response.data);
         } catch (e) {
-            console.error(e.response ? e.response.data : e.message);
+            console.error("Erro ao registrar o cartão: ", e.response ? e.response.data : e.message);
             alert('Ocorreu um erro ao registrar o cartão.');
-            console.log(registerNewCardRequest)
-            console.log(userId)
         }
     };
-    
-    
 
     return (
         <View className="flex-1">
@@ -107,7 +117,7 @@ export default function RegisterNewPaymentMethodScreen() {
                                 <H5 className="text-black">Número do cartão</H5>
                                 <Input
                                     value={numeroCartao}
-                                    onChangeText={(text) => setNumeroCartao(text)}
+                                    onChangeText={setNumeroCartao}
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
@@ -115,7 +125,7 @@ export default function RegisterNewPaymentMethodScreen() {
                                 <H5 className="text-black">Data de validade</H5>
                                 <Input
                                     value={dataValidade}
-                                    onChangeText={(text) => setDataValidade(text)}
+                                    onChangeText={setDataValidade}
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
@@ -123,7 +133,7 @@ export default function RegisterNewPaymentMethodScreen() {
                                 <H5 className="text-black">Nome do titular</H5>
                                 <Input
                                     value={nomeTitular}
-                                    onChangeText={(text) => setNomeTitular(text)}
+                                    onChangeText={setNomeTitular}
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
@@ -131,7 +141,7 @@ export default function RegisterNewPaymentMethodScreen() {
                                 <H5 className="text-black">CVV</H5>
                                 <Input
                                     value={cvv}
-                                    onChangeText={(text) => setCvv(text)}
+                                    onChangeText={setCvv}
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
@@ -192,7 +202,7 @@ export default function RegisterNewPaymentMethodScreen() {
                                 <H5 className="text-black">Cidade de cobrança</H5>
                                 <Input
                                     value={cidadeCobranca}
-                                    onChangeText={(text) => setCidadeCobranca(text)}
+                                    onChangeText={setCidadeCobranca}
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
@@ -200,7 +210,7 @@ export default function RegisterNewPaymentMethodScreen() {
                                 <H5 className="text-black">Endereço de cobrança</H5>
                                 <Input
                                     value={enderecoCobranca}
-                                    onChangeText={(text) => setEnderecoCobranca(text)}
+                                    onChangeText={setEnderecoCobranca}
                                     className="bg-white rounded-lg h-14 text-black"
                                 />
                             </View>
