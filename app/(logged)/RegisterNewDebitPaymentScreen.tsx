@@ -1,25 +1,24 @@
 import { router } from "expo-router";
-import { TouchableOpacity, Image, ScrollView, View } from "react-native";
-import { Button, H4, H5, H6, Text, Input } from "tamagui";
+import { TouchableOpacity, Image, ScrollView, View, Text } from "react-native";
+import { Button, H4, H5, H6, Input } from "tamagui";
 import BottomBar from "app/components/BottomBar";
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from "react";
 import { RegisterAddressToast } from "app/components/RegisterAddressToast";
 import axios from "axios";
 import axiosInstance from "app/config/axiosUrlConfig";
 import * as SecureStore from 'expo-secure-store';
 
-export default function RegisterNewAddressScreen(){
+export default function RegisterNewAddressScreen() {
+    const [cepCobranca, setCepCobranca] = useState("");
+    const [estadoCobranca, setEstadoCobranca] = useState("");
+    const [cidadeCobranca, setCidadeCobranca] = useState("");
+    const [enderecoCobranca, setEnderecoCobranca] = useState("");
 
-    const[cepCobranca, setCepCobranca] = useState("")
-    const[estadoCobranca, setEstadoCobranca] = useState("")
-    const[cidadeCobranca, setCidadeCobranca] = useState("")
-    const[enderecoCobranca, setEnderecoCobranca] = useState("")
-
-    const[numeroCartao, setNumeroCartao] = useState("")
-    const[dataValidade, setDataValidade] = useState("")
-    const[nomeTitular, setNomeTitular] = useState("")
-    const[cvv, setCvv] = useState("")
+    const [numeroCartao, setNumeroCartao] = useState("");
+    const [dataValidade, setDataValidade] = useState("");
+    const [nomeTitular, setNomeTitular] = useState("");
+    const [cvv, setCvv] = useState("");
 
     const [token, setToken] = useState(null);
     const [userId, setUserId] = useState(null);
@@ -41,34 +40,28 @@ export default function RegisterNewAddressScreen(){
 
             console.log(token);
             console.log(userId);
-        }
-        catch (e) {
+        } catch (e) {
             alert(e);
         }
     }
 
     const consultarCEP = async () => {
-        console.log(cepCobranca)
-        try{
-            await axios.get(`https://viacep.com.br/ws/${cepCobranca}/json/`).then((response)=>{
-                console.log(response.data)
-                setEstadoCobranca(response.data.uf)
-                setCidadeCobranca(response.data.localidade)
-                setEnderecoCobranca(response.data.logradouro)
-            })
-        }
-        catch(e){
-            alert(e)
+        console.log(cepCobranca);
+        try {
+            await axios.get(`https://viacep.com.br/ws/${cepCobranca}/json/`).then((response) => {
+                console.log(response.data);
+                setEstadoCobranca(response.data.uf);
+                setCidadeCobranca(response.data.localidade);
+                setEnderecoCobranca(response.data.logradouro);
+            });
+        } catch (e) {
+            alert(e);
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getSecureStorageData();
-    },[token == null])
-
-    useEffect(()=>{
-        getSecureStorageData();
-    },[userId == null])
+    }, [token == null, userId == null]);
 
     const apiRegisterNewCard = async () => {
         const registerNewCardRequest = {
@@ -82,102 +75,182 @@ export default function RegisterNewAddressScreen(){
             estado_cobranca: estadoCobranca,
             cep_cobranca: cepCobranca
         }
-        try{
-            await axiosInstance.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest).then((response)=>{
-                console.log(response.data)
-            })
-        }
-        catch(e){
-            alert(e)
+        try {
+            await axiosInstance.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest).then((response) => {
+                console.log(response.data);
+            });
+        } catch (e) {
+            alert(e);
         }
     }
 
-    return(
-        <View className="flex-1">
-            <ScrollView className="bg-white">
-            <View className='bg-white'>
-                <View className="mt-10 flex flex-row justify-around items-center">
+    return (
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+                <View className='bg-white'>
+                    <View className="mt-10 flex flex-row justify-around items-center">
                         <H4 className="text-black">Registrar novo cartão de débito</H4>
-                    <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")}></Image>
-                </View>
-                <View className="mt-5 p-5">
-                    <ScrollView showsVerticalScrollIndicator={false}>
-                        <View className="mb-4">
-                            <H5 className="text-black">Número do cartão</H5>
-                            <Input value={numeroCartao} onChangeText={(text)=>{setNumeroCartao(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Data de validade</H5>
-                            <Input value={dataValidade} onChangeText={(text)=>{setDataValidade(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Nome do titular</H5>
-                            <Input value={nomeTitular} onChangeText={(text)=>{setNomeTitular(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">CVV</H5>
-                            <Input value={cvv} onChangeText={(text)=>{setCvv(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">CEP de cobrança</H5>
-                            <View className="flex flex-row items-center">
-                                <Input value={cepCobranca} onChangeText={(text) => setCepCobranca(text)}  className="bg-white rounded-lg h-14 text-black w-72"></Input>
-                                <Button onPress={consultarCEP} className="w-14 h-14 ml-2" icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")}></Image>}></Button>
+                        <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")} />
+                    </View>
+                    <View className="mt-5 p-5">
+                        <ScrollView showsVerticalScrollIndicator={false}>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>Número do cartão</H5>
+                                <Input
+                                    value={numeroCartao}
+                                    onChangeText={setNumeroCartao}
+                                    style={styles.input}
+                                />
                             </View>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Estado de cobrança</H5>
-                            <View className="border rounded-lg">
-                                <Picker
-                                selectedValue={estadoCobranca}
-                                onValueChange={setEstadoCobranca}> 
-                                    <Picker.Item label="Acre" value="AC" />
-                                    <Picker.Item label="Alagoas" value="AL" />
-                                    <Picker.Item label="Amapá" value="AP" />
-                                    <Picker.Item label="Amazonas" value="AM" />
-                                    <Picker.Item label="Bahia" value="BA" />
-                                    <Picker.Item label="Ceará" value="CE" />
-                                    <Picker.Item label="Distrito Federal" value="DF" />
-                                    <Picker.Item label="Espírito Santo" value="ES" />
-                                    <Picker.Item label="Goiás" value="GO" />
-                                    <Picker.Item label="Maranhão" value="MA" />
-                                    <Picker.Item label="Mato Grosso" value="MT" />
-                                    <Picker.Item label="Mato Grosso do Sul" value="MS" />
-                                    <Picker.Item label="Minas Gerais" value="MG" />
-                                    <Picker.Item label="Pará" value="PA" />
-                                    <Picker.Item label="Paraíba" value="PB" />
-                                    <Picker.Item label="Paraná" value="PR" />
-                                    <Picker.Item label="Pernambuco" value="PE" />
-                                    <Picker.Item label="Piauí" value="PI" />
-                                    <Picker.Item label="Rio de Janeiro" value="RJ" />
-                                    <Picker.Item label="Rio Grande do Norte" value="RN" />
-                                    <Picker.Item label="Rio Grande do Sul" value="RS" />
-                                    <Picker.Item label="Rondônia" value="RO" />
-                                    <Picker.Item label="Roraima" value="RR" />
-                                    <Picker.Item label="Santa Catarina" value="SC" />
-                                    <Picker.Item label="São Paulo" value="SP" />
-                                    <Picker.Item label="Sergipe" value="SE" />
-                                    <Picker.Item label="Tocantins" value="TO" />
-                                </Picker>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>Data de validade</H5>
+                                <Input
+                                    value={dataValidade}
+                                    onChangeText={setDataValidade}
+                                    style={styles.input}
+                                />
                             </View>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Cidade de cobrança</H5>
-                            <Input value={cidadeCobranca} onChangeText={(text)=>{setCidadeCobranca(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="mb-4">
-                            <H5 className="text-black">Endereço de cobrança</H5>
-                            <Input value={enderecoCobranca} onChangeText={(text)=>{setEnderecoCobranca(text)}} className="bg-white rounded-lg h-14 text-black"></Input>
-                        </View>
-                        <View className="my-5">
-                            <Button onPress={apiRegisterNewCard}>Regitrar novo cartão</Button>
-                            <RegisterAddressToast></RegisterAddressToast>
-                        </View>
-                    </ScrollView>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>Nome do titular</H5>
+                                <Input
+                                    value={nomeTitular}
+                                    onChangeText={setNomeTitular}
+                                    style={styles.input}
+                                />
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>CVV</H5>
+                                <Input
+                                    value={cvv}
+                                    onChangeText={setCvv}
+                                    style={styles.input}
+                                />
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>CEP de cobrança</H5>
+                                <View style={styles.cepContainer}>
+                                    <Input
+                                        value={cepCobranca}
+                                        onChangeText={setCepCobranca}
+                                        style={[styles.input, { width: '72%' }]}
+                                    />
+                                    <Button
+                                        onPress={consultarCEP}
+                                        style={styles.searchButton}
+                                        icon={<Image style={styles.searchIcon} source={require("../public/icons/ui/search.png")} />}
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>Estado de cobrança</H5>
+                                <View style={styles.pickerContainer}>
+                                    <Picker
+                                        selectedValue={estadoCobranca}
+                                        onValueChange={setEstadoCobranca}
+                                    >
+                                        <Picker.Item label="Acre" value="AC" />
+                                        <Picker.Item label="Alagoas" value="AL" />
+                                        <Picker.Item label="Amapá" value="AP" />
+                                        <Picker.Item label="Amazonas" value="AM" />
+                                        <Picker.Item label="Bahia" value="BA" />
+                                        <Picker.Item label="Ceará" value="CE" />
+                                        <Picker.Item label="Distrito Federal" value="DF" />
+                                        <Picker.Item label="Espírito Santo" value="ES" />
+                                        <Picker.Item label="Goiás" value="GO" />
+                                        <Picker.Item label="Maranhão" value="MA" />
+                                        <Picker.Item label="Mato Grosso" value="MT" />
+                                        <Picker.Item label="Mato Grosso do Sul" value="MS" />
+                                        <Picker.Item label="Minas Gerais" value="MG" />
+                                        <Picker.Item label="Pará" value="PA" />
+                                        <Picker.Item label="Paraíba" value="PB" />
+                                        <Picker.Item label="Paraná" value="PR" />
+                                        <Picker.Item label="Pernambuco" value="PE" />
+                                        <Picker.Item label="Piauí" value="PI" />
+                                        <Picker.Item label="Rio de Janeiro" value="RJ" />
+                                        <Picker.Item label="Rio Grande do Norte" value="RN" />
+                                        <Picker.Item label="Rio Grande do Sul" value="RS" />
+                                        <Picker.Item label="Rondônia" value="RO" />
+                                        <Picker.Item label="Roraima" value="RR" />
+                                        <Picker.Item label="Santa Catarina" value="SC" />
+                                        <Picker.Item label="São Paulo" value="SP" />
+                                        <Picker.Item label="Sergipe" value="SE" />
+                                        <Picker.Item label="Tocantins" value="TO" />
+                                    </Picker>
+                                </View>
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>Cidade de cobrança</H5>
+                                <Input
+                                    value={cidadeCobranca}
+                                    onChangeText={setCidadeCobranca}
+                                    style={styles.input}
+                                />
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <H5 style={styles.inputLabel}>Endereço de cobrança</H5>
+                                <Input
+                                    value={enderecoCobranca}
+                                    onChangeText={setEnderecoCobranca}
+                                    style={styles.input}
+                                />
+                            </View>
+                            <View style={styles.buttonContainer}>
+                                <Button onPress={apiRegisterNewCard} style={styles.submitButton}>
+                                    Registrar novo cartão
+                                </Button>
+                                <RegisterAddressToast />
+                            </View>
+                        </ScrollView>
                     </View>
                 </View>
             </ScrollView>
-            <BottomBar screen="MyAddress"></BottomBar>
+            <BottomBar screen="MyAddress" />
         </View>
-    )
+    );
 }
+
+const styles = {
+    inputContainer: {
+        marginBottom: 20,
+    },
+    inputLabel: {
+        fontSize: 16,
+        color: 'black',
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        padding: 10,
+        backgroundColor: '#f9f9f9',
+    },
+    cepContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    searchButton: {
+        marginLeft: 10,
+        padding: 10,
+        borderRadius: 8,
+        backgroundColor: '#007bff',
+    },
+    searchIcon: {
+        width: 20,
+        height: 20,
+        tintColor: 'white',
+    },
+    pickerContainer: {
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 8,
+        backgroundColor: '#f9f9f9',
+    },
+    buttonContainer: {
+        marginTop: 20,
+    },
+    submitButton: {
+        backgroundColor: '#007bff',
+        padding: 15,
+        borderRadius: 8,
+    },
+};
