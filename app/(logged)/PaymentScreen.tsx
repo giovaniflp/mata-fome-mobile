@@ -52,7 +52,7 @@ export default function PaymentScreen() {
         </View>
 
         <View style={styles.paymentMethodsSection}>
-          <Text style={styles.sectionTitle}>Minhas formas de pagamento</Text>
+          <Text style={styles.sectionTitle}>Selecione sua forma de pagamento</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.paymentMethodsList}>
             {paymentMethods.map((paymentMethod) => {
               const isSelected = paymentMethod.id === selectedPaymentMethod;
