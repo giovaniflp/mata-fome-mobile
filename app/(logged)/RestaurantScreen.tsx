@@ -17,7 +17,7 @@ export default function RestaurantScreen() {
     horarioAbertura: "",
     tempoEntrega: "",
     taxaFrete: "",
-    
+
   });
 
   // Função para obter os detalhes da empresa, incluindo as imagens de capa e perfil
@@ -31,7 +31,7 @@ export default function RestaurantScreen() {
         horarioAbertura: response.data.horarioAbertura,
         tempoEntrega: response.data.tempoEntrega,
         taxaFrete: response.data.taxaFrete,
-        
+
       });
     } catch (e) {
       console.error("Erro ao buscar detalhes da empresa:", e);
@@ -74,7 +74,7 @@ export default function RestaurantScreen() {
 
 
               {/* Container para as informações e a imagem de perfil */}
-              <View className="absolute bottom-0 left-5 right-5 bg-white rounded-xl items-center pb-5 border border-gray-200 shadow-sm">
+              <View className="absolute bottom-0 left-3 right-3 bg-white rounded-xl items-center pb-5 border border-gray-200 shadow-sm">
                 {/* Imagem de perfil posicionada no meio superior do container */}
                 <Image
                   className="w-20 h-20 rounded-full border-2 border-black absolute -top-10"
@@ -90,21 +90,45 @@ export default function RestaurantScreen() {
                   <Text className="text-left font-bold text-lg pl-2">
                     {nomeEmpresa}
                   </Text>
-                  
 
-                  <Text className="text-left text-gray-500 pl-2">Abertura: {empresa.horarioAbertura}</Text>
-                  <Text className="text-left text-gray-500 pl-2" >Encerramento: {empresa.horarioFechamento} </Text>
+                  {/* <Text className="text-left text-gray-500 pl-2">Abertura: {empresa.horarioAbertura}</Text>
+                  <Text className="text-left text-gray-500 pl-2">Encerramento: {empresa.horarioFechamento} </Text>
                   <Text className="text-left text-gray-500 pl-2">Tempo de entrega: {empresa.tempoEntrega}</Text>
-                  <Text className="text-left text-gray-500 pl-2">Taxa de entrega: R$ {empresa.taxaFrete},00</Text>
-                 
+                  <Text className="text-left text-gray-500 pl-2">Taxa de entrega: R$ {empresa.taxaFrete},00</Text> */}
+
                 </View>
+                <View className="self-start pt-2 border-t flex-row justify-between w-full px-2 pb-2 border-gray-200">
+                  <Text className="text-left font-bold text-l">
+                    Abertura: {empresa.horarioAbertura.substring(0, 5)} {/* Extrai apenas horas e minutos */}
+                  </Text>
+
+                  <Text className="text-right font-bold text-l">
+                    Encerramento: {empresa.horarioFechamento.substring(0, 5)} {/* Extrai apenas horas e minutos */}
+                  </Text>
+                </View>
+
+                <View className="self-start pt-2 border-t flex-row justify-between w-full px-2 pb-2 border-gray-200">
+                  <Text className="text-left font-bold text-l flex flex-row">
+                    Tempo de entrega: {empresa.tempoEntrega.substring(0, 5)}
+                  </Text>
+                </View>
+                <View className="self-start pt-2 border-t flex-row justify-between w-full px-2 border-gray-200">
+                  <Text className="text-left font-bold text-l flex flex-row">
+                    Taxa de entrega: {new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(empresa.taxaFrete)}
+                  </Text>
+                </View>
+
+
               </View>
             </View>
           </View>
 
 
           {/* Exibe a lista de prateleiras e produtos */}
-          <View className="mt-5">
+          <View className="mt-1">
             <ScrollView showsVerticalScrollIndicator={false}>
               <View className="flex justify-center flex-col ">
                 {prateleiras.map(
@@ -126,29 +150,37 @@ export default function RestaurantScreen() {
                                   },
                                 });
                               }}
-                              className="bg-orange-300 rounded-1xl p-2 mb-2 w-full flex-row justify-between items-center "
+                              className="bg-orange-300 rounded-1xl p-2 mb-2 w-full flex-row items-center"
                             >
-                              <View className="flex flex-col justify-between">
-                                <Text className="text-white text-xl pb-1">{produto.nome}</Text>
-                                <Text className="text-white text-x pb-5">{produto.descricao}</Text>
-
-                                <Text className="text-white pt-5">
-                                  {new Intl.NumberFormat("pt-BR", {
-                                    style: "currency",
-                                    currency: "BRL",
-                                  }).format(produto.preco)}
-                                </Text>
-                              </View>
-                              <Image
-                                className="w-24 h-24 rounded-lg"
-                                style={{ backgroundColor: "#FFFFFF" }}
-                                source={
-                                  produto.urlImagem
+                              <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <View style={{ flex: 1, paddingRight: 10 }}>
+                                  <Text className="text-white text-xl pb-2">
+                                    {produto.nome.length > 20 ? `${produto.nome.substring(0, 20)}...` : produto.nome}
+                                  </Text>
+                                  <Text className="text-white text-x pb-2">
+                                    {produto.descricao.length > 30 ? `${produto.descricao.substring(0, 30)}...` : produto.descricao}
+                                  </Text>
+                                  <Text className="text-white pt-5">
+                                    {new Intl.NumberFormat('pt-BR', {
+                                      style: 'currency',
+                                      currency: 'BRL',
+                                    }).format(produto.preco)}
+                                  </Text>
+                                </View>
+                                <Image
+                                  style={{
+                                    width: 96,  // Tamanho fixo
+                                    height: 96, // Tamanho fixo
+                                    borderRadius: 12, // Arredondado
+                                    backgroundColor: '#FFFFFF'
+                                  }}
+                                  source={produto.urlImagem
                                     ? { uri: produto.urlImagem }
-                                    : require("../public/images/BrandIcon.png")
-                                } // Imagem padrão caso `urlImagem` seja `null`
-                              />
+                                    : require("../public/images/BrandIcon.png")}
+                                />
+                              </View>
                             </TouchableOpacity>
+
                           ))}
                         </View>
                       </View>
