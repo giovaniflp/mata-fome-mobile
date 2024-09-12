@@ -20,9 +20,18 @@ export default function PaymentScreenForms() {
         await SecureStore.setItemAsync('formaPagamentoId', JSON.stringify(paymentMethodId));
     };
 
+
     useEffect(() => {
         getIdUser();
     }, []);
+
+  const savePaymentTextInStorage = async (text) => {
+    await SecureStore.setItemAsync('formaPagamentoText', JSON.stringify(text));
+  };
+
+  const save4NumbersCardInStorage = async (cardNumber) => {
+    await SecureStore.setItemAsync('cardNumber', JSON.stringify(cardNumber));
+  }
 
     useEffect(() => {
         if (idUser) {
@@ -35,6 +44,7 @@ export default function PaymentScreenForms() {
         setPaymentMethods(response.data.pagtos);
     };
 
+
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -42,6 +52,7 @@ export default function PaymentScreenForms() {
                     <Text style={styles.headerText}>Formas de pagamento</Text>
                     <Image style={styles.headerImage} source={require("../public/icons/tomato/TomatoLike_Money.png")} />
                 </View>
+
 
                 <View style={styles.balanceSection}>
                     <Text style={styles.sectionTitle}>Saldo em carteira</Text>
@@ -57,11 +68,14 @@ export default function PaymentScreenForms() {
                         {paymentMethods.map((paymentMethod) => {
                             const isSelected = paymentMethod.id === selectedPaymentMethod;
 
+
                             return (
                                 <TouchableOpacity
                                     onPress={() => {
                                         setSelectedPaymentMethod(paymentMethod.id);
                                         savePaymentMethodIdInStorage(paymentMethod.id);
+                                        savePaymentTextInStorage(paymentMethod.tipo);
+                                        save4NumbersCardInStorage(paymentMethod.numero_cartao.slice(-4));
                                     }}
                                     key={paymentMethod.id}
                                     style={[
@@ -75,6 +89,7 @@ export default function PaymentScreenForms() {
                             );
                         })}
                     </ScrollView>
+
 
                     <TouchableOpacity
                         onPress={() => router.push('OrderConfirmationScreen')}
@@ -132,6 +147,7 @@ export default function PaymentScreenForms() {
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
@@ -289,4 +305,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
     },
+
 });

@@ -87,7 +87,7 @@ export default function RestaurantScreen() {
 
                 {/* Informações do restaurante */}
                 <View className="self-start mt-10">
-                  <Text className="text-left font-bold text-lg pl-2">
+                  <Text className="text-left text-black font-bold text-lg pl-2">
                     {nomeEmpresa}
                   </Text>
 
@@ -98,22 +98,22 @@ export default function RestaurantScreen() {
 
                 </View>
                 <View className="self-start pt-2 border-t flex-row justify-between w-full px-2 pb-2 border-gray-200">
-                  <Text className="text-left font-bold text-l">
+                  <Text className="text-left text-black font-bold text-l">
                     Abertura: {empresa.horarioAbertura.substring(0, 5)} {/* Extrai apenas horas e minutos */}
                   </Text>
 
-                  <Text className="text-right font-bold text-l">
+                  <Text className="text-right text-black font-bold text-l">
                     Encerramento: {empresa.horarioFechamento.substring(0, 5)} {/* Extrai apenas horas e minutos */}
                   </Text>
                 </View>
 
                 <View className="self-start pt-2 border-t flex-row justify-between w-full px-2 pb-2 border-gray-200">
-                  <Text className="text-left font-bold text-l flex flex-row">
+                  <Text className="text-left text-black font-bold text-l flex flex-row">
                     Tempo de entrega: {empresa.tempoEntrega.substring(0, 5)}
                   </Text>
                 </View>
                 <View className="self-start pt-2 border-t flex-row justify-between w-full px-2 border-gray-200">
-                  <Text className="text-left font-bold text-l flex flex-row">
+                  <Text className="text-left text-black font-bold text-l flex flex-row">
                     Taxa de entrega: {new Intl.NumberFormat('pt-BR', {
                       style: 'currency',
                       currency: 'BRL',

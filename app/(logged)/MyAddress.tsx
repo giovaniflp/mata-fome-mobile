@@ -15,6 +15,10 @@ export default function MyAddress() {
     const saveAddressIdInStorage = async (addressId) => {
         await SecureStore.setItemAsync('enderecoEntregaId', JSON.stringify(addressId));
     }
+    
+    const saveAddressTextInStorage = async (text) => {
+        await SecureStore.setItemAsync('enderecoEntregaText', JSON.stringify(text));
+    }
 
     const fetchAddressList = useCallback(async () => {
         const idUserStorage = await SecureStore.getItemAsync('idUser');
@@ -90,12 +94,14 @@ export default function MyAddress() {
                     <View className="mt-5">
                         {addressList.map((address, index) => {
                             const isSelected = address.id === selectedAddress;
+                            const formattedAddress = `${address.logradouro}, ${address.numero}, ${address.bairro}, ${address.cidade} - ${address.estado}, CEP: ${address.cep}`;
 
                             return (
                                 <TouchableOpacity
                                     onPress={() => (
                                         setSelectedAddress(address.id),
-                                        saveAddressIdInStorage(address.id)
+                                        saveAddressIdInStorage(address.id),
+                                        saveAddressTextInStorage(formattedAddress)
                                     )}
                                     key={address.id}
                                     style={{

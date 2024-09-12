@@ -55,7 +55,7 @@ export default function CartScreen() {
                     </View>
                 ))}
 
-                <View className="justify-center pl-10 pt-5 pb-5 pr-10 border-t border-b border-gray-300 shadow">
+                <View className="flex items-center justify-center pt-5 pb-5 border-t border-b border-gray-300 shadow">
                     <H5 className="text-black text-xs">Cupom de desconto</H5>
                     <View className="flex flex-row items-center">
                         <Input className="bg-white text-black w-60" placeholder="Digite seu cupom" />
