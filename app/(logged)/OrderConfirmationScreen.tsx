@@ -54,10 +54,13 @@ export default function OrderConfirmationScreen(){
                 produtoId: item.id,   // Mapeando o ID do produto
                 quantidade: item.quantidade  // Mapeando a quantidade
             }));
+
+            const carrinhoIdEmpresa = carrinho[0].idEmpresa
+            console.log(carrinho[0].idEmpresa)
     
             const pedido = {
                 clienteId: clienteId,
-                empresaId: empresaId,
+                empresaId: carrinhoIdEmpresa,
                 enderecoEntregaId: enderecoEntregaId,
                 formaPagamentoId: formaPagamentoId,
                 itens,  // Inclui os itens mapeados aqui
