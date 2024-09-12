@@ -52,6 +52,13 @@ function RootLayoutNav() {
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
                 <Stack>
                 <Stack.Screen
+                        name="PaymentScreenForms"
+                        options={{
+                            headerShown: false,
+                            animation: "fade",
+                        }}
+                    />
+                <Stack.Screen
                         name="EditAddress"
                         options={{
                             headerShown: false,
@@ -191,6 +198,15 @@ function RootLayoutNav() {
                             headerShown: false,
                         }}
                     />
+                    <Stack.Screen
+                        name="RegisterNewDebitPaymentScreen"
+                        options={{
+                            animation: 'fade',
+                            headerShown: false,
+                        }}
+                    />
+
+
                 </Stack>
             </ThemeProvider>
         </Provider>

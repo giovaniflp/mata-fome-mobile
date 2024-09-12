@@ -68,7 +68,7 @@ export default function ProfileScreen() {
             icon={<Feather name="credit-card" size={24} color="#000" />}
             title="Formas de pagamento"
             subtitle="Configure suas opções de pagamento"
-            onPress={() => router.push("PaymentScreen")}
+            onPress={() => router.push("PaymentScreenForms")}
           />
 
           <MenuItem

@@ -1,230 +1,294 @@
-import { router } from "expo-router";
-import { TouchableOpacity, Image, ScrollView, View } from "react-native";
-import { Button, H4, H5, Input } from "tamagui";
+import { useRouter } from "expo-router";
+import { Image, ScrollView, View } from "react-native";
+import { Button, H4, H5, Input, XStack, YStack } from "tamagui";
 import BottomBar from "app/components/BottomBar";
 import { Picker } from '@react-native-picker/picker';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import axiosInstance from "app/config/axiosUrlConfig";
 import * as SecureStore from 'expo-secure-store';
-import { TextInputMask } from 'react-native-masked-text'; // Se você estiver usando máscara para o CEP
+import { TextInputMask } from 'react-native-masked-text';
 
 export default function RegisterNewPaymentMethodScreen() {
     const [cepCobranca, setCepCobranca] = useState("");
     const [estadoCobranca, setEstadoCobranca] = useState("");
     const [cidadeCobranca, setCidadeCobranca] = useState("");
     const [enderecoCobranca, setEnderecoCobranca] = useState("");
-
     const [numeroCartao, setNumeroCartao] = useState("");
     const [dataValidade, setDataValidade] = useState("");
     const [nomeTitular, setNomeTitular] = useState("");
     const [cvv, setCvv] = useState("");
-
-    const [token, setToken] = useState(null);
-    const [userId, setUserId] = useState(null);
+    const [token, setToken] = useState<string | null>(null);
+    const [userId, setUserId] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
+
+    const router = useRouter();
 
     const getSecureStorageData = async () => {
         setLoading(true);
         try {
             const tokenStorage = await SecureStore.getItemAsync('token');
             const idUserStorage = await SecureStore.getItemAsync('idUser');
-
-            if (tokenStorage && idUserStorage) {
-                setToken(JSON.parse(tokenStorage));
-                setUserId(JSON.parse(idUserStorage));
-            } else {
-                alert('Dados de autenticação não encontrados.');
-            }
-        } catch (e) {
-            console.error("Erro ao obter dados de armazenamento seguro: ", e);
-            alert('Erro ao obter dados de autenticação.');
+            if (tokenStorage) setToken(JSON.parse(tokenStorage));
+            if (idUserStorage) setUserId(JSON.parse(idUserStorage));
+        } catch (error) {
+            console.error("Erro ao obter dados do armazenamento seguro:", error);
+            alert("Erro ao carregar dados de autenticação. Tente novamente.");
         } finally {
             setLoading(false);
         }
-    }
-
-    const consultarCEP = async () => {
-        if (!cepCobranca) {
-            alert('CEP não pode estar vazio.');
-            return;
-        }
-
-        try {
-            const response = await axios.get(`https://viacep.com.br/ws/${cepCobranca}/json/`);
-            if (response.data.erro) {
-                alert('CEP inválido.');
-                return;
-            }
-            setEstadoCobranca(response.data.uf);
-            setCidadeCobranca(response.data.localidade);
-            setEnderecoCobranca(response.data.logradouro);
-        } catch (e) {
-            console.error("Erro ao consultar CEP: ", e);
-            alert('Erro ao consultar o CEP.');
-        }
-    }
+    };
 
     useEffect(() => {
-        if (token === null || userId === null) {
+        if (!token || !userId) {
             getSecureStorageData();
         }
     }, [token, userId]);
 
+    const consultarCEP = async () => {
+        if (!cepCobranca) return;
+
+        try {
+            const response = await axios.get(`https://viacep.com.br/ws/${cepCobranca}/json/`);
+            const data = response.data;
+
+            if (data.erro) {
+                alert('CEP não encontrado.');
+                return;
+            }
+
+            setEstadoCobranca(data.uf || "");
+            setCidadeCobranca(data.localidade || "");
+            setEnderecoCobranca(data.logradouro || "");
+        } catch (error) {
+            console.error("Erro ao consultar o CEP:", error);
+            alert("Erro ao consultar o CEP. Tente novamente.");
+        }
+    };
+
     const apiRegisterNewCard = async () => {
+        if (!token || !userId) {
+            alert("Usuário não autenticado.");
+            return;
+        }
+
         if (!numeroCartao || !dataValidade || !nomeTitular || !cvv || !enderecoCobranca || !cidadeCobranca || !estadoCobranca || !cepCobranca) {
-            alert('Todos os campos devem ser preenchidos.');
+            alert("Por favor, preencha todos os campos.");
+            return;
+        }
+
+        const formattedNumberCartao = numeroCartao.replace(/\s+/g, '');
+        const formattedCvv = Number(cvv);
+
+        // Validação do número do cartão
+        if (formattedNumberCartao.length !== 16) {
+            alert("Número do cartão deve ter exatamente 16 dígitos.");
+            return;
+        }
+
+        if (isNaN(formattedCvv)) {
+            alert("CVV inválido.");
             return;
         }
 
         const registerNewCardRequest = {
             tipo: "crédito",
-            numero_cartao: numeroCartao,
+            numero_cartao: formattedNumberCartao,
             data_validade: dataValidade,
             nome_titular: nomeTitular,
-            cvv: cvv,
+            cvv: formattedCvv,
             endereco_cobranca: enderecoCobranca,
             cidade_cobranca: cidadeCobranca,
             estado_cobranca: estadoCobranca,
-            cep_cobranca: cepCobranca
+            cep_cobranca: cepCobranca,
         };
 
         try {
-            const response = await axiosInstance.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+            await axiosInstance.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest, {
+                headers: { 'Authorization': `Bearer ${token}` }
             });
             alert("Cartão cadastrado com sucesso.");
-            console.log(response.data);
-        } catch (e) {
-            console.error("Erro ao registrar o cartão: ", e.response ? e.response.data : e.message);
-            alert('Ocorreu um erro ao registrar o cartão.');
+            router.back();
+        } catch (error) {
+            if (axios.isAxiosError(error) && error.response) {
+                console.error("Erro ao registrar o cartão:", error.response.data);
+                alert(`Erro ao registrar o cartão: ${error.response.data.message || 'Erro desconhecido.'}`);
+            } else {
+                console.error("Erro ao registrar o cartão:", error);
+                alert('Erro ao registrar o cartão. Verifique os dados e tente novamente.');
+            }
         }
     };
 
+    const commonInputStyle = {
+        backgroundColor: "#fff",
+        borderColor: "#000",
+        borderWidth: 1,
+        borderRadius: 8,
+        height: 60,
+        paddingHorizontal: 10,
+        flex: 1,
+        color: 'black',
+    };
+
     return (
-        <View className="flex-1">
-            <ScrollView className="bg-white">
-                <View className='bg-white'>
-                    <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">Registrar novo cartão de crédito</H4>
-                        <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")} />
-                    </View>
-                    <View className="mt-5 p-5">
-                        <ScrollView showsVerticalScrollIndicator={false}>
-                            <View className="mb-4">
-                                <H5 className="text-black">Número do cartão</H5>
-                                <Input
-                                    value={numeroCartao}
-                                    onChangeText={setNumeroCartao}
-                                    className="bg-white rounded-lg h-14 text-black"
+        <YStack f={1} bg="white">
+            <ScrollView>
+                <YStack bg="white" p="$5" space="$4">
+                    <XStack mt="$5" ai="center" jc="space-around">
+                        <H4 color="black">Novo cartão de crédito</H4>
+                        <Image
+                            style={{ width: 80, height: 80 }}
+                            source={require("../public/icons/tomato/TomatoNumber_One.png")}
+                        />
+                    </XStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">Número do cartão</H5>
+                        <TextInputMask
+                            type={"custom"}
+                            options={{ mask: "9999 9999 9999 9999" }}
+                            value={numeroCartao}
+                            onChangeText={setNumeroCartao}
+                            placeholder="Digite o número do cartão"
+                            style={commonInputStyle}
+                        />
+                    </YStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">Data de validade</H5>
+                        <Input
+                            value={dataValidade}
+                            onChangeText={setDataValidade}
+                            placeholder="MM/AA"
+                            style={commonInputStyle}
+                        />
+                    </YStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">Nome do titular</H5>
+                        <Input
+                            value={nomeTitular}
+                            onChangeText={setNomeTitular}
+                            placeholder="Digite o nome do titular"
+                            style={commonInputStyle}
+                        />
+                    </YStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">CVV</H5>
+                        <Input
+                            value={cvv}
+                            onChangeText={setCvv}
+                            placeholder="CVV"
+                            keyboardType="numeric"
+                            style={commonInputStyle}
+                        />
+                    </YStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">CEP de cobrança</H5>
+                        <XStack ai="center">
+                            <TextInputMask
+                                type={"custom"}
+                                options={{ mask: "99999-999" }}
+                                value={cepCobranca}
+                                onChangeText={setCepCobranca}
+                                placeholder="00000-000"
+                                style={commonInputStyle}
+                            />
+                            <Button onPress={consultarCEP} ml="$3" w={50} h={50} p={0}>
+                                <Image
+                                    style={{ width: 24, height: 24 }}
+                                    source={require("../public/icons/ui/search.png")}
                                 />
-                            </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">Data de validade</H5>
-                                <Input
-                                    value={dataValidade}
-                                    onChangeText={setDataValidade}
-                                    className="bg-white rounded-lg h-14 text-black"
-                                />
-                            </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">Nome do titular</H5>
-                                <Input
-                                    value={nomeTitular}
-                                    onChangeText={setNomeTitular}
-                                    className="bg-white rounded-lg h-14 text-black"
-                                />
-                            </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">CVV</H5>
-                                <Input
-                                    value={cvv}
-                                    onChangeText={setCvv}
-                                    className="bg-white rounded-lg h-14 text-black"
-                                />
-                            </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">CEP de cobrança</H5>
-                                <View className="flex flex-row items-center">
-                                    <TextInputMask
-                                        type={'zip-code'}
-                                        value={cepCobranca}
-                                        onChangeText={setCepCobranca}
-                                        className="bg-white rounded-lg h-14 text-black w-72"
-                                    />
-                                    <Button
-                                        onPress={consultarCEP}
-                                        className="w-14 h-14 ml-2"
-                                        icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")} />}
-                                    />
-                                </View>
-                            </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">Estado de cobrança</H5>
-                                <View className="border rounded-lg">
-                                    <Picker
-                                        selectedValue={estadoCobranca}
-                                        onValueChange={setEstadoCobranca}
-                                    >
-                                        <Picker.Item label="Acre" value="AC" />
-                                        <Picker.Item label="Alagoas" value="AL" />
-                                        <Picker.Item label="Amapá" value="AP" />
-                                        <Picker.Item label="Amazonas" value="AM" />
-                                        <Picker.Item label="Bahia" value="BA" />
-                                        <Picker.Item label="Ceará" value="CE" />
-                                        <Picker.Item label="Distrito Federal" value="DF" />
-                                        <Picker.Item label="Espírito Santo" value="ES" />
-                                        <Picker.Item label="Goiás" value="GO" />
-                                        <Picker.Item label="Maranhão" value="MA" />
-                                        <Picker.Item label="Mato Grosso" value="MT" />
-                                        <Picker.Item label="Mato Grosso do Sul" value="MS" />
-                                        <Picker.Item label="Minas Gerais" value="MG" />
-                                        <Picker.Item label="Pará" value="PA" />
-                                        <Picker.Item label="Paraíba" value="PB" />
-                                        <Picker.Item label="Paraná" value="PR" />
-                                        <Picker.Item label="Pernambuco" value="PE" />
-                                        <Picker.Item label="Piauí" value="PI" />
-                                        <Picker.Item label="Rio de Janeiro" value="RJ" />
-                                        <Picker.Item label="Rio Grande do Norte" value="RN" />
-                                        <Picker.Item label="Rio Grande do Sul" value="RS" />
-                                        <Picker.Item label="Rondônia" value="RO" />
-                                        <Picker.Item label="Roraima" value="RR" />
-                                        <Picker.Item label="Santa Catarina" value="SC" />
-                                        <Picker.Item label="São Paulo" value="SP" />
-                                        <Picker.Item label="Sergipe" value="SE" />
-                                        <Picker.Item label="Tocantins" value="TO" />
-                                    </Picker>
-                                </View>
-                            </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">Cidade de cobrança</H5>
-                                <Input
-                                    value={cidadeCobranca}
-                                    onChangeText={setCidadeCobranca}
-                                    className="bg-white rounded-lg h-14 text-black"
-                                />
-                            </View>
-                            <View className="mb-4">
-                                <H5 className="text-black">Endereço de cobrança</H5>
-                                <Input
-                                    value={enderecoCobranca}
-                                    onChangeText={setEnderecoCobranca}
-                                    className="bg-white rounded-lg h-14 text-black"
-                                />
-                            </View>
-                            <View className="my-5">
-                                <Button onPress={apiRegisterNewCard}>
-                                    Registrar novo cartão
-                                </Button>
-                                
-                            </View>
-                        </ScrollView>
-                    </View>
-                </View>
+                            </Button>
+                        </XStack>
+                    </YStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">Estado de cobrança</H5>
+                        <YStack
+                            bg="white"
+                            borderColor="#000"
+                            borderWidth={1}
+                            borderRadius={8}
+                            height={60}
+                            paddingHorizontal={10}
+                            jc="center"
+                        >
+                            <Picker
+                                selectedValue={estadoCobranca}
+                                onValueChange={setEstadoCobranca}
+                                style={commonInputStyle}
+                            >
+                                <Picker.Item label="Acre" value="AC" />
+                                <Picker.Item label="Alagoas" value="AL" />
+                                <Picker.Item label="Amapá" value="AP" />
+                                <Picker.Item label="Amazonas" value="AM" />
+                                <Picker.Item label="Bahia" value="BA" />
+                                <Picker.Item label="Ceará" value="CE" />
+                                <Picker.Item label="Distrito Federal" value="DF" />
+                                <Picker.Item label="Espírito Santo" value="ES" />
+                                <Picker.Item label="Goiás" value="GO" />
+                                <Picker.Item label="Maranhão" value="MA" />
+                                <Picker.Item label="Mato Grosso" value="MT" />
+                                <Picker.Item label="Mato Grosso do Sul" value="MS" />
+                                <Picker.Item label="Minas Gerais" value="MG" />
+                                <Picker.Item label="Pará" value="PA" />
+                                <Picker.Item label="Paraíba" value="PB" />
+                                <Picker.Item label="Paraná" value="PR" />
+                                <Picker.Item label="Pernambuco" value="PE" />
+                                <Picker.Item label="Piauí" value="PI" />
+                                <Picker.Item label="Rio de Janeiro" value="RJ" />
+                                <Picker.Item label="Rio Grande do Norte" value="RN" />
+                                <Picker.Item label="Rio Grande do Sul" value="RS" />
+                                <Picker.Item label="Rondônia" value="RO" />
+                                <Picker.Item label="Roraima" value="RR" />
+                                <Picker.Item label="Santa Catarina" value="SC" />
+                                <Picker.Item label="São Paulo" value="SP" />
+                                <Picker.Item label="Sergipe" value="SE" />
+                                <Picker.Item label="Tocantins" value="TO" />
+                            </Picker>
+                        </YStack>
+                    </YStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">Cidade de cobrança</H5>
+                        <Input
+                            value={cidadeCobranca}
+                            onChangeText={setCidadeCobranca}
+                            placeholder="Digite a cidade de cobrança"
+                            style={commonInputStyle}
+                        />
+                    </YStack>
+
+                    <YStack space="$4">
+                        <H5 color="black">Endereço de cobrança</H5>
+                        <Input
+                            value={enderecoCobranca}
+                            onChangeText={setEnderecoCobranca}
+                            placeholder="Digite o endereço de cobrança"
+                            style={commonInputStyle}
+                        />
+                    </YStack>
+
+                    <YStack mt="$5">
+                        <Button
+                            onPress={apiRegisterNewCard}
+                            w="100%"
+                            h={60}
+                            bg="$orange10"
+                            borderRadius="$9"
+                            shadow="lg"
+                        >
+                            Cadastrar Cartão
+                        </Button>
+                    </YStack>
+                </YStack>
             </ScrollView>
+
             <BottomBar screen="RegisterNewPaymentMethodScreen" />
-        </View>
-    )
+        </YStack>
+    );
 }
