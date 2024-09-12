@@ -5,7 +5,7 @@ import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import axiosInstance from 'app/config/axiosUrlConfig';
 
-export default function PaymentScreenForms() {
+export default function PaymentScreen() {
     const [idUser, setIdUser] = useState(null);
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
@@ -126,7 +126,7 @@ export default function PaymentScreenForms() {
                 </View>
             </ScrollView>
 
-            <BottomBar screen="PaymentScreenForms" style={styles.bottomBar} />
+            <BottomBar screen="PaymentScreen" style={styles.bottomBar} />
         </View>
     );
 }

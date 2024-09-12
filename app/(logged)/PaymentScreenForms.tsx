@@ -1,206 +1,271 @@
-import BottomBar from "app/components/BottomBar";
-import axiosInstance from "app/config/axiosUrlConfig";
-import { useRouter } from "expo-router";
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import BottomBar from 'app/components/BottomBar';
+import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
-import { useEffect, useState, useCallback } from "react";
-import { Image, ScrollView, Text, TouchableOpacity, View, Alert } from "react-native";
-import { Button, H4, H5, H6 } from "tamagui"; // Ajuste conforme necessário para a biblioteca de UI
-import { useFocusEffect } from 'expo-router'; // Importa useFocusEffect
+import axiosInstance from 'app/config/axiosUrlConfig';
 
 export default function PaymentScreenForms() {
-    const [addressList, setAddressList] = useState([]);
-    const [selectedAddress, setSelectedAddress] = useState(null);
-    const router = useRouter();
+  const [idUser, setIdUser] = useState(null);
+  const [paymentMethods, setPaymentMethods] = useState([]);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
-    const saveAddressIdInStorage = async (addressId) => {
-        await SecureStore.setItemAsync('enderecoEntregaId', JSON.stringify(addressId));
-    };
+  const getIdUser = async () => {
+    const idUserStorage = await SecureStore.getItemAsync('idUser');
+    const idUserParse = JSON.parse(idUserStorage);
+    setIdUser(idUserParse);
+  };
 
-    const fetchAddressList = useCallback(async () => {
-        const idUserStorage = await SecureStore.getItemAsync('idUser');
-        const idUserParse = JSON.parse(idUserStorage);
+  const savePaymentMethodIdInStorage = async (paymentMethodId) => {
+    await SecureStore.setItemAsync('formaPagamentoId', JSON.stringify(paymentMethodId));
+  };
 
-        if (!idUserParse) {
-            alert("Usuário não encontrado.");
-            return;
-        }
+  useEffect(() => {
+    getIdUser();
+  }, []);
 
-        try {
-            const response = await axiosInstance.get(`/api/clientes/${idUserParse}/enderecos`);
-            setAddressList(response.data.enderecos);
-        } catch (e) {
-            alert(e.message || "Erro ao buscar endereços.");
-        }
-    }, []);
+  useEffect(() => {
+    if (idUser) {
+      apiGetPaymentMethods();
+    }
+  }, [idUser]);
 
-    useFocusEffect(
-        useCallback(() => {
-            fetchAddressList();
-        }, [fetchAddressList])
-    );
+  const apiGetPaymentMethods = async () => {
+    const response = await axiosInstance.get(`/api/clientes/${idUser}/formasDePagamentos`);
+    setPaymentMethods(response.data.pagtos);
+  };
 
-    const apiDeleteAddress = (addressId) => {
-        if (!addressId) {
-            alert("Endereço não encontrado.");
-            return;
-        }
-
-        Alert.alert(
-            "Confirmar Exclusão",
-            "Tem certeza de que deseja excluir este endereço?",
-            [
-                {
-                    text: "Cancelar",
-                    style: "cancel"
-                },
-                {
-                    text: "Excluir",
-                    onPress: async () => {
-                        try {
-                            const response = await axiosInstance.delete(`/api/clientes/enderecos/${addressId}`);
-
-                            if (response.status === 204) {
-                                console.log("Endereço excluído com sucesso!");
-                                alert("Endereço excluído com sucesso!");
-                                setAddressList((prevList) => prevList.filter(address => address.id !== addressId));
-                            } else {
-                                console.log(response.data);
-                                alert("Erro ao excluir o endereço!");
-                            }
-                        } catch (e) {
-                            console.error("Erro ao excluir o endereço:", e);
-                            alert("Erro ao excluir o endereço: " + e.message);
-                        }
-                    }
-                }
-            ],
-            { cancelable: true }
-        );
-    };
-
-    return (
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-                <View className='bg-white'>
-                    <View className="mt-10 flex flex-row justify-around items-center">
-                        <H4 className="text-black">Selecione o local de entrega</H4>
-                        <Image className="w-20 h-20" source={require("../public/icons/tomato/TomatoNumber_One.png")} />
-                    </View>
-                    <View className="mt-5">
-                        {addressList.map((address, index) => {
-                            const isSelected = address.id === selectedAddress;
-
-                            return (
-                                <TouchableOpacity
-                                    onPress={() => (
-                                        setSelectedAddress(address.id),
-                                        saveAddressIdInStorage(address.id)
-                                    )}
-                                    key={address.id}
-                                    style={{
-                                        backgroundColor: 'white',
-                                        shadowColor: '#000',
-                                        shadowOffset: { width: 0, height: 2 },
-                                        shadowOpacity: 0.1,
-                                        shadowRadius: 3,
-                                        elevation: 1,
-                                        borderRadius: 8,
-                                        padding: 16,
-                                        marginHorizontal: 8,
-                                        marginBottom: 16,
-                                        flexDirection: 'row',
-                                        justifyContent: 'space-between',
-                                        alignItems: 'center',
-                                        borderWidth: isSelected ? 2 : 1,
-                                        borderColor: isSelected ? 'orange' : '#ccc'
-                                    }}
-                                >
-                                    <View style={{ flex: 1 }}>
-                                        <H5 style={{ color: 'black', fontWeight: '600' }}>Endereço {index + 1}</H5>
-                                        <H6 style={{ color: '#333', marginTop: 4 }}>{address.logradouro}, {address.numero}, {address.bairro}, {address.cidade} - {address.estado}</H6>
-                                        <Text style={{ color: '#666', marginTop: 4 }}>CEP: {address.cep}</Text>
-                                    </View>
-                                    <View style={{ flexDirection: 'column', alignItems: 'center' }}>
-                                        <TouchableOpacity
-                                            onPress={() => {
-                                                router.push({
-                                                    pathname: "/EditAddress",
-                                                    params: {
-                                                        idAddress: address.id,
-                                                        logradouro: address.logradouro,
-                                                        numero: address.numero,
-                                                        bairro: address.bairro,
-                                                        cidade: address.cidade,
-                                                        estado: address.estado,
-                                                        cep: address.cep,
-                                                        complemento: address.complemento
-                                                    }
-                                                });
-                                            }}
-                                            style={{
-                                                padding: 8,
-                                                backgroundColor: '#eee',
-                                                borderRadius: 50,
-                                                shadowColor: '#000',
-                                                shadowOffset: { width: 0, height: 1 },
-                                                shadowOpacity: 0.2,
-                                                shadowRadius: 2,
-                                                elevation: 1,
-                                                marginBottom: 8
-                                            }}
-                                        >
-                                            <Image style={{ width: 24, height: 24, tintColor: 'black' }} source={require("../public/icons/ui/edit.png")} />
-                                        </TouchableOpacity>
-                                        <TouchableOpacity
-                                            onPress={() => apiDeleteAddress(address.id)}
-                                            style={{
-                                                padding: 8,
-                                                backgroundColor: '#fdd',
-                                                borderRadius: 50,
-                                                shadowColor: '#000',
-                                                shadowOffset: { width: 0, height: 1 },
-                                                shadowOpacity: 0.2,
-                                                shadowRadius: 2,
-                                                elevation: 1
-                                            }}
-                                        >
-                                            <Image style={{ width: 24, height: 24, tintColor: 'black' }} source={require("../public/icons/ui/delete.png")} />
-                                        </TouchableOpacity>
-                                    </View>
-                                </TouchableOpacity>
-                            );
-                        })}
-
-                        <View style={{ padding: 16, alignItems: 'center' }}>
-                            <TouchableOpacity
-                                onPress={() => router.push("RegisterNewAddressScreen")}
-                                style={{
-                                    flexDirection: 'row',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    backgroundColor: 'orange',
-                                    borderRadius: 50,
-                                    padding: 12
-                                }}
-                            >
-                                <H4 style={{ color: 'white' }}>Adicionar novo endereço</H4>
-                                <Image style={{ width: 40, height: 40, marginLeft: 8, tintColor: 'white' }} source={require("../public/icons/ui/plus.png")} />
-                            </TouchableOpacity>
-
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', marginVertical: 20 }}>
-                                <Button style={{ backgroundColor: 'green', width: 160, marginRight: 10 }}>
-                                    <Text style={{ color: 'white', fontSize: 12 }}>Vou retirar no local</Text>
-                                </Button>
-                                <Button onPress={() => router.push("PaymentScreen")} style={{ backgroundColor: 'orange', width: 160 }}>
-                                    <Text style={{ color: 'white' }}>Continuar</Text>
-                                </Button>
-                            </View>
-                        </View>
-                    </View>
-                </View>
-            </ScrollView>
-            <BottomBar screen="PaymentScreenForms" />
+  return (
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.header}>
+          <Text style={styles.headerText}>Formas de pagamento</Text>
+          <Image style={styles.headerImage} source={require("../public/icons/tomato/TomatoLike_Money.png")} />
         </View>
-    );
+
+        <View style={styles.balanceSection}>
+          <Text style={styles.sectionTitle}>Saldo em carteira</Text>
+          <Text style={styles.balanceAmount}>R$ 25,93</Text>
+          <TouchableOpacity style={styles.addButton}>
+            <Text style={styles.addButtonText}>Adicionar saldo</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.paymentMethodsSection}>
+          <Text style={styles.sectionTitle}>Selecione sua forma de pagamento</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.paymentMethodsList}>
+            {paymentMethods.map((paymentMethod) => {
+              const isSelected = paymentMethod.id === selectedPaymentMethod;
+
+              return (
+                <TouchableOpacity
+                  onPress={() => {
+                    setSelectedPaymentMethod(paymentMethod.id);
+                    savePaymentMethodIdInStorage(paymentMethod.id);
+                  }}
+                  key={paymentMethod.id}
+                  style={[
+                    styles.paymentOption,
+                    isSelected && styles.selectedPaymentOption
+                  ]}
+                >
+                  <Text style={styles.paymentOptionText}>{paymentMethod.tipo}</Text>
+                  <Text style={styles.paymentOptionSubtitle}>Terminado em {paymentMethod.numero_cartao.slice(-4)}</Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </View>
+
+        <View style={styles.newPaymentMethodSection}>
+          <Text style={styles.sectionTitle}>Nova forma de pagamento</Text>
+          <View style={styles.newPaymentMethodsList}>
+            <TouchableOpacity onPress={() => router.push('RegisterNewPaymentMethodScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>💳</Text>
+              <Text style={styles.newPaymentOptionText}>Cartão de crédito</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push('RegisterNewDebitPaymentScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>💳</Text>
+              <Text style={styles.newPaymentOptionText}>Cartão de débito</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push('RegisterNewVoucherScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>🎫</Text>
+              <Text style={styles.newPaymentOptionText}>Vale alimentação</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push('RegisterNewVoucherScreen')} style={styles.newPaymentOption}>
+              <Text style={styles.newPaymentOptionIcon}>🎫</Text>
+              <Text style={styles.newPaymentOptionText}>Vale refeição</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.transactionHistorySection}>
+          <Text style={styles.sectionTitle}>Histórico de Transação</Text>
+          {[
+            { title: "Tucano's Açaí", subtitle: 'Pix', amount: 'R$ 26,64', date: 'Pedido nº 5540 - 10/07/2024 às 15:37' },
+            { title: 'Burger King - Agamenon Magalhães', subtitle: 'Crédito - CRÉDITO - MASTERCARD', amount: 'R$ 38,88', date: 'Pedido nº 9023 - 11/06/2024 às 23:20' },
+            { title: 'Burquers', subtitle: '', amount: 'R$ 22,98', date: '' },
+          ].map((transaction, index) => (
+            <View key={index} style={styles.transactionItem}>
+              <View>
+                <Text style={styles.transactionTitle}>{transaction.title}</Text>
+                <Text style={styles.transactionSubtitle}>{transaction.subtitle}</Text>
+                <Text style={styles.transactionDate}>{transaction.date}</Text>
+              </View>
+              <Text style={styles.transactionAmount}>{transaction.amount}</Text>
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+
+      <BottomBar screen="PaymentScreenForms" style={styles.bottomBar} />
+    </View>
+  );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#f5f5f5',
+    paddingTop: 50, // Adicionando padding no topo para evitar o corte
+  },
+  scrollViewContent: {
+    paddingBottom: 60, // Espaçamento para o BottomBar
+  },
+  header: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  headerImage: {
+    width: 40,
+    height: 40,
+  },
+  balanceSection: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  balanceAmount: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  addButton: {
+    backgroundColor: '#28a745',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+  },
+  addButtonText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
+  paymentMethodsSection: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    marginBottom: 20,
+  },
+  paymentMethodsList: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+  },
+  paymentOption: {
+    alignItems: 'center',
+    marginHorizontal: 10,
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderColor: '#ddd',
+    borderWidth: 1,
+  },
+  paymentOptionText: {
+    textAlign: 'center',
+    fontSize: 12,
+  },
+  selectedPaymentOption: {
+    backgroundColor: '#f0f0f0',
+    borderColor: '#FFA500', // Alterado para laranja
+    borderWidth: 2,
+  },
+  paymentOptionSubtitle: {
+    fontSize: 14,
+    color: '#888',
+  },
+  newPaymentMethodSection: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    marginBottom: 20,
+  },
+  newPaymentMethodsList: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center', // Centraliza os itens horizontalmente
+    alignItems: 'center', // Centraliza os itens verticalmente
+  },
+  newPaymentOption: {
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginBottom: 15, // Ajuste para um espaçamento uniforme
+    backgroundColor: '#ffffff',
+    borderRadius: 8,
+    paddingVertical: 12, // Ajuste para o tamanho padrão
+    paddingHorizontal: 20, // Ajuste para o tamanho padrão
+    borderColor: '#ddd',
+    borderWidth: 1,
+    width: '45%', // Ajuste para garantir que caibam dois botões por linha
+    maxWidth: 160, // Limita a largura máxima
+  },
+  newPaymentOptionIcon: {
+    fontSize: 24,
+    marginBottom: 5,
+  },
+  newPaymentOptionText: {
+    textAlign: 'center',
+    fontSize: 14,
+  },
+  transactionHistorySection: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+  },
+  transactionItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  transactionTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  transactionSubtitle: {
+    fontSize: 14,
+    color: '#888',
+  },
+  transactionDate: {
+    fontSize: 12,
+    color: '#aaa',
+  },
+  transactionAmount: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  bottomBar: {
+    height: 60,
+    backgroundColor: '#ffffff',
+  },
+});
