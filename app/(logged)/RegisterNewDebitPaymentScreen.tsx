@@ -78,6 +78,7 @@ export default function RegisterNewAddressScreen() {
         try {
             await axiosInstance.post(`/api/clientes/${userId}/formasDePagamentos`, registerNewCardRequest).then((response) => {
                 console.log(response.data);
+                alert("Cartão registrado com sucesso")
             });
         } catch (e) {
             alert(e);
@@ -195,10 +196,10 @@ export default function RegisterNewAddressScreen() {
                                 />
                             </View>
                             <View style={styles.buttonContainer}>
-                                <Button onPress={apiRegisterNewCard} style={styles.submitButton}>
+                                <Button onPress={apiRegisterNewCard} className="bg-black text-white">
                                     Registrar novo cartão
                                 </Button>
-                                <RegisterAddressToast />
+
                             </View>
                         </ScrollView>
                     </View>

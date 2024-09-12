@@ -20,6 +20,14 @@ export default function PaymentScreen() {
     await SecureStore.setItemAsync('formaPagamentoId', JSON.stringify(paymentMethodId));
   };
 
+  const savePaymentTextInStorage = async (text) => {
+    await SecureStore.setItemAsync('formaPagamentoText', JSON.stringify(text));
+  };
+
+  const save4NumbersCardInStorage = async (cardNumber) => {
+    await SecureStore.setItemAsync('cardNumber', JSON.stringify(cardNumber));
+  }
+
   useEffect(() => {
     getIdUser();
   }, []);
@@ -38,7 +46,7 @@ export default function PaymentScreen() {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
-        <View style={styles.header}>
+        <View className='mt-5' style={styles.header}>
           <Text style={styles.headerText}>Formas de pagamento</Text>
           <Image style={styles.headerImage} source={require("../public/icons/tomato/TomatoLike_Money.png")} />
         </View>
@@ -62,6 +70,8 @@ export default function PaymentScreen() {
                   onPress={() => {
                     setSelectedPaymentMethod(paymentMethod.id);
                     savePaymentMethodIdInStorage(paymentMethod.id);
+                    savePaymentTextInStorage(paymentMethod.tipo);
+                    save4NumbersCardInStorage(paymentMethod.numero_cartao.slice(-4));
                   }}
                   key={paymentMethod.id}
                   style={[
@@ -190,7 +200,7 @@ const styles = StyleSheet.create({
   },
   paymentOption: {
     alignItems: 'center',
-    marginHorizontal: 10,
+    marginHorizontal: 4,
     backgroundColor: '#ffffff',
     borderRadius: 8,
     paddingVertical: 10,

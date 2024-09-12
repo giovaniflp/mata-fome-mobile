@@ -14,6 +14,9 @@ export default function OrderConfirmationScreen(){
     const [enderecoEntregaId, setEnderecoEntregaId] = useState(null);
     const [clienteId, setClienteId] = useState(null);
     const [empresaId, setEmpresaId] = useState(null);
+    const [enderecoEntregaText, setEnderecoEntregaText] = useState(null);
+    const [formaPagamentoText, setFormaPagamentoText] = useState(null);
+    const [cardNumber, setCardNumber] = useState(null);
 
     const verifyStorage = async () => {
         console.log(await SecureStore.getItemAsync('formaPagamentoId'))
@@ -24,12 +27,19 @@ export default function OrderConfirmationScreen(){
         const enderecoEntregaId = await SecureStore.getItemAsync('enderecoEntregaId')
         const clienteId = await SecureStore.getItemAsync('idUser')
         const empresaId = await SecureStore.getItemAsync('empresaId')
+        const enderecoEntregaText = await SecureStore.getItemAsync('enderecoEntregaText')
+        const formaPagamentoText = await SecureStore.getItemAsync('formaPagamentoText')
+        const cardNumber = await SecureStore.getItemAsync('cardNumber')
 
         // Convertendo para número antes de definir os estados
         setFormaPagamentoId(Number(formaPagamentoId));
         setEnderecoEntregaId(Number(enderecoEntregaId));
         setClienteId(Number(clienteId));
         setEmpresaId(Number(empresaId));
+
+        setEnderecoEntregaText(enderecoEntregaText);
+        setFormaPagamentoText(formaPagamentoText);
+        setCardNumber(cardNumber);
 
     }
 
@@ -59,15 +69,20 @@ export default function OrderConfirmationScreen(){
     
             const response = await axiosInstance.post('/api/pedidos', pedido);
             console.log(response.data);
+            limparCarrinho()
             router.push('OrderConfirmedScreen')
         } catch (e) {
             alert(e);
         }
     };
 
-    const { carrinho, adicionarAoCarrinho, removerDoCarrinho } = useCarrinho();
+    const { carrinho, adicionarAoCarrinho, removerDoCarrinho, limparCarrinho } = useCarrinho();
 
     console.log(carrinho)
+
+    const subtotal = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
+    const frete = 5
+    const valorTotal = subtotal + frete;
 
     return(
         <View className="flex-1">
@@ -104,8 +119,8 @@ export default function OrderConfirmationScreen(){
                 </View>
                 <View className="bg-white  border-b border-gray-400 shadow-l p-4 flex justify-center flex-col">
                     <View className="w-80">
-                                <H5 className="text-orange-500">Endereço 01 - (Padrão)</H5>
-                                <H6 className="text-black">Rua 02 Bloco 31 Apt 106 Curado 4 - Jaboatão</H6>
+                                <H5 className="text-orange-500">Endereço de entrega</H5>
+                                <H6 className="text-black">{enderecoEntregaText?.replace(/"/g, '')}</H6>
                     </View>
                 </View>
                 <View className="bg-white  border-b border-gray-400 shadow-500 p-4 flex justify-center flex-col mt-5">
@@ -113,20 +128,24 @@ export default function OrderConfirmationScreen(){
                     <View className="flex flex-row items-center mt-2">
                         <Image className="w-10 h-10" source={require("../public/icons/ui/creditCard.png")}></Image>
                         <View className="w-80 ml-2">
-                            <H6 className="text-black">Cartão de crédito terminado em <H6 className="text-orange-500">6322</H6></H6>
+                            <H6 className="text-black">Cartão de crédito terminado em <H6 className="text-orange-500">{cardNumber?.replace(/"/g, '')}</H6></H6>
                         </View>
                     </View>
                     <View>
-                        <H5 className="mb-2 mt-5 text-red-500">Subtotal</H5>
-                        <H6 className="text-black mb-1">1 x Hambúrguer de frango - <H6 className="text-orange-500">R$ 15,00</H6></H6>
-                        <H6 className="text-black mb-1">1 x Hambúrguer de frango - <H6 className="text-orange-500">R$ 15,00</H6></H6>
-                        <H6 className="text-black mb-1">1 x Hambúrguer de frango - <H6 className="text-orange-500">R$ 15,00</H6></H6>
-                        <H6 className="text-black">Frete - <H6 className="text-orange-500">R$ 10,00</H6></H6>
-                    </View>
-                    <View className="mt-5">
-                        <H4 className="text-black">Valor total</H4>
-                        <H5 className="text-orange-500">R$ 55,00</H5>
-                    </View>
+    <H5 className="mb-2 mt-5 text-red-500">Subtotal</H5>
+    {carrinho.map((item) => (
+      <H6 key={item.id} className="text-black mb-1">
+        {item.quantidade} x {item.nome} - <H6 className="text-orange-500">R$ {item.preco.toFixed(2).replace('.', ',')}</H6>
+      </H6>
+    ))}
+    <H6 className="text-black">Frete - <H6 className="text-orange-500">R$ {frete.toFixed(2).replace('.', ',')}</H6></H6>
+    
+    <View className="mt-5">
+      <H4 className="text-black">Valor total</H4>
+      <H5 className="text-orange-500">R$ {valorTotal.toFixed(2).replace('.', ',')}</H5>
+    </View>
+  </View>
+                    
                 </View>
                 <View className="flex items-center my-5">
                     <Button onPress={()=>{

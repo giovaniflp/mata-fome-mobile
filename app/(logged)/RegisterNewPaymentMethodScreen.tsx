@@ -152,18 +152,18 @@ export default function RegisterNewPaymentMethodScreen() {
                                         type={'zip-code'}
                                         value={cepCobranca}
                                         onChangeText={setCepCobranca}
-                                        className="bg-white rounded-lg h-14 text-black w-72"
+                                        className="bg-white border pl-4 border-gray-200 rounded-lg h-14 text-black w-72"
                                     />
                                     <Button
                                         onPress={consultarCEP}
-                                        className="w-14 h-14 ml-2"
+                                        className="w-14 h-14 ml-2 bg-black"
                                         icon={<Image className="w-10 h-10" source={require("../public/icons/ui/search.png")} />}
                                     />
                                 </View>
                             </View>
                             <View className="mb-4">
                                 <H5 className="text-black">Estado de cobrança</H5>
-                                <View className="border rounded-lg">
+                                <View className="border border-gray-200 rounded-lg">
                                     <Picker
                                         selectedValue={estadoCobranca}
                                         onValueChange={setEstadoCobranca}
@@ -215,7 +215,7 @@ export default function RegisterNewPaymentMethodScreen() {
                                 />
                             </View>
                             <View className="my-5">
-                                <Button onPress={apiRegisterNewCard}>
+                                <Button className="bg-black text-white" onPress={apiRegisterNewCard}>
                                     Registrar novo cartão
                                 </Button>
                                 
