@@ -29,6 +29,7 @@ export default function ProductDescription() {
             await axiosInstance.get(`/api/empresas/{idEmpresa}/prateleiras/{idPrateleira}/produtos/${idProduto}`).then((response) => {
                 setProductData(response.data)
                 setIdEmpresaState(response.data.idEmpresa)
+                console.log(idEmpresaState)
             })
         }
         catch (e) {
@@ -77,7 +78,7 @@ export default function ProductDescription() {
     }
 
     return (
-        <View className="flex-1">
+        <View className="flex-1 bg-white">
             <ScrollView className="bg-white" showsVerticalScrollIndicator={false}>
                 <View className='bg-white'>
                     <View className="mt-10 flex flex-row justify-around items-center">
@@ -121,8 +122,8 @@ export default function ProductDescription() {
                     </View>
                 </View>
             </ScrollView>
-            <View className="pt-3 mb-3" >
-                <View className="flex flex-row items-center justify-around ">
+            <View className="pt-3 mb-3 bg-white" >
+                <View className="flex flex-row items-center justify-around bg-white">
                     <View className="flex flex-row items-center justify-between w-28 border-black-200 border rounded-lg bg-white">
                         <TouchableOpacity onPress={() => {
                             if (quantity > 1) {
